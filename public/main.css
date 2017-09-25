@@ -7,13 +7,25 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Neuton', Serif;
+  text-align: center;
 }
 
 h1 {
   font-size: 49px;
 }
 
+h2 {
+  font-size: 35px;
+}
+
+h3 {
+  font-size: 27px;
+}
+
+section {
+  margin: auto;
+}
+
 .container {
-  max-width: 900px;
-  margin: 0 auto;
+  display: flex;
 }
