@@ -4,7 +4,8 @@
   "description": "an app to track vehicle services and fillups",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "mocha"
   },
   "keywords": [
     "npm",
@@ -15,6 +16,12 @@
   "author": "John Knotts",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.5"
+    "express": "^4.15.5",
+    "mongoose": "^4.11.13"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.5.3"
   }
 }
