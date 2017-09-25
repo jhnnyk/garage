@@ -1,0 +1,11 @@
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: eK+m4pE+12Uvz+7zVYV1OZEbSlaUuIuraVOQ73KMsB0ocAc3i2K7RIa4t/KoAEXcJ3P60htoH0/pJ8vFYvcajGZwN3MPD6JBAy/LksV5RSf/JU5BwHgrgfZ+SsVRnf2zDqdx5Ti5um2ikvEsi0HeAIQouFTW9XBz+I9nF8ZfBz6or6bRFMagbw5z3roWtdzspmMXCNVzCTIrBMbZSt+qsaCK+TH/CP7ZIxwQWXZR2jEM+Vur3uzCV/amu7D+QCDc0PcEXRH+DiVImmO99Nmw6YfaU0gAYIn/HvQ/5I4JKmmU3Kh911KZ27IRFH2DN4QP55LUGlzKi4e/NOYwi2J0NLXoW0d9uTm3b0N5gRQT6bcKzvz1/Rq37VnFyJr+PDuzbNKIooTclsaDuVmDhIFDy5AZiwb6Q4AJaMJIu0rKK0x5cA1f6I33g9JZ/GJWlmrSjUG9dZtV1g5GSbR/E1Iwe7KDAkwiPA7lSMC0jto1LBkvfxXq/wGo8gQG3++sLp+scsp787NP0FVIP0eat5JrB3hWNfmxvRuxK88mcvZWqEF/Kq8Ii9Spvn+91Akh2cmZvFUmcViWkLJhCcCmL4CdwoGXL0o3zR1Dxd3YUIg9rqRlteG25UBCtcbpYxUujpnNgariIWd8ssEwyh2nRNzHtKx8TnDNQmcelIe1CLIXa5g=
+  app: fast-scrubland-76725
+  on:
+    repo: jhnnyk/garage
