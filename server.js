@@ -10,19 +10,18 @@ mongoose.Promise = global.Promise
 
 app.use(express.static('public'))
 
-app.get('/fillups', (req, res) => {
+app.get('/api/fillups', (req, res) => {
   // res.sendFile('index.html')
   Fillup
     .find()
+    .limit(10)
     .then(fillups => {
-      res.json({fillups})
+      res.json({fillups: fillups})
     })
-    .catch(
-      err => {
-        console.error(err)
-        res.status(500).json({message: 'Internal server error'})
-      }
-    )
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
 })
 
 let server

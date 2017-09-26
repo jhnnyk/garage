@@ -2,4 +2,4 @@
 {"mileage": 123756, "brand": "Jiffy Lube", "location": "Denver, CO", "gallons": 14.6, "price": 41.82}
 {"mileage": 124156, "brand": "Exxon", "location": "Moab, UT", "gallons": 12.4, "price": 49.04}
 {"mileage": 124400, "brand": "Sheetz", "location": "Pittsburgh, PA", "gallons": 11.99, "price": 32.06}
-{"mileage": 121456, "brand": "Sinclair", "location": "Evergreen, CO", "gallons": 15.034, "price": 39.69}
+{"mileage": 121456, "brand": "Sinclair", "location": "Evergreen, CO", "gallons": 15.034, "price": 39.69, "notes":"this is a test note about this fillup"}
