@@ -5,13 +5,26 @@ const fillupSchema = mongoose.Schema({
   brand: String,
   location: String,
   gallons: {type: Number, required: true},
-  cost: {type: Number, required: true},
+  price: {type: Number, required: true},
   notes: String
 })
 
 fillupSchema.virtual('pricePerGallon').get(function () {
-  return cost / gallons
+  return `$${(this.price / this.gallons).toFixed(2)}`
 })
+
+fillupSchema.methods.apiRepr = function () {
+  return {
+    id: this._id,
+    mileage: this.mileage,
+    brand: this.brand,
+    location: this.location,
+    gallons: this.gallons,
+    price: this.price,
+    pricePerGallon: this.pricePerGallon,
+    notes: this.notes
+  }
+}
 
 const Fillup = mongoose.model('Fillup', fillupSchema)
 

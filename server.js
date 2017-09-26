@@ -16,7 +16,10 @@ app.get('/api/fillups', (req, res) => {
     .find()
     .limit(10)
     .then(fillups => {
-      res.json({fillups: fillups})
+      res.json({
+        fillups: fillups.map(
+            (fillup) => fillup.apiRepr())
+      })
     })
     .catch(err => {
       console.error(err)
