@@ -15,11 +15,43 @@
   <div class="container">
     <section>
       <h3>Add a Fill Up</h3>
+      <form action="/" method="post">
+        <label for="mileage">Mileage:</label>
+        <input type="text" name="mileage" id="mileage"><br>
+
+        <label for="brand">Brand:</label>
+        <input type="text" name="brand" id="brand"><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location"><br>
+
+        <label for="gallons">Gallons:</label>
+        <input type="text" name="gallons" id="gallons"><br>
+
+        <label for="cost">Cost:</label>
+        <input type="text" name="cost" id="cost"><br>
+
+        <button type="submit" name="submit">Submit</button>
+      </form>
     </section>
-    
+
     <section>
       <h3>Fill Ups</h3>
-      <ul id="fillups"></ul>
+      <table id="fillups">
+        <thead>
+          <tr>
+            <th>MPG</th>
+            <th>Mileage</th>
+            <th>Cost</th>
+            <th>Gallons</th>
+            <th>$/gal</th>
+            <th>Brand</th>
+            <th>Location</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </section>
   </div>
 
