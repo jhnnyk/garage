@@ -48,13 +48,12 @@ function getRecentFillups (callbackFn) {
 }
 
 function displayFillups (data) {
-  for (index in data.fillups) {
-    const fillup = data.fillups[index]
+  for (let i = 0; i < data.fillups.length; i++) {
     $('#fillups').append(`
       <li>
-        ${fillup.mileage} miles<br>
-        $${fillup.cost} ${fillup.gallons}gal<br>
-        ${fillup.text}
+        ${data.fillups[i].mileage} miles<br>
+        $${data.fillups[i].cost} ${data.fillups[i].gallons}gal<br>
+        ${data.fillups[i].text}
       </li>
     `)
   }
