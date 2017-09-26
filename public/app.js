@@ -51,47 +51,6 @@ const MOCK_FILLUPS = {
   ]
 }
 
-const MOCK_SERVICES = {
-  'services': [
-    {
-      'id': '12344556',
-      'date': '3434354235',
-      'shop': 'Stevinson Toyota',
-      'mileage': 23562,
-      'cost': 85.49,
-      'text': 'this is a test service #1: oil change, wipers, tire rotation',
-      'car_id': '3924508'
-    },
-    {
-      'id': '12344556',
-      'date': '3434354235',
-      'shop': 'Stevinson Toyota',
-      'mileage': 23562,
-      'cost': 80.49,
-      'text': 'this is a test service #2: oil change, wipers, tire rotation',
-      'car_id': '3924508'
-    },
-    {
-      'id': '12344556',
-      'date': '3434354235',
-      'shop': 'Stevinson Toyota',
-      'mileage': 23562,
-      'cost': 85.21,
-      'text': 'this is a test service #3: oil change, wipers, tire rotation',
-      'car_id': '3924508'
-    },
-    {
-      'id': '12344556',
-      'date': '3434354235',
-      'shop': 'Stevinson Toyota',
-      'mileage': 23562,
-      'cost': 85.49,
-      'text': 'this is a test service #4: oil change, wipers, tire rotation',
-      'car_id': '3924508'
-    }
-  ]
-}
-
 function getRecentFillups (callbackFn) {
   setTimeout(function () { callbackFn(MOCK_FILLUPS) }, 100)
 }
@@ -109,26 +68,8 @@ function displayFillups (data) {
   }
 }
 
-function getRecentServices (callbackFn) {
-  setTimeout(function () { callbackFn(MOCK_SERVICES) }, 100)
-}
-
-function displayServices (data) {
-  for (index in data.services) {
-    const service = data.services[index]
-    $('#services').append(`
-      <li>
-        ${service.date}<br>
-        ${service.mileage} miles - $${service.cost}<br> 
-        ${service.text}
-      </li>
-    `)
-  }
-}
-
 function getAndDisplayDashboard () {
   getRecentFillups(displayFillups)
-  getRecentServices(displayServices)
 }
 
 $(getAndDisplayDashboard())
