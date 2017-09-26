@@ -82,7 +82,7 @@ describe('Fillup API resource', function () {
           res.body.fillups.forEach(function (fillup) {
             fillup.should.be.a('object')
             fillup.should.include.keys(
-              'id', 'mileage', 'gallons', 'price')
+              'id', 'mileage', 'gallons', 'price', 'pricePerGallon')
           })
 
           resFillup = res.body.fillups[0]
@@ -93,6 +93,7 @@ describe('Fillup API resource', function () {
           resFillup.mileage.should.equal(fillup.mileage)
           resFillup.price.should.equal(fillup.price)
           resFillup.gallons.should.equal(fillup.gallons)
+          resFillup.pricePerGallon.should.equal(fillup.pricePerGallon)
         })
     })
   })
