@@ -1,8 +1,24 @@
+/*
+
+------ Color Theme ------
+Kuler: Visual Narrative A
+https://color.adobe.com/Visual-Narrative-A-color-theme-3493242/?showPublished=true
+
+white: #F5ECD9
+blue: #2BACB5
+middle: #B4CCB9
+red: #E84D5B
+black: #3B3B3B
+
+*/
+
 * { box-sizing: border-box; }
 
 body {
   font-family: 'Work Sans', Sans-Serif;
   font-size: 16px;
+  background-color: #3b3b3b;
+  color: #F5ECD9;
 }
 
 h1, h2, h3, h4, h5, h6 {
