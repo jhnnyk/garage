@@ -2,11 +2,9 @@ const MOCK_FILLUPS = {
   'fillups': [
     {
       'id': '12344556',
-      'date': '3434354235',
       'location': 'Evergreen, CO',
       'brand': 'Loaf \'n Jug',
       'mileage': 23562,
-      'octane': '91',
       'gallons': 17.6,
       'cost': 65.49,
       'text': 'this is a test fillup #1',
@@ -14,11 +12,9 @@ const MOCK_FILLUPS = {
     },
     {
       'id': '12344556',
-      'date': '3434354235',
       'location': 'Evergreen, CO',
       'brand': 'Loaf \'n Jug',
       'mileage': 23562,
-      'octane': '91',
       'gallons': 18.8,
       'cost': 50.49,
       'text': 'this is a test fillup #2',
@@ -26,11 +22,9 @@ const MOCK_FILLUPS = {
     },
     {
       'id': '12344556',
-      'date': '3434354235',
       'location': 'Evergreen, CO',
       'brand': 'Loaf \'n Jug',
       'mileage': 23562,
-      'octane': '91',
       'gallons': 12.2,
       'cost': 55.21,
       'text': 'this is a test fillup #3',
@@ -38,11 +32,9 @@ const MOCK_FILLUPS = {
     },
     {
       'id': '12344556',
-      'date': '3434354235',
       'location': 'Evergreen, CO',
       'brand': 'Loaf \'n Jug',
       'mileage': 23562,
-      'octane': '91',
       'gallons': 16.8,
       'cost': 35.49,
       'text': 'this is a test fillup #4',
@@ -60,9 +52,9 @@ function displayFillups (data) {
     const fillup = data.fillups[index]
     $('#fillups').append(`
       <li>
-        ${fillup.date}<br>
-        ${fillup.mileage} miles: ${fillup.gallons}gal $${fillup.cost}<br> 
-        ${data.fillups[index].text}
+        ${fillup.mileage} miles<br>
+        $${fillup.cost} ${fillup.gallons}gal<br>
+        ${fillup.text}
       </li>
     `)
   }
