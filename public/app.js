@@ -11,9 +11,9 @@ function displayFillups (data) {
         <td>$${data.fillups[i].price}</td>
         <td>${data.fillups[i].gallons}</td>
         <td>${data.fillups[i].pricePerGallon}</td>
-        <td>${data.fillups[i].brand}</td>
-        <td>${data.fillups[i].location}</td>
-        <td>${data.fillups[i].notes}</td>
+        <td>${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
+        <td>${data.fillups[i].location ? data.fillups[i].location : ''}</td>
+        <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
       </tr>
     `)
   }
