@@ -60,7 +60,7 @@ app.post('/api/fillups', (req, res) => {
           .then(fillups => {
             const thisFillupIndex = fillups.findIndex(e => e.id === fillup.id)
             const prevFillup = fillups[thisFillupIndex + 1]
-            fillup.mpg = (fillup.mileage - prevFillup.mileage) / fillup.gallons
+            fillup.mpg = ((fillup.mileage - prevFillup.mileage) / fillup.gallons).toFixed(1)
             return fillup
           })
           .then(fillup => { // update the database with the record
