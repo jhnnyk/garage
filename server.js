@@ -14,10 +14,10 @@ mongoose.Promise = global.Promise
 app.use(express.static('public'))
 
 app.get('/api/fillups', (req, res) => {
-  // get ten fillups
+  // show all fillups sorted my mileage, newest first
   Fillup
     .find()
-    .limit(10)
+    .sort({ mileage: -1 })
     .then(fillups => {
       res.json({
         fillups: fillups.map(
