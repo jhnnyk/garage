@@ -20,3 +20,7 @@ services:
     * create an entry for `DATABASE_URL` with the value `mongodb://<dbuser>:<dbpassword>@ds99999.mlab.com:9999/node-restaurants-app` replacing the values for your DB and DB user
 
 * commit and push changes to `master` and TravisCI should run tests and push to Heroku!
+
+---
+* import seed data to local database
+  * `mongoimport --db garage --collection fillups --drop --file ~/dev/Thinkful/server-side-js/garage/data/seedData.json`

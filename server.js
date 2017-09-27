@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const {DATABASE_URL, PORT} = require('./config')
+const {Fillup} = require('./models')
 
 const app = express()
 
@@ -9,8 +10,21 @@ mongoose.Promise = global.Promise
 
 app.use(express.static('public'))
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html')
+app.get('/api/fillups', (req, res) => {
+  // res.sendFile('index.html')
+  Fillup
+    .find()
+    .limit(10)
+    .then(fillups => {
+      res.json({
+        fillups: fillups.map(
+          (fillup) => fillup.apiRepr())
+      })
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
 })
 
 let server
