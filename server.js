@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const mongoose = require('mongoose')
 
@@ -5,13 +6,15 @@ const {DATABASE_URL, PORT} = require('./config')
 const {Fillup} = require('./models')
 
 const app = express()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // needed this to get the form input
 
 mongoose.Promise = global.Promise
 
 app.use(express.static('public'))
 
 app.get('/api/fillups', (req, res) => {
-  // res.sendFile('index.html')
+  // get ten fillups
   Fillup
     .find()
     .limit(10)
@@ -21,6 +24,38 @@ app.get('/api/fillups', (req, res) => {
           (fillup) => fillup.apiRepr())
       })
     })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
+})
+
+app.post('/api/fillups', (req, res) => {
+  console.log(req.body)
+  // check that all required fields have been filled in
+  const requiredFields = ['mileage', 'gallons', 'price']
+  for (let i = 0; i < requiredFields.length; i++) {
+    const field = requiredFields[i]
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message)
+      return res.status(400).send(message)
+    }
+  }
+
+  // create the Fillup
+  Fillup
+    .create({
+      mileage: req.body.mileage,
+      brand: req.body.brand,
+      location: req.body.location,
+      gallons: req.body.gallons,
+      price: req.body.price,
+      notes: req.body.notes
+    })
+    .then(
+      fillup => res.status(201).json(fillup.apiRepr())
+    )
     .catch(err => {
       console.error(err)
       res.status(500).json({message: 'Internal server error'})
