@@ -52,6 +52,24 @@ app.post('/api/fillups', (req, res) => {
       price: req.body.price,
       notes: req.body.notes
     })
+    .then( // figure out the MPG
+      fillup => {
+        Fillup
+          .find()
+          .sort({ mileage: -1 })
+          .then(fillups => {
+            const thisFillupIndex = fillups.findIndex(e => e.id === fillup.id)
+            const prevFillup = fillups[thisFillupIndex + 1]
+            fillup.mpg = (fillup.mileage - prevFillup.mileage) / fillup.gallons
+            return fillup
+          })
+          .then(fillup => { // update the database with the record
+            Fillup
+              .findByIdAndUpdate(fillup._id, {mpg: fillup.mpg})
+              .then()
+              .catch((err) => { console.error() })
+          })
+      })
     .then(
       fillup => res.status(201).redirect('/')
     )
