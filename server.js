@@ -18,7 +18,7 @@ app.get('/api/fillups', (req, res) => {
     .then(fillups => {
       res.json({
         fillups: fillups.map(
-            (fillup) => fillup.apiRepr())
+          (fillup) => fillup.apiRepr())
       })
     })
     .catch(err => {
