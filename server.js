@@ -7,7 +7,7 @@ const {Fillup} = require('./models')
 
 const app = express()
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) // needed this to get the form input
+app.use(bodyParser.urlencoded({ extended: true }))
 
 mongoose.Promise = global.Promise
 
@@ -31,7 +31,6 @@ app.get('/api/fillups', (req, res) => {
 })
 
 app.post('/api/fillups', (req, res) => {
-  console.log(req.body)
   // check that all required fields have been filled in
   const requiredFields = ['mileage', 'gallons', 'price']
   for (let i = 0; i < requiredFields.length; i++) {
@@ -54,7 +53,7 @@ app.post('/api/fillups', (req, res) => {
       notes: req.body.notes
     })
     .then(
-      fillup => res.status(201).json(fillup.apiRepr())
+      fillup => res.status(201).redirect('/')
     )
     .catch(err => {
       console.error(err)
