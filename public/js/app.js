@@ -14,6 +14,7 @@ function displayFillups (data) {
         <td>${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
         <td>${data.fillups[i].location ? data.fillups[i].location : ''}</td>
         <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
+        <td class="edit-delete"><i class="fa fa-pencil"></i><i class="fa fa-times"></i></td>
       </tr>
     `)
   }
