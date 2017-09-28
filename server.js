@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const mongoose = require('mongoose')
 
@@ -5,16 +6,18 @@ const {DATABASE_URL, PORT} = require('./config')
 const {Fillup} = require('./models')
 
 const app = express()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 mongoose.Promise = global.Promise
 
 app.use(express.static('public'))
 
 app.get('/api/fillups', (req, res) => {
-  // res.sendFile('index.html')
+  // show all fillups sorted my mileage, newest first
   Fillup
     .find()
-    .limit(10)
+    .sort({ mileage: -1 })
     .then(fillups => {
       res.json({
         fillups: fillups.map(
@@ -27,12 +30,61 @@ app.get('/api/fillups', (req, res) => {
     })
 })
 
+app.post('/api/fillups', (req, res) => {
+  // check that all required fields have been filled in
+  const requiredFields = ['mileage', 'gallons', 'price']
+  for (let i = 0; i < requiredFields.length; i++) {
+    const field = requiredFields[i]
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message)
+      return res.status(400).send(message)
+    }
+  }
+
+  // create the Fillup
+  Fillup
+    .create({
+      mileage: req.body.mileage,
+      brand: req.body.brand,
+      location: req.body.location,
+      gallons: req.body.gallons,
+      price: req.body.price,
+      notes: req.body.notes
+    })
+    .then( // figure out the MPG
+      fillup => {
+        Fillup
+          .find()
+          .sort({ mileage: -1 })
+          .then(fillups => {
+            const thisFillupIndex = fillups.findIndex(e => e.id === fillup.id)
+            const prevFillup = fillups[thisFillupIndex + 1]
+            fillup.mpg = ((fillup.mileage - prevFillup.mileage) / fillup.gallons).toFixed(1)
+            return fillup
+          })
+          .then(fillup => { // update the database with the record
+            Fillup
+              .findByIdAndUpdate(fillup._id, {mpg: fillup.mpg})
+              .then()
+              .catch((err) => { console.error() })
+          })
+      })
+    .then(
+      fillup => res.status(201).redirect('/')
+    )
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
+})
+
 let server
 
 // this function connects to our database, then starts the server
 function runServer (databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, err => {
+    mongoose.connect(databaseUrl, {useMongoClient: true}, err => {
       if (err) {
         return reject(err)
       }

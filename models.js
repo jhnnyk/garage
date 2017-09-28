@@ -6,7 +6,8 @@ const fillupSchema = mongoose.Schema({
   location: String,
   gallons: {type: Number, required: true},
   price: {type: Number, required: true},
-  notes: String
+  notes: String,
+  mpg: Number
 })
 
 fillupSchema.virtual('pricePerGallon').get(function () {
@@ -22,7 +23,8 @@ fillupSchema.methods.apiRepr = function () {
     gallons: this.gallons,
     price: this.price,
     pricePerGallon: this.pricePerGallon,
-    notes: this.notes
+    notes: this.notes,
+    mpg: this.mpg
   }
 }
 

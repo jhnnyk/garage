@@ -23,11 +23,11 @@ function seedFillupData () {
 
 function generateFillupData () {
   return {
-    mileage: 123456,
-    brand: faker.company.companyName,
-    location: faker.address.city + ', ' + faker.address.stateAbbr,
-    gallons: 13.5,
-    price: 49.03
+    mileage: faker.random.number({min: 5000, max: 200000}),
+    brand: faker.random.arrayElement(['Exxon', 'Chevron', 'Safeway', 'Loaf n Jug', 'Sinclair']),
+    location: faker.address.city() + ', ' + faker.address.stateAbbr(),
+    gallons: faker.random.number(25),
+    price: faker.finance.amount(50, 100, 2)
   }
 }
 
@@ -94,6 +94,21 @@ describe('Fillup API resource', function () {
           resFillup.price.should.equal(fillup.price)
           resFillup.gallons.should.equal(fillup.gallons)
           resFillup.pricePerGallon.should.equal(fillup.pricePerGallon)
+        })
+    })
+  })
+
+  describe('POST endpoint', function () {
+    it('should add a new fillup', function () {
+      const newFillup = generateFillupData()
+
+      return chai.request(app)
+        .post('/api/fillups')
+        .send(newFillup)
+        .then(function (res) {
+          res.should.redirect
+          res.should.have.status(200)
+          res.should.be.html
         })
     })
   })

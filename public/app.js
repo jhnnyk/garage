@@ -6,7 +6,7 @@ function displayFillups (data) {
   for (let i = 0; i < data.fillups.length; i++) {
     $('#fillups tbody').append(`
       <tr>
-        <td>25.4</td>
+        <td>${data.fillups[i].mpg}</td>
         <td>${data.fillups[i].mileage}</td>
         <td>$${data.fillups[i].price}</td>
         <td>${data.fillups[i].gallons}</td>
