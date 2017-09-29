@@ -79,6 +79,31 @@ app.post('/api/fillups', (req, res) => {
     })
 })
 
+app.post('/api/fillups/:id', (req, res) => {
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    const message = (`
+      Request path id (${req.params.id}) and 
+      request body id (${req.body.id}) must match
+    `)
+    console.error(message)
+    res.status(400).json({message: message})
+  }
+
+  const toUpdate = {}
+  const updateableFields = ['brand', 'location', 'mileage', 'gallons', 'price', 'notes']
+
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field]
+    }
+  })
+
+  Fillup
+    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .then(fillup => res.status(204).redirect('/'))
+    .catch(err => res.status(500).json({message: 'Internal server error'}))
+})
+
 let server
 
 // this function connects to our database, then starts the server
