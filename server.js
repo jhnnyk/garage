@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const {DATABASE_URL, PORT} = require('./config')
-const {Fillup} = require('./models')
+const {Fillup, calculateMPG} = require('./models')
 
 const app = express()
 app.use(bodyParser.json())
@@ -42,6 +42,8 @@ app.post('/api/fillups', (req, res) => {
     }
   }
 
+  let newFillup = {}
+
   // create the Fillup
   Fillup
     .create({
@@ -52,27 +54,8 @@ app.post('/api/fillups', (req, res) => {
       price: req.body.price,
       notes: req.body.notes
     })
-    .then( // figure out the MPG
-      fillup => {
-        Fillup
-          .find()
-          .sort({ mileage: -1 })
-          .then(fillups => {
-            const thisFillupIndex = fillups.findIndex(e => e.id === fillup.id)
-            const prevFillup = fillups[thisFillupIndex + 1]
-            fillup.mpg = ((fillup.mileage - prevFillup.mileage) / fillup.gallons).toFixed(1)
-            return fillup
-          })
-          .then(fillup => { // update the database with the record
-            Fillup
-              .findByIdAndUpdate(fillup._id, {mpg: fillup.mpg})
-              .then()
-              .catch((err) => { console.error() })
-          })
-      })
-    .then(
-      fillup => res.status(201).redirect('/')
-    )
+    .then(() => {calculateMPG()})
+    .then(() => res.status(201).redirect('/'))
     .catch(err => {
       console.error(err)
       res.status(500).json({message: 'Internal server error'})
@@ -82,7 +65,7 @@ app.post('/api/fillups', (req, res) => {
 app.post('/api/fillups/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (`
-      Request path id (${req.params.id}) and 
+      Request path id (${req.params.id}) and
       request body id (${req.body.id}) must match
     `)
     console.error(message)
@@ -100,7 +83,8 @@ app.post('/api/fillups/:id', (req, res) => {
 
   Fillup
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
-    .then(fillup => res.status(204).redirect('/'))
+    .then(() => {calculateMPG()})
+    .then(() => res.status(204).redirect('/'))
     .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
 
