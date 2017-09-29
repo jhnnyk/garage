@@ -42,6 +42,8 @@ app.post('/api/fillups', (req, res) => {
     }
   }
 
+  let newFillup = {}
+
   // create the Fillup
   Fillup
     .create({
@@ -52,24 +54,21 @@ app.post('/api/fillups', (req, res) => {
       price: req.body.price,
       notes: req.body.notes
     })
-    .then( // figure out the MPG
-      fillup => {
-        Fillup
-          .find()
-          .sort({ mileage: -1 })
-          .then(fillups => {
-            const thisFillupIndex = fillups.findIndex(e => e.id === fillup.id)
-            const prevFillup = fillups[thisFillupIndex + 1]
-            fillup.mpg = ((fillup.mileage - prevFillup.mileage) / fillup.gallons).toFixed(1)
-            return fillup
-          })
-          .then(fillup => { // update the database with the record
-            Fillup
-              .findByIdAndUpdate(fillup._id, {mpg: fillup.mpg})
-              .then()
-              .catch((err) => { console.error() })
-          })
-      })
+    .then(fillup => { // figure out the MPG
+      newFillup = fillup
+      return Fillup
+        .find().sort({ mileage: -1 })
+    })
+    .then(allFillups => {
+      const thisFillupIndex = allFillups.findIndex(e => e.id === newFillup.id)
+      const prevFillup = allFillups[thisFillupIndex + 1]
+      newFillup.mpg = ((newFillup.mileage - prevFillup.mileage) / newFillup.gallons).toFixed(1)
+      return newFillup
+    })
+    .then(fillup => { // update the database with the record
+      return Fillup
+        .findByIdAndUpdate(fillup._id, {mpg: fillup.mpg})
+    })
     .then(
       fillup => res.status(201).redirect('/')
     )
@@ -82,7 +81,7 @@ app.post('/api/fillups', (req, res) => {
 app.post('/api/fillups/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (`
-      Request path id (${req.params.id}) and 
+      Request path id (${req.params.id}) and
       request body id (${req.body.id}) must match
     `)
     console.error(message)
