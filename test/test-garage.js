@@ -112,6 +112,36 @@ describe('Fillup API resource', function () {
         })
     })
   })
+
+  describe('PUT endpoint', function() {
+    it('should update a fillup', function() {
+      const updateData = {
+        mileage: 12334,
+        price: 34.95,
+        gallons: 10.7,
+        brand: 'Exxon Updated!',
+        notes: 'updated content in notes field'
+      }
+
+      return Fillup.findOne()
+      .then(function (fillup) {
+        updateData.id = fillup.id
+
+        return chai.request(app)
+          .post(`/api/fillups/${fillup.id}`)
+          .send(updateData)
+      })
+      .then(function (res) {
+        res.should.redirect
+        res.should.have.status(200)
+        return Fillup.findById(updateData.id)
+      })
+      .then(function (fillup) {
+        fillup.mileage.should.equal(updateData.mileage)
+        fillup.notes.should.equal(updateData.notes)
+      })
+    })
+  })
 })
 
 describe('Static pages', function () {
