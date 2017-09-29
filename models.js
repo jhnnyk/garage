@@ -30,4 +30,22 @@ fillupSchema.methods.apiRepr = function () {
 
 const Fillup = mongoose.model('Fillup', fillupSchema)
 
-module.exports = {Fillup}
+const calculateMPG = () => {
+  return Fillup
+    .find()
+    .sort({ mileage: -1 })
+  .then(allFillups => {
+    for (let i = 0; i < allFillups.length - 1; i++) {
+      allFillups[i].mpg = ((allFillups[i].mileage - allFillups[i+1].mileage) / allFillups[i].gallons).toFixed(1)
+      Fillup
+        .findByIdAndUpdate(allFillups[i].id, {mpg: allFillups[i].mpg})
+        .then() // the function did NOT work until I add this line
+        // what am I still missing about Promises?
+    }
+  })
+  .catch(err => {
+    console.error(err)
+  })
+}
+
+module.exports = {Fillup, calculateMPG}

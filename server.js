@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const {DATABASE_URL, PORT} = require('./config')
-const {Fillup} = require('./models')
+const {Fillup, calculateMPG} = require('./models')
 
 const app = express()
 app.use(bodyParser.json())
@@ -54,24 +54,8 @@ app.post('/api/fillups', (req, res) => {
       price: req.body.price,
       notes: req.body.notes
     })
-    .then(fillup => { // figure out the MPG
-      newFillup = fillup
-      return Fillup
-        .find().sort({ mileage: -1 })
-    })
-    .then(allFillups => {
-      const thisFillupIndex = allFillups.findIndex(e => e.id === newFillup.id)
-      const prevFillup = allFillups[thisFillupIndex + 1]
-      newFillup.mpg = ((newFillup.mileage - prevFillup.mileage) / newFillup.gallons).toFixed(1)
-      return newFillup
-    })
-    .then(fillup => { // update the database with the record
-      return Fillup
-        .findByIdAndUpdate(fillup._id, {mpg: fillup.mpg})
-    })
-    .then(
-      fillup => res.status(201).redirect('/')
-    )
+    .then(() => {calculateMPG()})
+    .then(() => res.status(201).redirect('/'))
     .catch(err => {
       console.error(err)
       res.status(500).json({message: 'Internal server error'})
@@ -99,7 +83,8 @@ app.post('/api/fillups/:id', (req, res) => {
 
   Fillup
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
-    .then(fillup => res.status(204).redirect('/'))
+    .then(() => {calculateMPG()})
+    .then(() => res.status(204).redirect('/'))
     .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
 
