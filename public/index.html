@@ -7,6 +7,8 @@
   <title>My Garage</title>
   <link href="https://fonts.googleapis.com/css?family=Neuton|Work+Sans" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
+  <script defer src="/js/packs/solid.min.js"></script>
+  <script defer src="/js/fontawesome.min.js"></script>
 </head>
 <body>
   <h1>My Garage</h1>
@@ -16,14 +18,14 @@
     <section>
       <h3>Add a Fill Up</h3>
       <form action="/api/fillups" method="post" id="new-fillup">
-        <label for="mileage">Mileage:</label>
-        <input type="text" name="mileage" id="mileage"><br>
-
         <label for="brand">Brand:</label>
         <input type="text" name="brand" id="brand"><br>
 
         <label for="location">Location:</label>
         <input type="text" name="location" id="location"><br>
+
+        <label for="mileage">Mileage:</label>
+        <input type="text" name="mileage" id="mileage"><br>
 
         <label for="gallons">Gallons:</label>
         <input type="text" name="gallons" id="gallons"><br>
@@ -48,6 +50,7 @@
             <th>Brand</th>
             <th>Location</th>
             <th>Notes</th>
+            <th></th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -56,6 +59,6 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
