@@ -87,7 +87,12 @@ tbody tr:hover .edit-delete a {
   display: inline-block;
 }
 
-/* - - - Edit forms - - - */
+/* - - - Forms - - - */
 tr.edit-row label {
   display: none;
+}
+
+.error {
+  color: #F5ECD9;
+  background-color: #E84D5B;
 }

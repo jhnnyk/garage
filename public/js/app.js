@@ -75,4 +75,16 @@ $('#fillups tbody').on('click', '.delete-fillup', function (e) {
   }
 })
 
+// validate form
+let priceRegEx = /^\d{0,8}(\.\d{1,2})?$/
+$('input#price').on("input", function (event) {
+  let test = $(this).val().length === 0 || priceRegEx.test($(this).val())
+
+  if (!test) {
+    $('.js-price-error').html('must be a number')
+  } else {
+    $('.js-price-error').html('')
+  }
+})
+
 $(getAndDisplayDashboard())

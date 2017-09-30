@@ -17,21 +17,45 @@
   <div class="container">
     <section>
       <h3>Add a Fill Up</h3>
-      <form action="/api/fillups" method="post" id="new-fillup">
-        <label for="brand">Brand:</label>
-        <input type="text" name="brand" id="brand"><br>
+      <form action="/api/fillups" method="post" id="new-fillup" novalidate>
+        <label for="brand">
+          <span>Brand:</span>
+          <input type="text" name="brand" id="brand">
+        </label>
+        <br>
 
-        <label for="location">Location:</label>
-        <input type="text" name="location" id="location"><br>
+        <label for="location">
+          <span>Location:</span>
+          <input type="text" name="location" id="location">
+        </label>
+        <br>
 
-        <label for="mileage">Mileage:</label>
-        <input type="text" name="mileage" id="mileage"><br>
+        <label for="mileage">
+          <span>Mileage:</span>
+          <input type="text" name="mileage" id="mileage">
+          <span class="error" aria-live="polite"></span>
+        </label>
+        <br>
 
-        <label for="gallons">Gallons:</label>
-        <input type="text" name="gallons" id="gallons"><br>
+        <label for="gallons">
+          <span>Gallons:</span>
+          <input type="text" name="gallons" id="gallons">
+          <span class="error" aria-live="polite"></span>
+        </label>
+        <br>
 
-        <label for="price">Total Price:</label>
-        <input type="text" name="price" id="price"><br>
+        <label for="price">
+          <span>Total Price:</span>
+          <input type="text" name="price" id="price">
+          <span class="error js-price-error" aria-live="polite"></span>
+        </label>
+        <br>
+
+        <label for="price">
+          <span>Notes:</span><br>
+          <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
+        </label>
+        <br>
 
         <button type="submit" name="submit">Submit</button>
       </form>
