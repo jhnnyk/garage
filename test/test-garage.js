@@ -142,6 +142,27 @@ describe('Fillup API resource', function () {
       })
     })
   })
+
+  describe('DELETE endpoint', function () {
+    it('deletes a fillup by id', function () {
+      let fillup
+
+      return Fillup
+        .findOne()
+        .then(function (_fillup) {
+          fillup = _fillup
+          return chai.request(app)
+            .delete(`/api/fillups/${fillup.id}`)
+        })
+        .then(function (res) {
+          res.should.have.status(204)
+          return Fillup.findById(fillup.id)
+        })
+        .then(function (_fillup) {
+          should.not.exist(_fillup)
+        })
+    })
+  })
 })
 
 describe('Static pages', function () {
