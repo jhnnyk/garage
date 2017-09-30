@@ -23,6 +23,7 @@ function displayFillups (data) {
       <tr class="edit-row">
         <td colspan="9">
           <form method="post" action="/api/fillups/${data.fillups[i].id}" id="edit-fillup">
+            <input type="hidden" name="id" value="${data.fillups[i].id}">
             <label for="mileage">Mileage:</label>
             <input type="text" name="mileage" id="mileage${[i]}" value="${data.fillups[i].mileage}">
             <label for="price">Total Price:</label>

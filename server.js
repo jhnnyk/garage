@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const mongoose = require('mongoose')
+const expressSanitized = require('express-sanitized')
 
 const {DATABASE_URL, PORT} = require('./config')
 const {Fillup, calculateMPG} = require('./models')
@@ -8,6 +9,7 @@ const {Fillup, calculateMPG} = require('./models')
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(expressSanitized())
 
 mongoose.Promise = global.Promise
 
