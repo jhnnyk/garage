@@ -23,18 +23,17 @@ function displayFillups (data) {
       <tr class="edit-row">
         <td colspan="9">
           <form method="post" action="/api/fillups/${data.fillups[i].id}" id="edit-fillup">
-            <input type="hidden" name="id" value="${data.fillups[i].id}">
             <label for="mileage">Mileage:</label>
-            <input type="text" name="mileage" id="mileage" value="${data.fillups[i].mileage}">
+            <input type="text" name="mileage" id="mileage${[i]}" value="${data.fillups[i].mileage}">
             <label for="price">Total Price:</label>
-            <input type="text" name="price" id="price" value="${data.fillups[i].price}">
+            <input type="text" name="price" id="price${[i]}" value="${data.fillups[i].price}">
             <label for="gallons">Gallons:</label>
-            <input type="text" name="gallons" id="gallons" value="${data.fillups[i].gallons}">
+            <input type="text" name="gallons" id="gallons${[i]}" value="${data.fillups[i].gallons}">
             <label for="brand">Brand:</label>
-            <input type="text" name="brand" id="brand" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
+            <input type="text" name="brand" id="brand${[i]}" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
             <label for="location">Location:</label>
-            <input type="text" name="location" id="location" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
-            <input type="text" name="notes" id="notes" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
+            <input type="text" name="location" id="location${[i]}" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
+            <input type="text" name="notes" id="notes${[i]}" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
             <button type="submit" name="submit">Submit</button>
             <button type="reset" class="cancel-edit">Cancel</button>
           </form>
@@ -77,13 +76,26 @@ $('#fillups tbody').on('click', '.delete-fillup', function (e) {
 
 // validate form
 let priceRegEx = /^\d{0,8}(\.\d{1,2})?$/
-$('input#price').on("input", function (event) {
-  let test = $(this).val().length === 0 || priceRegEx.test($(this).val())
 
-  if (!test) {
+function testPriceField (input) {
+  return input.length === 0 || priceRegEx.test(input)
+}
+
+$('input#price').on('input', function (event) {
+  if (!testPriceField($(this).val())) {
     $('.js-price-error').html('must be a number')
   } else {
     $('.js-price-error').html('')
+  }
+})
+
+$('form#new-fillup').on('submit', function (event) {
+  // check price field
+  if (!testPriceField($('input#price').val()) || $('input#price').val().length === 0) {
+    $('.js-price-error').html('must be a number')
+    $(this).addClass('error')
+    $('.js-submit-error').html('please correct the errors above')
+    event.preventDefault()
   }
 })
 

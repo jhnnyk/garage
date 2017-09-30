@@ -92,7 +92,11 @@ tr.edit-row label {
   display: none;
 }
 
-.error {
+span.error {
   color: #F5ECD9;
   background-color: #E84D5B;
+}
+
+form.error {
+  border: 2px solid #E84D5B;
 }
