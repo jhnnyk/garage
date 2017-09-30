@@ -15,10 +15,16 @@
   ],
   "author": "John Knotts",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhnnyk/garage.git"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.15.5",
-    "mongoose": "^4.11.13"
+    "express-sanitized": "^0.5.1",
+    "mongoose": "^4.11.13",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "chai": "^4.1.2",
