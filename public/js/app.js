@@ -16,7 +16,7 @@ function displayFillups (data) {
         <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
         <td class="edit-delete">
           <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
-          <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
+          <a href="#" class="delete-fillup" id="${data.fillups[i].id}"><i class="fa fa-times"></i></a>
         </td>
       </tr>
 
@@ -61,6 +61,18 @@ $('#fillups tbody').on('click', '.edit-fillup', function (e) {
 $('#fillups tbody').on('click', '.cancel-edit', function () {
   $(this).parents('tr.edit-row').hide()
   $(this).parents('tr.edit-row').prev('tr.data-row').show()
+})
+
+// delete fillup
+$('#fillups tbody').on('click', '.delete-fillup', function (e) {
+  e.preventDefault()
+  if (confirm('Are you sure you want to delete this fillup?')) {
+    $.ajax({
+      url: `/api/fillups/${this.id}`,
+      method: 'DELETE'
+    })
+    .then(() => {window.location = '/'})
+  }
 })
 
 $(getAndDisplayDashboard())
