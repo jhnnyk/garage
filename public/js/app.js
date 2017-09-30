@@ -22,19 +22,47 @@ function displayFillups (data) {
 
       <tr class="edit-row">
         <td colspan="9">
-          <form method="post" action="/api/fillups/${data.fillups[i].id}" id="edit-fillup">
+          <form method="post" action="/api/fillups/${data.fillups[i].id}" class="edit-fillup-form">
             <input type="hidden" name="id" value="${data.fillups[i].id}">
-            <label for="mileage">Mileage:</label>
-            <input type="text" name="mileage" id="mileage${[i]}" value="${data.fillups[i].mileage}">
-            <label for="price">Total Price:</label>
-            <input type="text" name="price" id="price${[i]}" value="${data.fillups[i].price}">
-            <label for="gallons">Gallons:</label>
-            <input type="text" name="gallons" id="gallons${[i]}" value="${data.fillups[i].gallons}">
-            <label for="brand">Brand:</label>
-            <input type="text" name="brand" id="brand${[i]}" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
-            <label for="location">Location:</label>
-            <input type="text" name="location" id="location${[i]}" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
-            <input type="text" name="notes" id="notes${[i]}" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
+            <div>
+              <label for="mileage">
+                <span>Mileage:</span><br>
+                <input type="text" name="mileage" class="mileage" id="mileage${[i]}" value="${data.fillups[i].mileage}">
+                <span class="error js-mileage-error"></span>
+              </label>
+            </div>
+            <div>
+              <label for="price">
+                <span>Total Price:</span><br>
+                <input type="text" name="price" id="price${[i]}" value="${data.fillups[i].price}">
+                <span class="error"></span>
+              </label>
+            </div>
+            <div>
+              <label for="gallons">
+                <span>Gallons:</span><br>
+                <input type="text" name="gallons" id="gallons${[i]}" value="${data.fillups[i].gallons}">
+                <span class="error"></span>
+              </label>
+            </div>
+            <div>
+              <label for="brand">
+                <span>Brand:</span><br>
+                <input type="text" name="brand" id="brand${[i]}" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
+              </label>
+            </div>
+            <div>
+              <label for="location">
+                <span>Location:</span><br>
+                <input type="text" name="location" id="location${[i]}" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
+              </label>
+            </div>
+            <div>
+              <label for="notes">
+                <span>Notes:</span><br>
+                <input type="text" name="notes" id="notes${[i]}" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
+              </label>
+            </div>
             <button type="submit" name="submit">Submit</button>
             <button type="reset" class="cancel-edit">Cancel</button>
           </form>
@@ -100,6 +128,7 @@ $('input#price').on('input', function (event) {
   }
 })
 
+// validations for new fillup form
 $('input#gallons').on('input', function (event) {
   if (!testGallonsField($(this).val())) {
     $('.js-gallons-error').html('must be a number')
@@ -139,6 +168,15 @@ $('form#new-fillup').on('submit', function (event) {
     $(this).addClass('error')
     $('.js-submit-error').html('please correct the errors above')
     event.preventDefault()
+  }
+})
+
+// validations for edit fillup form
+$('#fillups tbody').on('input', 'input.mileage', function (event) {
+  if (!testMileageField($(this).val())) {
+    $('.js-mileage-error').html('<br>must be a number')
+  } else {
+    $('.js-mileage-error').html('')
   }
 })
 

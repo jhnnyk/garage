@@ -88,10 +88,6 @@ tbody tr:hover .edit-delete a {
 }
 
 /* - - - Forms - - - */
-tr.edit-row label {
-  display: none;
-}
-
 span.error {
   color: #F5ECD9;
   background-color: #E84D5B;
@@ -99,4 +95,8 @@ span.error {
 
 form.error {
   border: 2px solid #E84D5B;
+}
+
+.edit-fillup-form div {
+  display: inline-block;
 }
