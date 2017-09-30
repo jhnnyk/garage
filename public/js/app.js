@@ -75,8 +75,8 @@ $('#fillups tbody').on('click', '.delete-fillup', function (e) {
 })
 
 // form validations
-let priceRegEx = /^\d{0,8}(\.\d{1,2})?$/
-let gallonsRegEx = /^\d{0,8}(\.\d{1,3})?$/
+let priceRegEx =   /^\d{0,8}(\.)?(\d{1,2})?$/
+let gallonsRegEx = /^\d{0,8}(\.)?(\d{1,3})?$/
 let mileageRegEx = /^\d{0,8}$/
 
 function testPriceField (input) {
@@ -84,7 +84,7 @@ function testPriceField (input) {
 }
 
 function testGallonsField (input) {
-  return input.length === 0 || priceRegEx.test(input)
+  return input.length === 0 || gallonsRegEx.test(input)
 }
 
 function testMileageField (input) {
