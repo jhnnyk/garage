@@ -4,7 +4,7 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const expressSanitized = require('express-sanitized')
 
-const {Fillup, calculateMPG} = require('../models')
+const {Fillup, calculateMPG} = require('../models/Fillup')
 
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))

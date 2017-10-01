@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http')
 const faker = require('faker')
 const mongoose = require('mongoose')
 
-const {Fillup} = require('../models')
+const {Fillup} = require('../models/Fillup')
 const {app, runServer, closeServer} = require('../server')
 const {TEST_DATABASE_URL} = require('../config')
 
