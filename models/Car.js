@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 const {Fillup} = require('./Fillup')
 
 const carSchema = mongoose.Schema({
-  year: type: Number,
+  year: Number,
   make: String,
   model: String,
   name: {type: String, required: true},
