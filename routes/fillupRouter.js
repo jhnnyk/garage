@@ -70,7 +70,7 @@ router.post('/', (req, res) => {
     })
 })
 
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (`
       Request path id (${req.params.id}) and
@@ -91,8 +91,8 @@ router.post('/:id', (req, res) => {
 
   Fillup
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .then(updatedFillup => res.status(204).end())
     .then(() => {calculateMPG()})
-    .then(() => res.status(204).redirect('/'))
     .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
 

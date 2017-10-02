@@ -135,12 +135,11 @@ describe('Fillup API resource', function () {
         updateData.id = fillup.id
 
         return chai.request(app)
-          .post(`/api/fillups/${fillup.id}`)
+          .put(`/api/fillups/${fillup.id}`)
           .send(updateData)
       })
       .then(function (res) {
-        res.should.redirect
-        res.should.have.status(200)
+        res.should.have.status(204)
         return Fillup.findById(updateData.id)
       })
       .then(function (fillup) {
