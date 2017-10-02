@@ -51,8 +51,6 @@ router.post('/', (req, res) => {
     }
   }
 
-  let newFillup = {}
-
   // create the Fillup
   Fillup
     .create({
@@ -64,8 +62,8 @@ router.post('/', (req, res) => {
       notes: req.body.notes,
       car: req.body.car
     })
+    .then(fillup => res.status(201).json(fillup.apiRepr()))
     .then(() => {calculateMPG()})
-    .then(() => res.status(201).redirect('/'))
     .catch(err => {
       console.error(err)
       res.status(500).json({message: 'Internal server error'})

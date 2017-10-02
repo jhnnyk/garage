@@ -106,9 +106,16 @@ describe('Fillup API resource', function () {
         .post('/api/fillups')
         .send(newFillup)
         .then(function (res) {
-          res.should.redirect
-          res.should.have.status(200)
-          res.should.be.html
+          res.should.have.status(201)
+          res.should.be.json
+          res.body.should.be.a('object')
+          res.body.should.include.keys('id', 'mileage', 'gallons', 'price')
+          res.body.mileage.should.equal(newFillup.mileage)
+          res.body.id.should.not.be.null
+          return Fillup.findById(res.body.id)
+        })
+        .then(function (fillup) {
+          fillup.mileage.should.equal(newFillup.mileage)
         })
     })
   })
