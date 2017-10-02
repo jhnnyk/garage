@@ -115,4 +115,31 @@ describe('Car API resource', function () {
         })
     })
   })
+
+  describe('PUT endpoint', function () {
+    it('should update fields you send over', function () {
+      const updateData = {
+        name: 'Falalala',
+        notes: 'This car has been updated!'
+      }
+
+      return Car
+        .findOne()
+        .then(function (car) {
+          updateData.id = car.id
+
+          return chai.request(app)
+            .put(`/api/cars/${car.id}`)
+            .send(updateData)
+        })
+        .then(function (res) {
+          res.should.have.status(204)
+          return Car.findById(updateData.id)
+        })
+        .then(function (car) {
+          car.name.should.equal(updateData.name)
+          car.notes.should.equal(updateData.notes)
+        })
+    })
+  })
 })
