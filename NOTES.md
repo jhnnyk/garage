@@ -24,3 +24,4 @@ services:
 ---
 * import seed data to local database
   * `mongoimport --db garage --collection fillups --drop --file ~/dev/Thinkful/server-side-js/garage/data/seedData.json`
+  * imported cars with `mongoimport --db garage --collection cars --drop --file ~/dev/Thinkful/server-side-js/garage/data/carSeedData.json`

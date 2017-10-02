@@ -6,12 +6,14 @@ const {DATABASE_URL, PORT} = require('./config')
 const app = express()
 
 const fillupRouter = require('./routes/fillupRouter')
+const carRouter = require('./routes/carRouter')
 
 mongoose.Promise = global.Promise
 
 app.use(express.static('public'))
 
 app.use('/api/fillups', fillupRouter)
+app.use('/api/cars', carRouter)
 
 let server
 
