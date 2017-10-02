@@ -116,7 +116,7 @@ function displayAddFillupForm (carId) {
     <section>
       <h3>Add a Fill Up</h3>
       <form action="/api/fillups" method="post" id="new-fillup" novalidate>
-        <input type="hidden" name="car" value="${carId}">
+        <input type="hidden" name="car" id="car" value="${carId}">
         <label for="brand">
           <span>Brand:</span>
           <input type="text" name="brand" id="brand">
@@ -166,7 +166,6 @@ function displayAddFillupForm (carId) {
 
 // show fillups
 $('.js-menu').on('click', '.js-car-page-link', function(e) {
-  console.log('clicked')
   e.preventDefault()
   let carId = $(this).attr('id')
   displayAddFillupForm(carId)
@@ -241,12 +240,14 @@ $('.js-add-fillup').on('input', 'input#mileage', function (event) {
 })
 
 $('.js-add-fillup').on('submit', function (event) {
+  let carId = $('input#car').val()
+  let newFillupValid = true
   // check price field
   if (!testPriceField($('input#price').val()) || $('input#price').val().length === 0) {
     $('#new-fillup .js-price-error').html('must be a number')
     $(this).addClass('error')
     $('#new-fillup .js-submit-error').html('please correct the errors above')
-    event.preventDefault()
+    newFillupValid = false
   }
 
   // check gallons field
@@ -254,7 +255,7 @@ $('.js-add-fillup').on('submit', function (event) {
     $('#new-fillup .js-gallons-error').html('must be a number')
     $(this).addClass('error')
     $('#new-fillup .js-submit-error').html('please correct the errors above')
-    event.preventDefault()
+    newFillupValid = false
   }
 
   // check mileage field
@@ -262,8 +263,31 @@ $('.js-add-fillup').on('submit', function (event) {
     $('#new-fillup .js-mileage-error').html('must be a number')
     $(this).addClass('error')
     $('#new-fillup .js-submit-error').html('please correct the errors above')
-    event.preventDefault()
+    newFillupValid = false
   }
+
+  // if fields are valid, send form
+  if (newFillupValid) {
+    $.ajax({
+      datatype: "json",
+      url: `/api/fillups`,
+      method: 'POST',
+      data: {
+        brand: $('input#brand').val(),
+        location: $('input#location').val(),
+        mileage: $('input#mileage').val(),
+        gallons: $('input#gallons').val(),
+        price: $('input#price').val(),
+        notes: $('textarea#notes').val(),
+        car: carId
+      }
+    })
+
+    displayAddFillupForm(carId)
+    getRecentFillups(carId, displayFillups)
+  }
+
+  event.preventDefault()
 })
 
 // validations for edit fillup form
