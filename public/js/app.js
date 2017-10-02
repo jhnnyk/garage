@@ -13,7 +13,7 @@ function displayCars (data) {
   }
   carListHTML += `</ul></section>`
 
-  $('.menu').html(carListHTML)
+  $('.js-menu').html(carListHTML)
 }
 
 function displayFillups (data) {
@@ -108,7 +108,7 @@ function displayFillups (data) {
       </table>
     </section>`
 
-  $('.fillups').html(fillupsHTML)
+  $('.js-fillups').html(fillupsHTML)
 }
 
 function displayAddFillupForm (carId) {
@@ -161,11 +161,12 @@ function displayAddFillupForm (carId) {
       </form>
     </section>`
 
-  $('.header').html(addFillupFormHTML)
+  $('.js-add-fillup').html(addFillupFormHTML)
 }
 
 // show fillups
-$('.container').on('click', '.js-car-page-link', function(e) {
+$('.js-menu').on('click', '.js-car-page-link', function(e) {
+  console.log('clicked')
   e.preventDefault()
   let carId = $(this).attr('id')
   displayAddFillupForm(carId)
@@ -173,20 +174,20 @@ $('.container').on('click', '.js-car-page-link', function(e) {
 })
 
 // show edit form
-$('.container').on('click', '.edit-fillup', function (e) {
+$('.js-fillups').on('click', '.edit-fillup', function (e) {
   e.preventDefault()
   $(this).parents('tr.data-row').hide()
   $(this).parents('tr.data-row').next('tr.edit-row').show()
 })
 
 // cancel edits
-$('.container').on('click', '.cancel-edit', function () {
+$('.js-fillups').on('click', '.cancel-edit', function () {
   $(this).parents('tr.edit-row').hide()
   $(this).parents('tr.edit-row').prev('tr.data-row').show()
 })
 
 // delete fillup
-$('.container').on('click', '.delete-fillup', function (e) {
+$('.js-fillups').on('click', '.delete-fillup', function (e) {
   e.preventDefault()
   if (confirm('Are you sure you want to delete this fillup?')) {
     $.ajax({
@@ -214,7 +215,7 @@ function testMileageField (input) {
   return input.length === 0 || mileageRegEx.test(input)
 }
 
-$('input#price').on('input', function (event) {
+$('.js-add-fillup').on('input', 'input#price', function (event) {
   if (!testPriceField($(this).val())) {
     $('#new-fillup .js-price-error').html('must be a number')
   } else {
@@ -223,7 +224,7 @@ $('input#price').on('input', function (event) {
 })
 
 // validations for new fillup form
-$('input#gallons').on('input', function (event) {
+$('.js-add-fillup').on('input', 'input#gallons', function (event) {
   if (!testGallonsField($(this).val())) {
     $('#new-fillup .js-gallons-error').html('must be a number')
   } else {
@@ -231,7 +232,7 @@ $('input#gallons').on('input', function (event) {
   }
 })
 
-$('input#mileage').on('input', function (event) {
+$('.js-add-fillup').on('input', 'input#mileage', function (event) {
   if (!testMileageField($(this).val())) {
     $('#new-fillup .js-mileage-error').html('must be a number')
   } else {
@@ -239,7 +240,7 @@ $('input#mileage').on('input', function (event) {
   }
 })
 
-$('form#new-fillup').on('submit', function (event) {
+$('.js-add-fillup').on('submit', function (event) {
   // check price field
   if (!testPriceField($('input#price').val()) || $('input#price').val().length === 0) {
     $('#new-fillup .js-price-error').html('must be a number')
@@ -266,7 +267,7 @@ $('form#new-fillup').on('submit', function (event) {
 })
 
 // validations for edit fillup form
-$('#fillups tbody').on('input', 'input.mileage', function (event) {
+$('.js-fillups').on('input', 'input.mileage', function (event) {
   if (!testMileageField($(this).val())) {
     $(this).next('.js-mileage-error').html('<br>must be a number')
   } else {
@@ -274,7 +275,7 @@ $('#fillups tbody').on('input', 'input.mileage', function (event) {
   }
 })
 
-$('#fillups tbody').on('input', 'input.price', function (event) {
+$('.js-fillups').on('input', 'input.price', function (event) {
   if (!testPriceField($(this).val())) {
     $(this).next('.js-price-error').html('<br>must be a number')
   } else {
@@ -282,7 +283,7 @@ $('#fillups tbody').on('input', 'input.price', function (event) {
   }
 })
 
-$('#fillups tbody').on('input', 'input.gallons', function (event) {
+$('.js-fillups').on('input', 'input.gallons', function (event) {
   if (!testGallonsField($(this).val())) {
     $(this).next('.js-gallons-error').html('<br>must be a number')
   } else {
@@ -290,7 +291,7 @@ $('#fillups tbody').on('input', 'input.gallons', function (event) {
   }
 })
 
-$('#fillups tbody').on('submit', '.edit-fillup-form', function (event) {
+$('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   // check mileage field
   if (!testMileageField($(this).find('input.mileage').val()) || $(this).find('input.mileage').val().length === 0) {
     $(this).find('.js-mileage-error').html('<br>must be a number')
