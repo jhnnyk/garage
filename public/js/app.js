@@ -13,7 +13,7 @@ function displayCars (data) {
   }
   carListHTML += `</ul></section>`
 
-  $('.container').prepend(carListHTML)
+  $('.menu').html(carListHTML)
 }
 
 function displayFillups (data) {
@@ -108,7 +108,7 @@ function displayFillups (data) {
       </table>
     </section>`
 
-  $('.container').append(fillupsHTML)
+  $('.fillups').html(fillupsHTML)
 }
 
 function displayAddFillupForm (carId) {
@@ -161,7 +161,7 @@ function displayAddFillupForm (carId) {
       </form>
     </section>`
 
-  $('.container').prepend(addFillupFormHTML)
+  $('.header').html(addFillupFormHTML)
 }
 
 // show fillups
