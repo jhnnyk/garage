@@ -7,13 +7,10 @@ function getRecentFillups (callbackFn) {
 }
 
 function displayCars (data) {
-  console.log('getting cars...')
   let carListHTML = `<section><ul>`
-
   for (let i = 0; i < data.cars.length; i++) {
-    carListHTML += `<li>${data.cars[i].name}</li>`
+    carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
   }
-
   carListHTML += `</ul></section>`
 
   $('.container').prepend(carListHTML)
@@ -113,6 +110,67 @@ function displayFillups (data) {
 
   $('.container').append(fillupsHTML)
 }
+
+function displayAddFillupForm (carId) {
+  let addFillupFormHTML = `
+    <section>
+      <h3>Add a Fill Up</h3>
+      <form action="/api/fillups" method="post" id="new-fillup" novalidate>
+        <input type="hidden" name="carId" value="${carId}">
+        <label for="brand">
+          <span>Brand:</span>
+          <input type="text" name="brand" id="brand">
+        </label>
+        <br>
+
+        <label for="location">
+          <span>Location:</span>
+          <input type="text" name="location" id="location">
+        </label>
+        <br>
+
+        <label for="mileage">
+          <span>Mileage:</span>
+          <input type="text" name="mileage" id="mileage">
+          <span class="error js-mileage-error" aria-live="polite"></span>
+        </label>
+        <br>
+
+        <label for="gallons">
+          <span>Gallons:</span>
+          <input type="text" name="gallons" id="gallons">
+          <span class="error js-gallons-error" aria-live="polite"></span>
+        </label>
+        <br>
+
+        <label for="price">
+          <span>Total Price:</span>
+          <input type="text" name="price" id="price">
+          <span class="error js-price-error" aria-live="polite"></span>
+        </label>
+        <br>
+
+        <label for="notes">
+          <span>Notes:</span><br>
+          <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
+        </label>
+        <br>
+
+        <button type="submit" name="submit">Submit</button>
+        <span class="error js-submit-error" aria-live="polite"></span>
+      </form>
+    </section>`
+
+  $('.container').prepend(addFillupFormHTML)
+}
+
+// show fillups
+$('.container').on('click', '.js-car-page-link', function(e) {
+  e.preventDefault()
+  let carId = $(this).attr('id')
+  displayAddFillupForm(carId)
+  getRecentFillups(displayFillups)
+})
 
 // show edit form
 $('.container').on('click', '.edit-fillup', function (e) {
@@ -260,7 +318,6 @@ $('#fillups tbody').on('submit', '.edit-fillup-form', function (event) {
 
 function getAndDisplayDashboard () {
   getCars(displayCars)
-  getRecentFillups(displayFillups)
 }
 
 $(getAndDisplayDashboard())
