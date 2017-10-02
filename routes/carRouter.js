@@ -10,6 +10,19 @@ router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(expressSanitized())
 
-
+router.get('/', (req, res) => {
+  Car
+    .find()
+    .then(cars => {
+      res.json({
+        cars: cars.map(
+          (car) => car.apiRepr())
+      })
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
+})
 
 module.exports = router
