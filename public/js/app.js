@@ -2,8 +2,8 @@ function getCars(callbackFn) {
   $.getJSON('/api/cars', callbackFn)
 }
 
-function getRecentFillups (callbackFn) {
-  $.getJSON('/api/fillups', displayFillups)
+function getRecentFillups (carId, callbackFn) {
+  $.getJSON(`/api/fillups/${carId}`, displayFillups)
 }
 
 function displayCars (data) {
@@ -116,7 +116,7 @@ function displayAddFillupForm (carId) {
     <section>
       <h3>Add a Fill Up</h3>
       <form action="/api/fillups" method="post" id="new-fillup" novalidate>
-        <input type="hidden" name="carId" value="${carId}">
+        <input type="hidden" name="car" value="${carId}">
         <label for="brand">
           <span>Brand:</span>
           <input type="text" name="brand" id="brand">
@@ -169,7 +169,7 @@ $('.container').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   displayAddFillupForm(carId)
-  getRecentFillups(displayFillups)
+  getRecentFillups(carId, displayFillups)
 })
 
 // show edit form
