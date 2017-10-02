@@ -3,8 +3,27 @@ function getRecentFillups (callbackFn) {
 }
 
 function displayFillups (data) {
+  let fillupsHTML = `
+    <section>
+      <h3>Fill Ups</h3>
+      <table id="fillups">
+        <thead>
+          <tr>
+            <th>MPG</th>
+            <th>Mileage</th>
+            <th>Cost</th>
+            <th>Gallons</th>
+            <th>$/gal</th>
+            <th>Brand</th>
+            <th>Location</th>
+            <th>Notes</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>`
+
   for (let i = 0; i < data.fillups.length; i++) {
-    $('#fillups tbody').append(`
+    fillupsHTML += `
       <tr class="data-row">
         <td>${data.fillups[i].mpg}</td>
         <td>${data.fillups[i].mileage}</td>
@@ -68,11 +87,14 @@ function displayFillups (data) {
             <button type="reset" class="cancel-edit">Cancel</button>
           </form>
         </td>
-      </tr>
-    `)
+      </tr>`
   }
+  fillupsHTML += `
+      </tbody>
+      </table>
+    </section>`
 
-  $('.edit-row').hide()
+  $('.container').append(fillupsHTML)
 }
 
 function getAndDisplayDashboard () {
@@ -80,20 +102,20 @@ function getAndDisplayDashboard () {
 }
 
 // show edit form
-$('#fillups tbody').on('click', '.edit-fillup', function (e) {
+$('.container').on('click', '.edit-fillup', function (e) {
   e.preventDefault()
   $(this).parents('tr.data-row').hide()
   $(this).parents('tr.data-row').next('tr.edit-row').show()
 })
 
 // cancel edits
-$('#fillups tbody').on('click', '.cancel-edit', function () {
+$('.container').on('click', '.cancel-edit', function () {
   $(this).parents('tr.edit-row').hide()
   $(this).parents('tr.edit-row').prev('tr.data-row').show()
 })
 
 // delete fillup
-$('#fillups tbody').on('click', '.delete-fillup', function (e) {
+$('.container').on('click', '.delete-fillup', function (e) {
   e.preventDefault()
   if (confirm('Are you sure you want to delete this fillup?')) {
     $.ajax({

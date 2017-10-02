@@ -12,9 +12,10 @@
 </head>
 <body>
   <h1>My Garage</h1>
-  <h2>My Car</h2>
 
   <div class="container">
+    <h2>My Car</h2>
+
     <section>
       <h3>Add a Fill Up</h3>
       <form action="/api/fillups" method="post" id="new-fillup" novalidate>
@@ -62,25 +63,6 @@
       </form>
     </section>
 
-    <section>
-      <h3>Fill Ups</h3>
-      <table id="fillups">
-        <thead>
-          <tr>
-            <th>MPG</th>
-            <th>Mileage</th>
-            <th>Cost</th>
-            <th>Gallons</th>
-            <th>$/gal</th>
-            <th>Brand</th>
-            <th>Location</th>
-            <th>Notes</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </section>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
