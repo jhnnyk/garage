@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
     .then(car => res.status(201).json(car.apiRepr()))
     .catch(err => {
       console.error(err)
-      res.status(500).json({error: 'Something went wrong'})
+      res.status(500).json({error: 'Internal server error'})
     })
 })
 
@@ -66,7 +66,17 @@ router.put('/:id', (req, res) => {
   Car
     .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
     .then(updatedCar => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Something went wrong'}))
+    .catch(err => res.status(500).json({message: 'Internal server error'}))
+})
+
+router.delete('/:id', (req, res) => {
+  Car
+    .findByIdAndRemove(req.params.id)
+    .then(() => {res.status(204).json({message: 'successfully deleted car'})})
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({error: 'Internal server error'})
+    })
 })
 
 module.exports = router
