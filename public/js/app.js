@@ -1,5 +1,22 @@
+function getCars(callbackFn) {
+  $.getJSON('/api/cars', callbackFn)
+}
+
 function getRecentFillups (callbackFn) {
   $.getJSON('/api/fillups', displayFillups)
+}
+
+function displayCars (data) {
+  console.log('getting cars...')
+  let carListHTML = `<section><ul>`
+
+  for (let i = 0; i < data.cars.length; i++) {
+    carListHTML += `<li>${data.cars[i].name}</li>`
+  }
+
+  carListHTML += `</ul></section>`
+
+  $('.container').prepend(carListHTML)
 }
 
 function displayFillups (data) {
@@ -95,10 +112,6 @@ function displayFillups (data) {
     </section>`
 
   $('.container').append(fillupsHTML)
-}
-
-function getAndDisplayDashboard () {
-  getRecentFillups(displayFillups)
 }
 
 // show edit form
@@ -244,5 +257,10 @@ $('#fillups tbody').on('submit', '.edit-fillup-form', function (event) {
     event.preventDefault()
   }
 })
+
+function getAndDisplayDashboard () {
+  getCars(displayCars)
+  getRecentFillups(displayFillups)
+}
 
 $(getAndDisplayDashboard())
