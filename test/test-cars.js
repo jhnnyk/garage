@@ -93,4 +93,26 @@ describe('Car API resource', function () {
         })
     })
   })
+
+  describe('POST endpoint', function () {
+    it('should add a new car', function () {
+      const newCar = generateCarData()
+
+      return chai.request(app)
+        .post('/api/cars')
+        .send(newCar)
+        .then(function (res) {
+          res.should.have.status(201)
+          res.should.be.json
+          res.body.should.be.a('object')
+          res.body.should.include.keys('id', 'name')
+          res.body.name.should.equal(newCar.name)
+          res.body.id.should.not.be.null
+          return Car.findById(res.body.id)
+        })
+        .then(function (car) {
+          car.name.should.equal(newCar.name)
+        })
+    })
+  })
 })
