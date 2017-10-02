@@ -142,4 +142,25 @@ describe('Car API resource', function () {
         })
     })
   })
+
+  describe('DELETE endpoint', function () {
+    it('deletes a car by id', function () {
+      let car
+
+      return Car
+        .findOne()
+        .then(function (_car) {
+          car = _car
+          return chai.request(app)
+            .delete(`/api/cars/${car.id}`)
+        })
+        .then(function (res) {
+          res.should.have.status(204)
+          return Car.findById(car.id)
+        })
+        .then(function (_car) {
+          should.not.exist(_car)
+        })
+    })
+  })
 })
