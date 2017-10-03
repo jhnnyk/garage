@@ -27,7 +27,8 @@ fillupSchema.methods.apiRepr = function () {
     price: this.price,
     pricePerGallon: this.pricePerGallon,
     notes: this.notes,
-    mpg: this.mpg
+    mpg: this.mpg,
+    car: this.car
   }
 }
 

@@ -57,6 +57,7 @@ function displayFillups (data) {
         <td colspan="9">
           <form method="post" action="/api/fillups/${data.fillups[i].id}" class="edit-fillup-form">
             <input type="hidden" name="id" value="${data.fillups[i].id}">
+            <input type="hidden" name="car" value="${data.fillups[i].car}">
             <div>
               <label for="mileage">
                 <span>Mileage:</span><br>
@@ -81,19 +82,19 @@ function displayFillups (data) {
             <div>
               <label for="brand">
                 <span>Brand:</span><br>
-                <input type="text" name="brand" id="brand${[i]}" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
+                <input type="text" name="brand" id="brand${[i]}" class="brand" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
               </label>
             </div>
             <div>
               <label for="location">
                 <span>Location:</span><br>
-                <input type="text" name="location" id="location${[i]}" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
+                <input type="text" name="location" id="location${[i]}" class="location" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
               </label>
             </div>
             <div>
               <label for="notes">
                 <span>Notes:</span><br>
-                <input type="text" name="notes" id="notes${[i]}" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
+                <input type="text" name="notes" id="notes${[i]}" class="notes" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
               </label>
             </div>
             <button type="submit" name="submit">Submit</button>
@@ -316,12 +317,15 @@ $('.js-fillups').on('input', 'input.gallons', function (event) {
 })
 
 $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
+  let carId = $(this).find("input[name='car']").val()
+  let fillupId = $(this).find("input[name='id']").val()
+  let updateFillupValid = true
   // check mileage field
   if (!testMileageField($(this).find('input.mileage').val()) || $(this).find('input.mileage').val().length === 0) {
     $(this).find('.js-mileage-error').html('<br>must be a number')
     $(this).addClass('error')
     $(this).find('.js-submit-error').html('<br>please correct the errors above')
-    event.preventDefault()
+    updateFillupValid = false
   }
 
   // check price field
@@ -329,7 +333,7 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
     $(this).find('.js-price-error').html('<br>must be a number')
     $(this).addClass('error')
     $(this).find('.js-submit-error').html('<br>please correct the errors above')
-    event.preventDefault()
+    updateFillupValid = false
   }
 
   // check gallons field
@@ -337,8 +341,31 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
     $(this).find('.js-gallons-error').html('<br>must be a number')
     $(this).addClass('error')
     $(this).find('.js-submit-error').html('<br>please correct the errors above')
-    event.preventDefault()
+    updateFillupValid = false
   }
+
+  // if fields are valid, send form
+  if (updateFillupValid) {
+    $.ajax({
+      datatype: "json",
+      url: `/api/fillups/${fillupId}`,
+      method: 'PUT',
+      data: {
+        id: fillupId,
+        brand: $(this).find('input.brand').val(),
+        location: $(this).find('input.location').val(),
+        mileage: $(this).find('input.mileage').val(),
+        gallons: $(this).find('input.gallons').val(),
+        price: $(this).find('input.price').val(),
+        notes: $(this).find('input.notes').val(),
+        car: carId
+      }
+    })
+
+    getRecentFillups(carId, displayFillups)
+  }
+
+  event.preventDefault()
 })
 
 function getAndDisplayDashboard () {
