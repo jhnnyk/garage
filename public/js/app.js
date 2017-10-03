@@ -362,7 +362,7 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
       }
     })
 
-    getRecentFillups(carId, displayFillups)
+    getRecentFillups(carId, displayFillups)    
   }
 
   event.preventDefault()

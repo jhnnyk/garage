@@ -30,6 +30,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Fillup
     .find({ car: req.params.id })
+    .sort({ mileage: -1 })
     .then(fillups => {
       res.json({fillups: fillups.map(fillup => fillup.apiRepr())})
     })
@@ -62,8 +63,13 @@ router.post('/', (req, res) => {
       notes: req.body.notes,
       car: req.body.car
     })
-    .then(fillup => res.status(201).json(fillup.apiRepr()))
-    .then(() => {calculateMPG()})
+    .then(fillup => {
+      calculateMPG(fillup.car)
+      return fillup
+    })
+    .then(fillup => {
+      res.status(201).json(fillup.apiRepr())
+    })
     .catch(err => {
       console.error(err)
       res.status(500).json({message: 'Internal server error'})
@@ -91,8 +97,10 @@ router.put('/:id', (req, res) => {
 
   Fillup
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
-    .then(updatedFillup => res.status(204).end())
-    .then(() => {calculateMPG()})
+    .then(updatedFillup => {
+      return calculateMPG(updatedFillup.car)
+    })
+    .then(res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
 
