@@ -19,6 +19,14 @@ body {
   color: #F5ECD9;
 }
 
+a {
+  color: #F5ECD9;
+}
+
+a:hover {
+  color: #2BACB5;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Neuton', Serif;
   text-align: center;
@@ -95,6 +103,10 @@ span.error {
 
 form.error {
   border: 2px solid #E84D5B;
+}
+
+.edit-row {
+  display: none;
 }
 
 .edit-fillup-form div {

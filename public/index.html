@@ -12,75 +12,12 @@
 </head>
 <body>
   <h1>My Garage</h1>
-  <h2>My Car</h2>
 
   <div class="container">
-    <section>
-      <h3>Add a Fill Up</h3>
-      <form action="/api/fillups" method="post" id="new-fillup" novalidate>
-        <label for="brand">
-          <span>Brand:</span>
-          <input type="text" name="brand" id="brand">
-        </label>
-        <br>
-
-        <label for="location">
-          <span>Location:</span>
-          <input type="text" name="location" id="location">
-        </label>
-        <br>
-
-        <label for="mileage">
-          <span>Mileage:</span>
-          <input type="text" name="mileage" id="mileage">
-          <span class="error js-mileage-error" aria-live="polite"></span>
-        </label>
-        <br>
-
-        <label for="gallons">
-          <span>Gallons:</span>
-          <input type="text" name="gallons" id="gallons">
-          <span class="error js-gallons-error" aria-live="polite"></span>
-        </label>
-        <br>
-
-        <label for="price">
-          <span>Total Price:</span>
-          <input type="text" name="price" id="price">
-          <span class="error js-price-error" aria-live="polite"></span>
-        </label>
-        <br>
-
-        <label for="notes">
-          <span>Notes:</span><br>
-          <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
-        </label>
-        <br>
-
-        <button type="submit" name="submit">Submit</button>
-        <span class="error js-submit-error" aria-live="polite"></span>
-      </form>
-    </section>
-
-    <section>
-      <h3>Fill Ups</h3>
-      <table id="fillups">
-        <thead>
-          <tr>
-            <th>MPG</th>
-            <th>Mileage</th>
-            <th>Cost</th>
-            <th>Gallons</th>
-            <th>$/gal</th>
-            <th>Brand</th>
-            <th>Location</th>
-            <th>Notes</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </section>
+    <h2 id="page-title">My Car</h2>
+    <div class="js-menu"></div>
+    <div class="js-add-fillup"></div>
+    <div class="js-fillups"></div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

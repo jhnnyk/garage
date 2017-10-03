@@ -27,6 +27,19 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+  Fillup
+    .find({ car: req.params.id })
+    .sort({ mileage: -1 })
+    .then(fillups => {
+      res.json({fillups: fillups.map(fillup => fillup.apiRepr())})
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({error: 'Internal server error'})
+    })
+})
+
 router.post('/', (req, res) => {
   // check that all required fields have been filled in
   const requiredFields = ['mileage', 'gallons', 'price']
@@ -39,8 +52,6 @@ router.post('/', (req, res) => {
     }
   }
 
-  let newFillup = {}
-
   // create the Fillup
   Fillup
     .create({
@@ -49,17 +60,23 @@ router.post('/', (req, res) => {
       location: req.body.location,
       gallons: req.body.gallons,
       price: req.body.price,
-      notes: req.body.notes
+      notes: req.body.notes,
+      car: req.body.car
     })
-    .then(() => {calculateMPG()})
-    .then(() => res.status(201).redirect('/'))
+    .then(fillup => {
+      calculateMPG(fillup.car)
+      return fillup
+    })
+    .then(fillup => {
+      res.status(201).json(fillup.apiRepr())
+    })
     .catch(err => {
       console.error(err)
       res.status(500).json({message: 'Internal server error'})
     })
 })
 
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (`
       Request path id (${req.params.id}) and
@@ -80,8 +97,10 @@ router.post('/:id', (req, res) => {
 
   Fillup
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
-    .then(() => {calculateMPG()})
-    .then(() => res.status(204).redirect('/'))
+    .then(updatedFillup => {
+      return calculateMPG(updatedFillup.car)
+    })
+    .then(res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
 
