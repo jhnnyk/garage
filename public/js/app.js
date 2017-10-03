@@ -165,10 +165,16 @@ function displayAddFillupForm (carId) {
   $('.js-add-fillup').html(addFillupFormHTML)
 }
 
+function setTitle(carName) {
+  $('#page-title').text(carName)
+}
+
 // show fillups
 $('.js-menu').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
+  let carName = $(this).text()
+  setTitle(carName)
   displayAddFillupForm(carId)
   getRecentFillups(carId, displayFillups)
 })
