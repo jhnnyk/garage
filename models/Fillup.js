@@ -39,16 +39,25 @@ const calculateMPG = (carId) => {
     .find({ car: carId })
     .sort({ mileage: -1 })
   .then(allFillups => {
-    for (let i = 0; i < allFillups.length - 1; i++) {
-      allFillups[i].mpg = ((allFillups[i].mileage - allFillups[i+1].mileage) / allFillups[i].gallons).toFixed(1)
-      Fillup
-        .findByIdAndUpdate(allFillups[i].id, {mpg: allFillups[i].mpg})
-        .then() // the function did NOT work until I added `.then()`
-        // what am I still missing about Promises?
-    }
-  })
-  .catch(err => {
-    console.error(err)
+    let count = 0
+    let fillupPromise = new Promise((resolve, reject) => {
+      for (let i = 0; i < allFillups.length - 1; i++) {
+        allFillups[i].mpg = ((allFillups[i].mileage - allFillups[i+1].mileage) / allFillups[i].gallons).toFixed(1)
+        Fillup
+          .findByIdAndUpdate(allFillups[i].id, {mpg: allFillups[i].mpg})
+          .then(() => {
+            count++
+            if (count === allFillups.length - 1) {
+              resolve()
+            }
+          })
+          .catch(err => {
+            reject(err)
+          })
+      }
+    })
+    
+    return fillupPromise
   })
 }
 

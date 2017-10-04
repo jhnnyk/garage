@@ -288,10 +288,11 @@ $('.js-add-fillup').on('submit', function (event) {
         notes: $('textarea#notes').val(),
         car: carId
       }
+    }).done(function() {
+      getRecentFillups(carId, displayFillups)
     })
 
     displayAddFillupForm(carId)
-    getRecentFillups(carId, displayFillups)
   }
 
   event.preventDefault()
@@ -366,9 +367,9 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
         notes: $(this).find('input.notes').val(),
         car: carId
       }
+    }).done(function() {
+      getRecentFillups(carId, displayFillups)
     })
-
-    getRecentFillups(carId, displayFillups)    
   }
 
   event.preventDefault()

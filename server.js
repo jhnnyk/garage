@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const {DATABASE_URL, PORT} = require('./config')
 
@@ -7,8 +8,6 @@ const app = express()
 
 const fillupRouter = require('./routes/fillupRouter')
 const carRouter = require('./routes/carRouter')
-
-mongoose.Promise = global.Promise
 
 app.use(express.static('public'))
 
