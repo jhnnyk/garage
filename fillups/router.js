@@ -1,10 +1,9 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose')
 const expressSanitized = require('express-sanitized')
 
-const {Fillup, calculateMPG} = require('../models/Fillup')
+const {Fillup, calculateMPG} = require('./models')
 
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -104,18 +103,24 @@ router.put('/:id', (req, res) => {
     .then(() => {
       res.status(204).end()
     })
-    .catch(err => res.status(500).json({message: 'Internal server error'}))
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
 })
 
 router.delete('/:id', (req, res) => {
   Fillup
     .findByIdAndRemove(req.params.id)
-    .then(() => {calculateMPG()})
+    .then(() => { calculateMPG() })
     .then(() => {
       console.log(`Deleted fillup with id \`${req.params.id}\``)
       res.status(204).end()
     })
-    .catch(err => res.status(500).json({message: 'Internal server error'}))
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
 })
 
-module.exports = router
+module.exports = {router}

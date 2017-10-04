@@ -6,8 +6,8 @@ const {DATABASE_URL, PORT} = require('./config')
 
 const app = express()
 
-const fillupRouter = require('./routes/fillupRouter')
-const carRouter = require('./routes/carRouter')
+const {router: fillupRouter} = require('./fillups')
+const {router: carRouter} = require('./cars')
 
 app.use(express.static('public'))
 
