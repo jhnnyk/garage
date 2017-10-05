@@ -1,6 +1,10 @@
+require('dotenv').config()
+const bodyParser = require('body-parser')
 const express = require('express')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
+const morgan = require('morgan')
+const passport = require('passport')
 
 const {DATABASE_URL, PORT} = require('./config')
 
@@ -8,6 +12,9 @@ const app = express()
 
 const {router: fillupRouter} = require('./fillups')
 const {router: carRouter} = require('./cars')
+
+// Logging
+app.use(morgan('common'))
 
 app.use(express.static('public'))
 
