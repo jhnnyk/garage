@@ -35,8 +35,8 @@ app.use(passport.initialize())
 passport.use(basicStrategy)
 passport.use(jwtStrategy)
 
-app.use('/api/users/', usersRouter)
-app.use('/api/auth/', authRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/auth', authRouter)
 app.use('/api/fillups', fillupRouter)
 app.use('/api/cars', carRouter)
 
