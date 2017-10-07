@@ -1,10 +1,9 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose')
 const expressSanitized = require('express-sanitized')
 
-const {Car} = require('../models/Car')
+const {Car} = require('./models')
 
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -28,7 +27,8 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // check that name has been filled in
   if (!('name' in req.body)) {
-    console.error('Missing `name` in request body')
+    let message = 'Missing `name` in request body'
+    console.error(message)
     return res.status(400).send(message)
   }
 
@@ -66,17 +66,22 @@ router.put('/:id', (req, res) => {
   Car
     .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
     .then(updatedCar => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Internal server error'}))
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({message: 'Internal server error'})
+    })
 })
 
 router.delete('/:id', (req, res) => {
   Car
     .findByIdAndRemove(req.params.id)
-    .then(() => {res.status(204).json({message: 'successfully deleted car'})})
+    .then(() => {
+      res.status(204).json({message: 'successfully deleted car'})
+    })
     .catch(err => {
       console.error(err)
       res.status(500).json({error: 'Internal server error'})
     })
 })
 
-module.exports = router
+module.exports = {router}

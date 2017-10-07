@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const {Car} = require('./Car')
 
-const fillupSchema = mongoose.Schema({
+mongoose.Promise = global.Promise
+
+const FillupSchema = mongoose.Schema({
   mileage: {type: Number, required: true},
   brand: String,
   location: String,
@@ -13,11 +14,11 @@ const fillupSchema = mongoose.Schema({
   car: { type: Schema.Types.ObjectId, ref: 'Car' }
 })
 
-fillupSchema.virtual('pricePerGallon').get(function () {
+FillupSchema.virtual('pricePerGallon').get(function () {
   return `$${(this.price / this.gallons).toFixed(2)}`
 })
 
-fillupSchema.methods.apiRepr = function () {
+FillupSchema.methods.apiRepr = function () {
   return {
     id: this._id,
     mileage: this.mileage,
@@ -32,7 +33,7 @@ fillupSchema.methods.apiRepr = function () {
   }
 }
 
-const Fillup = mongoose.model('Fillup', fillupSchema)
+const Fillup = mongoose.model('Fillup', FillupSchema)
 
 const calculateMPG = (carId) => {
   return Fillup
@@ -42,7 +43,7 @@ const calculateMPG = (carId) => {
     let count = 0
     let fillupPromise = new Promise((resolve, reject) => {
       for (let i = 0; i < allFillups.length - 1; i++) {
-        allFillups[i].mpg = ((allFillups[i].mileage - allFillups[i+1].mileage) / allFillups[i].gallons).toFixed(1)
+        allFillups[i].mpg = ((allFillups[i].mileage - allFillups[ i + 1 ].mileage) / allFillups[i].gallons).toFixed(1)
         Fillup
           .findByIdAndUpdate(allFillups[i].id, {mpg: allFillups[i].mpg})
           .then(() => {
@@ -56,7 +57,7 @@ const calculateMPG = (carId) => {
           })
       }
     })
-    
+
     return fillupPromise
   })
 }

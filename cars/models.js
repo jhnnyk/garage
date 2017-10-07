@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const {Fillup} = require('./Fillup')
 
-const carSchema = mongoose.Schema({
+mongoose.Promise = global.Promise
+
+const CarSchema = mongoose.Schema({
   year: Number,
   make: String,
   model: String,
@@ -11,7 +12,7 @@ const carSchema = mongoose.Schema({
   fillups: [{ type: Schema.Types.ObjectId, ref: 'Fillup' }]
 })
 
-carSchema.methods.apiRepr = function () {
+CarSchema.methods.apiRepr = function () {
   return {
     id: this._id,
     year: this.year,
@@ -22,6 +23,6 @@ carSchema.methods.apiRepr = function () {
   }
 }
 
-const Car = mongoose.model('Car', carSchema)
+const Car = mongoose.model('Car', CarSchema)
 
 module.exports = {Car}
