@@ -30,3 +30,7 @@ services:
 * to get Postman to work with the protected API endpoint, you need to add a key/value pair in the headers to:
   `Authorization: Bearer <token>`
   where `<token>` is the authToken value received after a successful login
+
+---
+* you have to add `JWT_SECRET` key to Config Vars in Heroku dashboard
+* you have to add `JWT_SECRET` key to Settings > Environment Variables in TravisCI dashboard
