@@ -378,10 +378,9 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   event.preventDefault()
 })
 
-// login form
-$('#login').on('submit', function (e) {
-  let username = $('#login input[name=username]').val()
-  let password = $('#login input[name=password]').val()
+function loginUser (username, password) {
+  console.log(username, password)
+
   let auth = btoa(`${username}:${password}`)
 
   $.ajax({
@@ -397,6 +396,14 @@ $('#login').on('submit', function (e) {
       console.log('login failed')
     }
   })
+}
+
+// login form
+$('#login').on('submit', function (e) {
+  let username = $('#login input[name=username]').val()
+  let password = $('#login input[name=password]').val()
+  
+  loginUser(username, password)
 
   e.preventDefault()
 })
@@ -420,11 +427,13 @@ $('#signup').on('submit', function (e) {
     }),
     contentType: "application/json",
     success: function (data) {
-      console.log(`created a user! ${data}`)
+      console.log(`created a user! ${data.username}`)
     },
     error: function () {
       console.log('signup failed')
     }
+  }).done(function () {
+    loginUser(username, password)
   })
 
   e.preventDefault()
