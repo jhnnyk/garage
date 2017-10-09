@@ -165,6 +165,7 @@ function displayAddFillupForm (carId) {
   $('.js-add-fillup').html(addFillupFormHTML)
 }
 
+// set page title for car page
 function setTitle(carName) {
   $('#page-title').text(carName)
 }
@@ -221,6 +222,7 @@ function testMileageField (input) {
   return input.length === 0 || mileageRegEx.test(input)
 }
 
+// validations for new fillup form
 $('.js-add-fillup').on('input', 'input#price', function (event) {
   if (!testPriceField($(this).val())) {
     $('#new-fillup .js-price-error').html('must be a number')
@@ -229,7 +231,6 @@ $('.js-add-fillup').on('input', 'input#price', function (event) {
   }
 })
 
-// validations for new fillup form
 $('.js-add-fillup').on('input', 'input#gallons', function (event) {
   if (!testGallonsField($(this).val())) {
     $('#new-fillup .js-gallons-error').html('must be a number')
@@ -246,6 +247,7 @@ $('.js-add-fillup').on('input', 'input#mileage', function (event) {
   }
 })
 
+// new fillup form
 $('.js-add-fillup').on('submit', function (event) {
   let carId = $('input#car').val()
   let newFillupValid = true
@@ -323,6 +325,7 @@ $('.js-fillups').on('input', 'input.gallons', function (event) {
   }
 })
 
+// edit fillup form
 $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   let carId = $(this).find("input[name='car']").val()
   let fillupId = $(this).find("input[name='id']").val()
@@ -375,6 +378,7 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   event.preventDefault()
 })
 
+// login form
 $('#login').on('submit', function (e) {
   let username = $('input[name=username]').val()
   let password = $('input[name=password]').val()
