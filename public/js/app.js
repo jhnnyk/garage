@@ -401,6 +401,39 @@ $('#login').on('submit', function (e) {
   e.preventDefault()
 })
 
+// signup form
+$('#signup').on('submit', function (e) {
+  let firstName = $('input[name=firstName]').val()
+  let lastName = $('input[name=lastName]').val()  
+  let username = $('input[name=username]').val()
+  let password = $('input[name=password]').val()
+
+  console.log(`username: ${username},
+  password: ${password},
+  firstName: ${firstName},
+  lastName: ${lastName}`)
+  
+  $.ajax({
+    datatype: 'json',
+    url: '/api/users',
+    method: 'POST',
+    data: {
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName
+    },
+    success: function (data) {
+      console.log(`created a user! ${data}`)
+    },
+    error: function () {
+      console.log('signup failed')
+    }
+  })
+
+  e.preventDefault()
+})
+
 function getAndDisplayDashboard () {
   getCars(displayCars)
 }
