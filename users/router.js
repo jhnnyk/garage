@@ -10,6 +10,7 @@ const jsonParser = bodyParser.json()
 
 // POST endpoint to register a new user
 router.post('/', jsonParser, (req, res) => {
+  console.log(req.body)
   // make sure required fields are filled in
   const requiredFields = ['username', 'password']
   const missingField = requiredFields.find(field => !(field in req.body))

@@ -380,8 +380,8 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
 
 // login form
 $('#login').on('submit', function (e) {
-  let username = $('input[name=username]').val()
-  let password = $('input[name=password]').val()
+  let username = $('#login input[name=username]').val()
+  let password = $('#login input[name=password]').val()
   let auth = btoa(`${username}:${password}`)
 
   $.ajax({
@@ -403,26 +403,22 @@ $('#login').on('submit', function (e) {
 
 // signup form
 $('#signup').on('submit', function (e) {
-  let firstName = $('input[name=firstName]').val()
-  let lastName = $('input[name=lastName]').val()  
-  let username = $('input[name=username]').val()
-  let password = $('input[name=password]').val()
+  let firstName = $('#signup input[name=firstName]').val()
+  let lastName = $('#signup input[name=lastName]').val()  
+  let username = $('#signup input[name=username]').val()
+  let password = $('#signup input[name=password]').val()
 
-  console.log(`username: ${username},
-  password: ${password},
-  firstName: ${firstName},
-  lastName: ${lastName}`)
-  
   $.ajax({
     datatype: 'json',
     url: '/api/users',
     method: 'POST',
-    data: {
+    data: JSON.stringify({
       username: username,
       password: password,
       firstName: firstName,
       lastName: lastName
-    },
+    }),
+    contentType: "application/json",
     success: function (data) {
       console.log(`created a user! ${data}`)
     },
@@ -432,6 +428,11 @@ $('#signup').on('submit', function (e) {
   })
 
   e.preventDefault()
+})
+
+// Logout
+$('#logout').on('click', function () {
+  localStorage.clear()
 })
 
 function getAndDisplayDashboard () {
