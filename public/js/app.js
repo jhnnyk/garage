@@ -402,7 +402,7 @@ function loginUser (username, password) {
 $('#login').on('submit', function (e) {
   let username = $('#login input[name=username]').val()
   let password = $('#login input[name=password]').val()
-  
+
   loginUser(username, password)
 
   e.preventDefault()
