@@ -379,8 +379,6 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
 })
 
 function loginUser (username, password) {
-  console.log(username, password)
-
   let auth = btoa(`${username}:${password}`)
 
   $.ajax({
@@ -406,6 +404,7 @@ $('#login').on('submit', function (e) {
   loginUser(username, password)
 
   e.preventDefault()
+  this.reset()
 })
 
 // signup form
@@ -437,6 +436,7 @@ $('#signup').on('submit', function (e) {
   })
 
   e.preventDefault()
+  this.reset()
 })
 
 // Logout
