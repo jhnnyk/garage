@@ -11,8 +11,23 @@
   <script defer src="/js/fontawesome.min.js"></script>
 </head>
 <body>
-  <h1>My Garage</h1>
-
+  <header>
+      <h1>My Garage</h1>
+      <nav class="right">
+        <form action="#" method="POST" id="login">
+          <label for="username">
+            <span>Username:</span>
+            <input type="text" name="username">
+          </label><br>
+          <label for="password">
+            <span>Password:</span>
+            <input type="password" name="password">
+          </label><br>
+          <button type="submit">Login</button>
+        </form>
+      </nav>
+  </header>
+  
   <div class="container">
     <h2 id="page-title">My Car</h2>
     <div class="js-menu"></div>

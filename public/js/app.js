@@ -375,6 +375,28 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   event.preventDefault()
 })
 
+$('#login').on('submit', function (e) {
+  let username = $('input[name=username]').val()
+  let password = $('input[name=password]').val()
+  let auth = btoa(`${username}:${password}`)
+
+  $.ajax({
+    datatype: 'json',
+    url: '/api/auth/login',
+    method: 'POST',
+    headers: {"Authorization": "Basic " + auth},
+    success: function (data) {
+      localStorage.token = data.authToken
+      console.log(`Got a token! ${data.authToken}`)
+    },
+    error: function () {
+      console.log('login failed')
+    }
+  })
+
+  e.preventDefault()
+})
+
 function getAndDisplayDashboard () {
   getCars(displayCars)
 }
