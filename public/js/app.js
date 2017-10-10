@@ -165,6 +165,7 @@ function displayAddFillupForm (carId) {
   $('.js-add-fillup').html(addFillupFormHTML)
 }
 
+// set page title for car page
 function setTitle(carName) {
   $('#page-title').text(carName)
 }
@@ -221,6 +222,7 @@ function testMileageField (input) {
   return input.length === 0 || mileageRegEx.test(input)
 }
 
+// validations for new fillup form
 $('.js-add-fillup').on('input', 'input#price', function (event) {
   if (!testPriceField($(this).val())) {
     $('#new-fillup .js-price-error').html('must be a number')
@@ -229,7 +231,6 @@ $('.js-add-fillup').on('input', 'input#price', function (event) {
   }
 })
 
-// validations for new fillup form
 $('.js-add-fillup').on('input', 'input#gallons', function (event) {
   if (!testGallonsField($(this).val())) {
     $('#new-fillup .js-gallons-error').html('must be a number')
@@ -246,6 +247,7 @@ $('.js-add-fillup').on('input', 'input#mileage', function (event) {
   }
 })
 
+// new fillup form
 $('.js-add-fillup').on('submit', function (event) {
   let carId = $('input#car').val()
   let newFillupValid = true
@@ -323,6 +325,7 @@ $('.js-fillups').on('input', 'input.gallons', function (event) {
   }
 })
 
+// edit fillup form
 $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   let carId = $(this).find("input[name='car']").val()
   let fillupId = $(this).find("input[name='id']").val()
@@ -373,6 +376,72 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   }
 
   event.preventDefault()
+})
+
+function loginUser (username, password) {
+  let auth = btoa(`${username}:${password}`)
+
+  $.ajax({
+    datatype: 'json',
+    url: '/api/auth/login',
+    method: 'POST',
+    headers: {"Authorization": "Basic " + auth},
+    success: function (data) {
+      localStorage.token = data.authToken
+      console.log(`Got a token! ${data.authToken}`)
+    },
+    error: function () {
+      console.log('login failed')
+    }
+  })
+}
+
+// login form
+$('#login').on('submit', function (e) {
+  let username = $('#login input[name=username]').val()
+  let password = $('#login input[name=password]').val()
+
+  loginUser(username, password)
+
+  e.preventDefault()
+  this.reset()
+})
+
+// signup form
+$('#signup').on('submit', function (e) {
+  let firstName = $('#signup input[name=firstName]').val()
+  let lastName = $('#signup input[name=lastName]').val()  
+  let username = $('#signup input[name=username]').val()
+  let password = $('#signup input[name=password]').val()
+
+  $.ajax({
+    datatype: 'json',
+    url: '/api/users',
+    method: 'POST',
+    data: JSON.stringify({
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName
+    }),
+    contentType: "application/json",
+    success: function (data) {
+      console.log(`created a user! ${data.username}`)
+    },
+    error: function () {
+      console.log('signup failed')
+    }
+  }).done(function () {
+    loginUser(username, password)
+  })
+
+  e.preventDefault()
+  this.reset()
+})
+
+// Logout
+$('#logout').on('click', function () {
+  localStorage.clear()
 })
 
 function getAndDisplayDashboard () {
