@@ -54,6 +54,10 @@ header {
   background-color: #2BACB5;
 }
 
+header a:hover {
+  color: #B4CCB9;
+}
+
 header .container {
   display: flex;
   justify-content: space-between;
@@ -61,6 +65,10 @@ header .container {
 
 nav form {
   display: none;
+  position: absolute;
+  background-color: #2BACB5;
+  padding: 0 20px 20px 20px;
+  border-radius: 0 0 10px 10px;
 }
 
 nav li {

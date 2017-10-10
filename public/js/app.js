@@ -396,6 +396,11 @@ function loginUser (username, password) {
   })
 }
 
+// login button
+$('#login-button').on('click', function (e) {
+  $('#login').slideToggle()
+})
+
 // login form
 $('#login').on('submit', function (e) {
   let username = $('#login input[name=username]').val()
@@ -405,6 +410,11 @@ $('#login').on('submit', function (e) {
 
   e.preventDefault()
   this.reset()
+})
+
+// signup button
+$('#signup-button').on('click', function (e) {
+  $('#signup').slideToggle()
 })
 
 // signup form
