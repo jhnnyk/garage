@@ -12,8 +12,14 @@
 </head>
 <body>
   <header>
-      <h1>My Garage</h1>
-      <nav class="right">
+    <div class="container">
+      <h1>MyGarage.online</h1>
+      <nav>
+        <ul>
+          <li><a href="#" id="login-button">Login</a></li>
+          <li><a href="#" id="signup-button">Sign up</a></li>
+          <li><a href="#" id="logout">Logout</a></li>
+        </ul>
         <form action="#" method="POST" id="login">
           <h3>Login</h3>
           <label for="username">
@@ -26,7 +32,7 @@
           </label><br>
           <button type="submit">Login</button>
         </form>
-
+  
         <form action="#" method="POST" id="signup">
           <h3>Sign Up</h3>
           <label for="firstName">
@@ -47,9 +53,8 @@
           </label><br>
           <button type="submit">Sign Up</button>
         </form>
-
-        <button id="logout">Logout</button>
       </nav>
+    </div>
   </header>
   
   <div class="container">

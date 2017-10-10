@@ -17,6 +17,7 @@ body {
   font-size: 16px;
   background-color: #3b3b3b;
   color: #F5ECD9;
+  margin: 0;
 }
 
 a {
@@ -47,6 +48,23 @@ h3 {
 .container {
   max-width: 900px;
   margin: 0 auto;
+}
+
+header {
+  background-color: #2BACB5;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav form {
+  display: none;
+}
+
+nav li {
+  display: inline-block;
 }
 
 table {
