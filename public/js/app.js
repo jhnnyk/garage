@@ -398,7 +398,9 @@ function loginUser (username, password) {
 
 // login button
 $('#login-button').on('click', function (e) {
+  $('#signup').hide()
   $('#login').slideToggle()
+  e.preventDefault()
 })
 
 // login form
@@ -414,7 +416,9 @@ $('#login').on('submit', function (e) {
 
 // signup button
 $('#signup-button').on('click', function (e) {
+  $('#login').hide()
   $('#signup').slideToggle()
+  e.preventDefault()
 })
 
 // signup form
