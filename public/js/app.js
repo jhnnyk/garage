@@ -29,7 +29,7 @@ function displayCars (data) {
     carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
   }
 
-  $('#my-cars ul').html(carListHTML)
+  $('#my-cars ul').prepend(carListHTML)
 }
 
 function displayFillups (data) {
@@ -229,6 +229,12 @@ function displayCarNameAsTitle (carName) {
 // show cars
 $('#my-cars').on('click', function (e) {
   $('#my-cars ul').slideToggle()
+  e.preventDefault()
+})
+
+// show add car form
+$('#add-car-button').on('click', function (e) {
+  $('#new-car-form').slideDown()
   e.preventDefault()
 })
 
