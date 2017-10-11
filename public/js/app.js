@@ -131,53 +131,51 @@ function displayFillups (data) {
 
 function displayAddFillupForm (carId) {
   let addFillupFormHTML = `
-    <section>
+    <form action="/api/fillups" method="post" id="new-fillup" novalidate>
       <h3>Add a Fill Up</h3>
-      <form action="/api/fillups" method="post" id="new-fillup" novalidate>
-        <input type="hidden" name="car" id="car" value="${carId}">
-        <label for="brand">
-          <span>Brand:</span>
-          <input type="text" name="brand" id="brand">
-        </label>
-        <br>
+      <input type="hidden" name="car" id="car" value="${carId}">
+      <label for="brand">
+        <span>Brand:</span>
+        <input type="text" name="brand" id="brand">
+      </label>
+      <br>
 
-        <label for="location">
-          <span>Location:</span>
-          <input type="text" name="location" id="location">
-        </label>
-        <br>
+      <label for="location">
+        <span>Location:</span>
+        <input type="text" name="location" id="location">
+      </label>
+      <br>
 
-        <label for="mileage">
-          <span>Mileage:</span>
-          <input type="text" name="mileage" id="mileage">
-          <span class="error js-mileage-error" aria-live="polite"></span>
-        </label>
-        <br>
+      <label for="mileage">
+        <span>Mileage:</span>
+        <input type="text" name="mileage" id="mileage">
+        <span class="error js-mileage-error" aria-live="polite"></span>
+      </label>
+      <br>
 
-        <label for="gallons">
-          <span>Gallons:</span>
-          <input type="text" name="gallons" id="gallons">
-          <span class="error js-gallons-error" aria-live="polite"></span>
-        </label>
-        <br>
+      <label for="gallons">
+        <span>Gallons:</span>
+        <input type="text" name="gallons" id="gallons">
+        <span class="error js-gallons-error" aria-live="polite"></span>
+      </label>
+      <br>
 
-        <label for="price">
-          <span>Total Price:</span>
-          <input type="text" name="price" id="price">
-          <span class="error js-price-error" aria-live="polite"></span>
-        </label>
-        <br>
+      <label for="price">
+        <span>Total Price:</span>
+        <input type="text" name="price" id="price">
+        <span class="error js-price-error" aria-live="polite"></span>
+      </label>
+      <br>
 
-        <label for="notes">
-          <span>Notes:</span><br>
-          <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
-        </label>
-        <br>
+      <label for="notes">
+        <span>Notes:</span><br>
+        <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
+      </label>
+      <br>
 
-        <button type="submit" name="submit">Submit</button>
-        <span class="error js-submit-error" aria-live="polite"></span>
-      </form>
-    </section>`
+      <button type="submit" name="submit">Submit</button>
+      <span class="error js-submit-error" aria-live="polite"></span>
+    </form>`
 
   $('.js-add-fillup').html(addFillupFormHTML)
 }
@@ -393,6 +391,12 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   }
 
   event.preventDefault()
+})
+
+// Add a fillup button
+$('#add-fillup a').on('click', function (e) {
+  $('#new-fillup').slideToggle()
+  e.preventDefault()
 })
 
 function loginUser (username, password) {

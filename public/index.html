@@ -13,15 +13,25 @@
 <body>
   <header>
     <div class="container">
-      <h1>MyGarage.online</h1>
+      <h1><a href="/">MyGarage.online</a></h1>
       <nav>
         <ul>
+          <li><a href="/">Home</a></li>
+          <li id="my-cars">
+            <a href="#">My Cars</a>
+            <ul></ul>
+          </li>
+          <li id="add-fillup">
+            <a href="#">Add a fillup</a>
+            <div class="js-add-fillup"></div>
+          </li>
           <li>
             <a href="#" id="login-button">Login</a> 
             or <a href="#" id="signup-button">Sign up</a>
           </li>
           <li><a href="#" id="logout">Logout</a></li>
         </ul>
+
         <form action="#" method="POST" id="login">
           <h3>Login</h3>
           <label for="username">
@@ -62,7 +72,6 @@
   <div class="container">
     <h2 id="page-title">Welcome to MyGarage.online!</h2>
     <div class="js-menu"></div>
-    <div class="js-add-fillup"></div>
     <div class="js-fillups"></div>
   </div>
 
