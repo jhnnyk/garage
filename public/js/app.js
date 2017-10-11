@@ -178,6 +178,49 @@ function displayAddFillupForm (carId) {
   $('.js-add-fillup').html(addFillupFormHTML)
 }
 
+function displayAddCarForm () {
+  let addCarFormHTML = `
+    <form action="#" method="POST" id="new-car-form">
+      <h3>Add a car</h3>
+      <input type="hidden" name="token" id="token" value="${localStorage.token}">
+      <label for="year">
+        <span>Year:</span>
+        <input type="text" name="year" id="year">
+      </label>
+      <br>
+
+      <label for="make">
+        <span>Make:</span>
+        <input type="text" name="make" id="make">
+      </label>
+      <br>
+
+      <label for="model">
+        <span>Model:</span>
+        <input type="text" name="model" id="model">
+      </label>
+      <br>
+
+      <label for="carName">
+        <span>Car Name:</span>
+        <input type="text" name="carName" id="carName">
+        <span class="error js-carName-error" aria-live="polite"></span>
+      </label>
+      <br>
+
+      <label for="carNotes">
+        <span>Notes:</span><br>
+        <textarea name="carNotes" id="carNotes" cols="30" rows="3"></textarea>
+      </label>
+      <br>
+
+      <button type="submit" name="submit">Submit</button>
+      <span class="error js-submit-error" aria-live="polite"></span>
+    </form>`
+
+  $('nav').append(addCarFormHTML)
+}
+
 // set page title for car page
 function displayCarNameAsTitle (carName) {
   $('#page-title').text(`${carName} Fillups`)
@@ -487,6 +530,7 @@ $('#logout').on('click', function (e) {
 
 function getAndDisplayDashboard () {
   displayMainNav()
+  displayAddCarForm ()
 }
 
 $(getAndDisplayDashboard())
