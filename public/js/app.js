@@ -1,3 +1,20 @@
+function isLoggedIn () {
+  return !!localStorage.token
+}
+
+function displayMainNav() {
+  if (isLoggedIn()) {
+    $('#login-button').parent('li').hide()
+    $('.js-logged-in').show()
+    getCars(displayCars)
+  } else {
+    $('.js-logged-in').hide()
+    $('#login-button').parent('li').show()
+  }
+  $('#login').hide()
+  $('#signup').hide()
+}
+
 function getCars(callbackFn) {
   $.getJSON('/api/cars', callbackFn)
 }
@@ -7,19 +24,17 @@ function getRecentFillups (carId, callbackFn) {
 }
 
 function displayCars (data) {
-  let carListHTML = `<section><ul>`
+  let carListHTML = ``
   for (let i = 0; i < data.cars.length; i++) {
     carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
   }
-  carListHTML += `</ul></section>`
 
-  $('.js-menu').html(carListHTML)
+  $('#my-cars ul').html(carListHTML)
 }
 
 function displayFillups (data) {
   let fillupsHTML = `
     <section>
-      <h3>Fill Ups</h3>
       <table id="fillups">
         <thead>
           <tr>
@@ -114,68 +129,72 @@ function displayFillups (data) {
 
 function displayAddFillupForm (carId) {
   let addFillupFormHTML = `
-    <section>
+    <form action="/api/fillups" method="post" id="new-fillup" novalidate>
       <h3>Add a Fill Up</h3>
-      <form action="/api/fillups" method="post" id="new-fillup" novalidate>
-        <input type="hidden" name="car" id="car" value="${carId}">
-        <label for="brand">
-          <span>Brand:</span>
-          <input type="text" name="brand" id="brand">
-        </label>
-        <br>
+      <input type="hidden" name="car" id="car" value="${carId}">
+      <label for="brand">
+        <span>Brand:</span>
+        <input type="text" name="brand" id="brand">
+      </label>
+      <br>
 
-        <label for="location">
-          <span>Location:</span>
-          <input type="text" name="location" id="location">
-        </label>
-        <br>
+      <label for="location">
+        <span>Location:</span>
+        <input type="text" name="location" id="location">
+      </label>
+      <br>
 
-        <label for="mileage">
-          <span>Mileage:</span>
-          <input type="text" name="mileage" id="mileage">
-          <span class="error js-mileage-error" aria-live="polite"></span>
-        </label>
-        <br>
+      <label for="mileage">
+        <span>Mileage:</span>
+        <input type="text" name="mileage" id="mileage">
+        <span class="error js-mileage-error" aria-live="polite"></span>
+      </label>
+      <br>
 
-        <label for="gallons">
-          <span>Gallons:</span>
-          <input type="text" name="gallons" id="gallons">
-          <span class="error js-gallons-error" aria-live="polite"></span>
-        </label>
-        <br>
+      <label for="gallons">
+        <span>Gallons:</span>
+        <input type="text" name="gallons" id="gallons">
+        <span class="error js-gallons-error" aria-live="polite"></span>
+      </label>
+      <br>
 
-        <label for="price">
-          <span>Total Price:</span>
-          <input type="text" name="price" id="price">
-          <span class="error js-price-error" aria-live="polite"></span>
-        </label>
-        <br>
+      <label for="price">
+        <span>Total Price:</span>
+        <input type="text" name="price" id="price">
+        <span class="error js-price-error" aria-live="polite"></span>
+      </label>
+      <br>
 
-        <label for="notes">
-          <span>Notes:</span><br>
-          <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
-        </label>
-        <br>
+      <label for="notes">
+        <span>Notes:</span><br>
+        <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
+      </label>
+      <br>
 
-        <button type="submit" name="submit">Submit</button>
-        <span class="error js-submit-error" aria-live="polite"></span>
-      </form>
-    </section>`
+      <button type="submit" name="submit">Submit</button>
+      <span class="error js-submit-error" aria-live="polite"></span>
+    </form>`
 
   $('.js-add-fillup').html(addFillupFormHTML)
 }
 
 // set page title for car page
-function setTitle(carName) {
-  $('#page-title').text(carName)
+function displayCarNameAsTitle (carName) {
+  $('#page-title').text(`${carName} Fillups`)
 }
 
+// show cars
+$('#my-cars').on('click', function (e) {
+  $('#my-cars ul').slideToggle()
+  e.preventDefault()
+})
+
 // show fillups
-$('.js-menu').on('click', '.js-car-page-link', function(e) {
+$('#my-cars ul').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   let carName = $(this).text()
-  setTitle(carName)
+  displayCarNameAsTitle(carName)
   displayAddFillupForm(carId)
   getRecentFillups(carId, displayFillups)
 })
@@ -378,6 +397,12 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   event.preventDefault()
 })
 
+// Add a fillup button
+$('#add-fillup a').on('click', function (e) {
+  $('#new-fillup').slideToggle()
+  e.preventDefault()
+})
+
 function loginUser (username, password) {
   let auth = btoa(`${username}:${password}`)
 
@@ -388,13 +413,21 @@ function loginUser (username, password) {
     headers: {"Authorization": "Basic " + auth},
     success: function (data) {
       localStorage.token = data.authToken
-      console.log(`Got a token! ${data.authToken}`)
     },
     error: function () {
       console.log('login failed')
     }
+  }).then(function () {
+    displayMainNav()
   })
 }
+
+// login button
+$('#login-button').on('click', function (e) {
+  $('#signup').hide()
+  $('#login').slideToggle()
+  e.preventDefault()
+})
 
 // login form
 $('#login').on('submit', function (e) {
@@ -405,6 +438,13 @@ $('#login').on('submit', function (e) {
 
   e.preventDefault()
   this.reset()
+})
+
+// signup button
+$('#signup-button').on('click', function (e) {
+  $('#login').hide()
+  $('#signup').slideToggle()
+  e.preventDefault()
 })
 
 // signup form
@@ -440,12 +480,13 @@ $('#signup').on('submit', function (e) {
 })
 
 // Logout
-$('#logout').on('click', function () {
+$('#logout').on('click', function (e) {
   localStorage.clear()
+  displayMainNav()
 })
 
 function getAndDisplayDashboard () {
-  getCars(displayCars)
+  displayMainNav()
 }
 
 $(getAndDisplayDashboard())

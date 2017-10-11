@@ -17,6 +17,7 @@ body {
   font-size: 16px;
   background-color: #3b3b3b;
   color: #F5ECD9;
+  margin: 0;
 }
 
 a {
@@ -47,6 +48,43 @@ h3 {
 .container {
   max-width: 900px;
   margin: 0 auto;
+}
+
+header {
+  background-color: #2BACB5;
+}
+
+header a:hover {
+  color: #B4CCB9;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav form {
+  display: none;
+  position: absolute;
+  background-color: #2BACB5;
+  padding: 0 20px 20px 20px;
+  border-radius: 0 0 10px 10px;
+}
+
+nav li {
+  display: inline-block;
+}
+
+#my-cars ul {
+  display: none;
+  position: absolute;
+  background-color: #2BACB5;
+  padding: 0 20px 20px 20px;
+  border-radius: 0 0 10px 10px;
+}
+
+#my-cars li {
+  display: block;
 }
 
 table {
