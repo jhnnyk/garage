@@ -5,10 +5,10 @@ function isLoggedIn () {
 function displayMainNav() {
   if (isLoggedIn()) {
     $('#login-button').parent('li').hide()
-    $('#logout').parent('li').show()
+    $('.js-logged-in').show()
     getCars(displayCars)
   } else {
-    $('#logout').parent('li').hide()
+    $('.js-logged-in').hide()
     $('#login-button').parent('li').show()
   }
   $('#login').hide()
@@ -479,7 +479,6 @@ $('#signup').on('submit', function (e) {
 $('#logout').on('click', function (e) {
   localStorage.clear()
   displayMainNav()
-  e.preventDefault()
 })
 
 function getAndDisplayDashboard () {
