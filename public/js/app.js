@@ -6,6 +6,7 @@ function displayMainNav() {
   if (isLoggedIn()) {
     $('#login-button').parent('li').hide()
     $('#logout').parent('li').show()
+    getCars(displayCars)
   } else {
     $('#logout').parent('li').hide()
     $('#login-button').parent('li').show()
@@ -479,7 +480,6 @@ $('#logout').on('click', function (e) {
 
 function getAndDisplayDashboard () {
   displayMainNav()
-  getCars(displayCars)
 }
 
 $(getAndDisplayDashboard())
