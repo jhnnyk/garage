@@ -24,19 +24,17 @@ function getRecentFillups (carId, callbackFn) {
 }
 
 function displayCars (data) {
-  let carListHTML = `<section><ul>`
+  let carListHTML = ``
   for (let i = 0; i < data.cars.length; i++) {
     carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
   }
-  carListHTML += `</ul></section>`
 
-  $('.js-menu').html(carListHTML)
+  $('#my-cars ul').html(carListHTML)
 }
 
 function displayFillups (data) {
   let fillupsHTML = `
     <section>
-      <h3>Fill Ups</h3>
       <table id="fillups">
         <thead>
           <tr>
@@ -182,11 +180,17 @@ function displayAddFillupForm (carId) {
 
 // set page title for car page
 function displayCarNameAsTitle (carName) {
-  $('#page-title').text(carName)
+  $('#page-title').text(`${carName} Fillups`)
 }
 
+// show cars
+$('#my-cars').on('click', function (e) {
+  $('#my-cars ul').slideToggle()
+  e.preventDefault()
+})
+
 // show fillups
-$('.js-menu').on('click', '.js-car-page-link', function(e) {
+$('#my-cars ul').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   let carName = $(this).text()
