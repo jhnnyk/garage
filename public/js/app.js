@@ -1,3 +1,19 @@
+function isLoggedIn () {
+  return !!localStorage.token
+}
+
+function displayMainNav() {
+  if (isLoggedIn()) {
+    $('#login-button').parent('li').hide()
+    $('#logout').parent('li').show()
+  } else {
+    $('#logout').parent('li').hide()
+    $('#login-button').parent('li').show()
+  }
+  $('#login').hide()
+  $('#signup').hide()
+}
+
 function getCars(callbackFn) {
   $.getJSON('/api/cars', callbackFn)
 }
@@ -166,7 +182,7 @@ function displayAddFillupForm (carId) {
 }
 
 // set page title for car page
-function setTitle(carName) {
+function displayCarNameAsTitle (carName) {
   $('#page-title').text(carName)
 }
 
@@ -175,7 +191,7 @@ $('.js-menu').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   let carName = $(this).text()
-  setTitle(carName)
+  displayCarNameAsTitle(carName)
   displayAddFillupForm(carId)
   getRecentFillups(carId, displayFillups)
 })
@@ -388,11 +404,12 @@ function loginUser (username, password) {
     headers: {"Authorization": "Basic " + auth},
     success: function (data) {
       localStorage.token = data.authToken
-      console.log(`Got a token! ${data.authToken}`)
     },
     error: function () {
       console.log('login failed')
     }
+  }).then(function () {
+    displayMainNav()
   })
 }
 
@@ -454,11 +471,14 @@ $('#signup').on('submit', function (e) {
 })
 
 // Logout
-$('#logout').on('click', function () {
+$('#logout').on('click', function (e) {
   localStorage.clear()
+  displayMainNav()
+  e.preventDefault()
 })
 
 function getAndDisplayDashboard () {
+  displayMainNav()
   getCars(displayCars)
 }
 
