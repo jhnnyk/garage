@@ -258,13 +258,32 @@ $('#my-cars ul').on('click', '.js-car-page-link', function(e) {
 
 // new car form
 $('nav').on('submit', '#new-car-form', function (e) {
+  // make sure new car has a name
   let newCarValid = true
-
   if ($('input#carName').val().length === 0) {
     $('.js-carName-error').html('car name is required')
     $(this).addClass('error')
     $('#new-car-form .js-submit-error').html('please correct the errors above')
     newCarValid = false
+  }
+
+  // if fields are valid, send form
+  if (newCarValid) {
+    $.ajax({
+      datatype: "json",
+      url: `/api/cars`,
+      method: 'POST',
+      data: {
+        year: $('input#year').val(),
+        make: $('input#make').val(),
+        model: $('input#model').val(),
+        name: $('input#carName').val(),
+        notes: $('textarea#carNotes').val(),
+        token: $('input#token').val()
+      }
+    }).then(function() {
+      displayMainNav()
+    })
   }
 
   e.preventDefault()
