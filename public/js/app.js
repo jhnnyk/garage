@@ -172,6 +172,7 @@ function displayAddFillupForm (carId) {
       <br>
 
       <button type="submit" name="submit">Submit</button>
+      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
 
@@ -215,6 +216,7 @@ function displayAddCarForm () {
       <br>
 
       <button type="submit" name="submit">Submit</button>
+      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
 
@@ -225,6 +227,11 @@ function displayAddCarForm () {
 function displayCarNameAsTitle (carName) {
   $('#page-title').text(`${carName} Fillups`)
 }
+
+// close forms
+$('nav').on('click', '.cancel-button', function (e) {
+  $(this).parent('form').slideUp()
+})
 
 // show cars
 $('#my-cars').on('click', function (e) {
@@ -238,7 +245,7 @@ $('#add-car-button').on('click', function (e) {
   e.preventDefault()
 })
 
-// show fillups
+// show car page
 $('#my-cars ul').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
