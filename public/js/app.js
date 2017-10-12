@@ -256,6 +256,20 @@ $('#my-cars ul').on('click', '.js-car-page-link', function(e) {
   getRecentFillups(carId, displayFillups)
 })
 
+// new car form
+$('nav').on('submit', '#new-car-form', function (e) {
+  let newCarValid = true
+
+  if ($('input#carName').val().length === 0) {
+    $('.js-carName-error').html('car name is required')
+    $(this).addClass('error')
+    $('#new-car-form .js-submit-error').html('please correct the errors above')
+    newCarValid = false
+  }
+
+  e.preventDefault()
+})
+
 // show edit form
 $('.js-fillups').on('click', '.edit-fillup', function (e) {
   e.preventDefault()
@@ -324,7 +338,7 @@ $('.js-add-fillup').on('input', 'input#mileage', function (event) {
 })
 
 // new fillup form
-$('.js-add-fillup').on('submit', function (event) {
+$('.js-add-fillup').on('submit', '#new-fillup', function (event) {
   let carId = $('input#car').val()
   let newFillupValid = true
   // check price field
