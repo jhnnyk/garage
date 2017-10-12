@@ -231,6 +231,7 @@ function displayCarNameAsTitle (carName) {
 // close forms
 $('nav').on('click', '.cancel-button', function (e) {
   $(this).parent('form').slideUp()
+  e.preventDefault()
 })
 
 // show cars
