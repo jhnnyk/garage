@@ -28,6 +28,10 @@ function displayCars (data) {
   for (let i = 0; i < data.cars.length; i++) {
     carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
   }
+  carListHTML += `
+    <li>
+      <a href="#" id="add-car-button"><i class="fa fa-plus-circle"></i> add a car</a>
+    </li>`
 
   $('#my-cars ul').html(carListHTML)
 }
@@ -172,10 +176,55 @@ function displayAddFillupForm (carId) {
       <br>
 
       <button type="submit" name="submit">Submit</button>
+      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
 
   $('.js-add-fillup').html(addFillupFormHTML)
+}
+
+function displayAddCarForm () {
+  let addCarFormHTML = `
+    <form action="#" method="POST" id="new-car-form">
+      <h3>Add a car</h3>
+      <input type="hidden" name="token" id="token" value="${localStorage.token}">
+      <label for="year">
+        <span>Year:</span>
+        <input type="text" name="year" id="year">
+      </label>
+      <br>
+
+      <label for="make">
+        <span>Make:</span>
+        <input type="text" name="make" id="make">
+      </label>
+      <br>
+
+      <label for="model">
+        <span>Model:</span>
+        <input type="text" name="model" id="model">
+      </label>
+      <br>
+
+      <label for="carName">
+        <span>Car Name:</span>
+        <input type="text" name="carName" id="carName">
+        <span class="error js-carName-error" aria-live="polite"></span>
+      </label>
+      <br>
+
+      <label for="carNotes">
+        <span>Notes:</span><br>
+        <textarea name="carNotes" id="carNotes" cols="30" rows="3"></textarea>
+      </label>
+      <br>
+
+      <button type="submit" name="submit">Submit</button>
+      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
+      <span class="error js-submit-error" aria-live="polite"></span>
+    </form>`
+
+  $('nav').append(addCarFormHTML)
 }
 
 // set page title for car page
@@ -183,13 +232,25 @@ function displayCarNameAsTitle (carName) {
   $('#page-title').text(`${carName} Fillups`)
 }
 
+// close forms
+$('nav').on('click', '.cancel-button', function (e) {
+  $(this).parent('form').slideUp()
+  e.preventDefault()
+})
+
 // show cars
 $('#my-cars').on('click', function (e) {
   $('#my-cars ul').slideToggle()
   e.preventDefault()
 })
 
-// show fillups
+// show add car form
+$('#my-cars').on('click', '#add-car-button', function (e) {
+  $('#new-car-form').slideDown()
+  e.preventDefault()
+})
+
+// show car page
 $('#my-cars ul').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
@@ -197,6 +258,41 @@ $('#my-cars ul').on('click', '.js-car-page-link', function(e) {
   displayCarNameAsTitle(carName)
   displayAddFillupForm(carId)
   getRecentFillups(carId, displayFillups)
+})
+
+// new car form
+$('nav').on('submit', '#new-car-form', function (e) {
+  // make sure new car has a name
+  let newCarValid = true
+  if ($('input#carName').val().length === 0) {
+    $('.js-carName-error').html('car name is required')
+    $(this).addClass('error')
+    $('#new-car-form .js-submit-error').html('please correct the errors above')
+    newCarValid = false
+  }
+
+  // if fields are valid, send form
+  if (newCarValid) {
+    $.ajax({
+      datatype: "json",
+      url: `/api/cars`,
+      method: 'POST',
+      data: {
+        year: $('input#year').val(),
+        make: $('input#make').val(),
+        model: $('input#model').val(),
+        name: $('input#carName').val(),
+        notes: $('textarea#carNotes').val(),
+        token: $('input#token').val()
+      }
+    }).then(function() {
+      displayMainNav()
+      $('#new-car-form')[0].reset()
+      $('#new-car-form').slideUp()
+    })
+  }
+
+  e.preventDefault()
 })
 
 // show edit form
@@ -267,7 +363,7 @@ $('.js-add-fillup').on('input', 'input#mileage', function (event) {
 })
 
 // new fillup form
-$('.js-add-fillup').on('submit', function (event) {
+$('.js-add-fillup').on('submit', '#new-fillup', function (event) {
   let carId = $('input#car').val()
   let newFillupValid = true
   // check price field
@@ -487,6 +583,7 @@ $('#logout').on('click', function (e) {
 
 function getAndDisplayDashboard () {
   displayMainNav()
+  displayAddCarForm ()
 }
 
 $(getAndDisplayDashboard())
