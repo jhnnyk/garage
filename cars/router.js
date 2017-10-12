@@ -2,6 +2,7 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const router = express.Router()
 const expressSanitized = require('express-sanitized')
+const passport = require('passport')
 
 const {Car} = require('./models')
 
@@ -24,28 +25,31 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
-  // check that name has been filled in
-  if (!('name' in req.body)) {
-    let message = 'Missing `name` in request body'
-    console.error(message)
-    return res.status(400).send(message)
-  }
-  
-  // create the Car
-  Car
-    .create({
-      year: req.body.year,
-      make: req.body.make,
-      model: req.body.model,
-      name: req.body.name,
-      notes: req.body.notes
-    })
-    .then(car => res.status(201).json(car.apiRepr()))
-    .catch(err => {
-      console.error(err)
-      res.status(500).json({error: 'Internal server error'})
-    })
+router.post('/', 
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    console.log(req.user)
+    // check that name has been filled in
+    if (!('name' in req.body)) {
+      let message = 'Missing `name` in request body'
+      console.error(message)
+      return res.status(400).send(message)
+    }
+    
+    // create the Car
+    Car
+      .create({
+        year: req.body.year,
+        make: req.body.make,
+        model: req.body.model,
+        name: req.body.name,
+        notes: req.body.notes
+      })
+      .then(car => res.status(201).json(car.apiRepr()))
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({error: 'Internal server error'})
+      })
 })
 
 router.put('/:id', (req, res) => {

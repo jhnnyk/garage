@@ -276,6 +276,11 @@ $('nav').on('submit', '#new-car-form', function (e) {
     $.ajax({
       datatype: "json",
       url: `/api/cars`,
+      beforeSend: function (xhr) {
+        if (localStorage.token) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token)
+        }
+      },
       method: 'POST',
       data: {
         year: $('input#year').val(),
