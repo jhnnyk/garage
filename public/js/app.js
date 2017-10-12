@@ -28,8 +28,12 @@ function displayCars (data) {
   for (let i = 0; i < data.cars.length; i++) {
     carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
   }
+  carListHTML += `
+    <li>
+      <a href="#" id="add-car-button"><i class="fa fa-plus-circle"></i> add a car</a>
+    </li>`
 
-  $('#my-cars ul').prepend(carListHTML)
+  $('#my-cars ul').html(carListHTML)
 }
 
 function displayFillups (data) {
@@ -241,7 +245,7 @@ $('#my-cars').on('click', function (e) {
 })
 
 // show add car form
-$('#add-car-button').on('click', function (e) {
+$('#my-cars').on('click', '#add-car-button', function (e) {
   $('#new-car-form').slideDown()
   e.preventDefault()
 })
@@ -283,6 +287,8 @@ $('nav').on('submit', '#new-car-form', function (e) {
       }
     }).then(function() {
       displayMainNav()
+      $('#new-car-form')[0].reset()
+      $('#new-car-form').slideUp()
     })
   }
 
