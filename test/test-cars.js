@@ -4,6 +4,7 @@ const faker = require('faker')
 const mongoose = require('mongoose')
 
 const {Car} = require('../cars')
+const {User} = require('../users')
 const {app, runServer, closeServer} = require('../server')
 const {TEST_DATABASE_URL} = require('../config')
 
@@ -95,12 +96,39 @@ describe('Car API resource', function () {
   })
 
   describe('POST endpoint', function () {
+    const username = 'exampleUser'
+    const password = 'examplePassword'
+    const firstName = 'Example'
+    const lastName = 'User'
+
+    beforeEach(function() {
+      return User.hashPassword(password).then(password => {
+        User.create({
+          username,
+          password,
+          firstName,
+          lastName
+        })
+      })
+    })
+  
+    afterEach(function() {
+      return User.remove({})
+    })
+
     it('should add a new car', function () {
       const newCar = generateCarData()
 
       return chai.request(app)
-        .post('/api/cars')
-        .send(newCar)
+        .post('/api/auth/login')
+        .auth(username, password)
+        .then(function (res) {
+          const token = res.body.authToken
+          return chai.request(app)
+            .post('/api/cars')
+            .send(newCar)
+            .set('authorization', `Bearer ${token}`)
+        })
         .then(function (res) {
           res.should.have.status(201)
           res.should.be.json
