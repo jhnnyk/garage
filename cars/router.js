@@ -5,6 +5,7 @@ const expressSanitized = require('express-sanitized')
 const passport = require('passport')
 
 const {Car} = require('./models')
+const {User} = require('../users')
 
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -28,22 +29,30 @@ router.get('/', (req, res) => {
 router.post('/', 
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    console.log(req.user)
     // check that name has been filled in
     if (!('name' in req.body)) {
       let message = 'Missing `name` in request body'
       console.error(message)
       return res.status(400).send(message)
     }
-    
-    // create the Car
-    Car
-      .create({
-        year: req.body.year,
-        make: req.body.make,
-        model: req.body.model,
-        name: req.body.name,
-        notes: req.body.notes
+
+    let user
+    // find user that owns this car
+    User
+      .findOne({ username: req.user.username })
+      .then((_user) => {
+        user = _user      
+      })
+      .then(() => {
+        // create the Car
+        return Car
+          .create({
+            year: req.body.year,
+            make: req.body.make,
+            model: req.body.model,
+            name: req.body.name,
+            notes: req.body.notes
+          })
       })
       .then(car => res.status(201).json(car.apiRepr()))
       .catch(err => {
