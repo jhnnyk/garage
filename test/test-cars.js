@@ -4,6 +4,7 @@ const faker = require('faker')
 const mongoose = require('mongoose')
 
 const {Car} = require('../cars')
+const {User} = require('../users')
 const {app, runServer, closeServer} = require('../server')
 const {TEST_DATABASE_URL} = require('../config')
 
@@ -54,25 +55,83 @@ describe('Car API resource', function () {
   })
 
   describe('GET endpoint', function () {
-    it('should return all the cars', function () {
-      let res
-      return chai.request(app)
-        .get('/api/cars')
-        .then(function (_res) {
-          res = _res
-          res.should.have.status(200)
-          res.body.cars.should.have.length.of.at.least(1)
-          return Car.count()
+    const username = 'exampleUser'
+    const password = 'examplePassword'
+    const firstName = 'Example'
+    const lastName = 'User'
+
+    before(function() {
+      return User.hashPassword(password).then(password => {
+        User.create({
+          username,
+          password,
+          firstName,
+          lastName
         })
-        .then(function (count) {
-          res.body.cars.should.have.lengthOf(count)
-        })
+      })
     })
+  
+    after(function() {
+      return User.remove({})
+    })
+
+    // it('should return all the users cars', function () {
+    //   let res
+    //   let token
+    //   const newCar = generateCarData()
+    //   const newCar2 = generateCarData()
+
+    //   return chai.request(app)
+    //     .post('/api/auth/login')
+    //     .auth(username, password)
+    //     .then(function (res) {
+    //       token = res.body.authToken
+    //       return chai.request(app)
+    //         .post('/api/cars')
+    //         .send(newCar)
+    //         .set('authorization', `Bearer ${token}`)
+    //     })
+    //     .then(function () {
+    //       return chai.request(app)
+    //         .post('/api/cars')
+    //         .send(newCar2)
+    //         .set('authorization', `Bearer ${token}`)
+    //     })
+    //     .then(function () {
+    //       return chai.request(app)
+    //         .get('/api/cars')
+    //         .set('authorization', `Bearer ${token}`)
+    //     })
+    //     .then(function (_res) {
+    //       res = _res
+    //       res.should.have.status(200)
+    //       res.body.cars.should.have.length.of.at.least(1)
+    //     })
+    //     .then(function (count) {
+    //       res.body.cars.should.have.lengthOf(2)
+    //     })
+    // })
 
     it('should return cars with the correct fields', function () {
       let resCar
+      let token
+      const newCar = generateCarData()
+
       return chai.request(app)
-        .get('/api/cars')
+        .post('/api/auth/login')
+        .auth(username, password)
+        .then(function (res) {
+          token = res.body.authToken
+          return chai.request(app)
+            .post('/api/cars')
+            .send(newCar)
+            .set('authorization', `Bearer ${token}`)
+        })
+        .then(function () {
+          return chai.request(app)
+            .get('/api/cars')
+            .set('authorization', `Bearer ${token}`)
+        })
         .then(function (res) {
           res.should.have.status(200)
           res.should.be.json
@@ -95,12 +154,39 @@ describe('Car API resource', function () {
   })
 
   describe('POST endpoint', function () {
+    const username = 'exampleUser'
+    const password = 'examplePassword'
+    const firstName = 'Example'
+    const lastName = 'User'
+
+    before(function() {
+      return User.hashPassword(password).then(password => {
+        User.create({
+          username,
+          password,
+          firstName,
+          lastName
+        })
+      })
+    })
+  
+    after(function() {
+      return User.remove({})
+    })
+
     it('should add a new car', function () {
       const newCar = generateCarData()
 
       return chai.request(app)
-        .post('/api/cars')
-        .send(newCar)
+        .post('/api/auth/login')
+        .auth(username, password)
+        .then(function (res) {
+          const token = res.body.authToken
+          return chai.request(app)
+            .post('/api/cars')
+            .send(newCar)
+            .set('authorization', `Bearer ${token}`)
+        })
         .then(function (res) {
           res.should.have.status(201)
           res.should.be.json

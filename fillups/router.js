@@ -26,9 +26,9 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:carId', (req, res) => {
   Fillup
-    .find({ car: req.params.id })
+    .find({ car: req.params.carId })
     .sort({ mileage: -1 })
     .then(fillups => {
       res.json({fillups: fillups.map(fillup => fillup.apiRepr())})
