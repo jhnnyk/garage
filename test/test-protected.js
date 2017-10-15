@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const {app, runServer, closeServer} = require('../server')
 const {User} = require('../users')
-const {JWT_SECRET} = require('../config')
+const {TEST_DATABASE_URL, JWT_SECRET} = require('../config')
 
 const expect = chai.expect
 
@@ -17,7 +17,7 @@ describe('Protected endpoint', function () {
   const lastName = 'User'
 
   before(function() {
-    return runServer()
+    return runServer(TEST_DATABASE_URL)
   })
 
   after(function() {
