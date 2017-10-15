@@ -36,14 +36,10 @@ router.post('/',
       return res.status(400).send(message)
     }
 
-    let user
     // find user that owns this car
     User
       .findOne({ username: req.user.username })
-      .then((_user) => {
-        user = _user      
-      })
-      .then(() => {
+      .then((user) => {
         // create the Car
         return Car
           .create({
@@ -51,7 +47,8 @@ router.post('/',
             make: req.body.make,
             model: req.body.model,
             name: req.body.name,
-            notes: req.body.notes
+            notes: req.body.notes,
+            owner: user._id
           })
       })
       .then(car => res.status(201).json(car.apiRepr()))

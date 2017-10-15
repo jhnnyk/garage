@@ -9,7 +9,8 @@ const CarSchema = mongoose.Schema({
   model: String,
   name: {type: String, required: true},
   notes: String,
-  fillups: [{ type: Schema.Types.ObjectId, ref: 'Fillup' }]
+  owner: { type: Schema.Types.ObjectId, ref: 'User' }
+  // fillups: [{ type: Schema.Types.ObjectId, ref: 'Fillup' }]
 })
 
 CarSchema.methods.apiRepr = function () {
@@ -19,7 +20,8 @@ CarSchema.methods.apiRepr = function () {
     make: this.make,
     model: this.model,
     name: this.name,
-    notes: this.notes
+    notes: this.notes,
+    owner: this.owner
   }
 }
 
