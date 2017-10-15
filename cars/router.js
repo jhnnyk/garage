@@ -11,19 +11,26 @@ router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(expressSanitized())
 
-router.get('/', (req, res) => {
-  Car
-    .find()
-    .then(cars => {
-      res.json({
-        cars: cars.map(
-          (car) => car.apiRepr())
+router.get('/', 
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    // find current user
+    User
+      .findOne({ username: req.user.username })
+      .then((user) => {
+        return Car
+          .find({ owner: user._id })
       })
-    })
-    .catch(err => {
-      console.error(err)
-      res.status(500).json({message: 'Internal server error'})
-    })
+      .then(cars => {
+        res.json({
+          cars: cars.map(
+            (car) => car.apiRepr())
+        })
+      })
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({message: 'Internal server error'})
+      })
 })
 
 router.post('/', 

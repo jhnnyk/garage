@@ -16,7 +16,17 @@ function displayMainNav() {
 }
 
 function getCars(callbackFn) {
-  $.getJSON('/api/cars', callbackFn)
+  $.ajax({
+    datatype: "json",
+    url: `/api/cars`,
+    beforeSend: function (xhr) {
+      if (localStorage.token) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token)
+      }
+    },
+    method: 'GET',
+    success: callbackFn
+  })
 }
 
 function getRecentFillups (carId, callbackFn) {
@@ -287,8 +297,7 @@ $('nav').on('submit', '#new-car-form', function (e) {
         make: $('input#make').val(),
         model: $('input#model').val(),
         name: $('input#carName').val(),
-        notes: $('textarea#carNotes').val(),
-        token: $('input#token').val()
+        notes: $('textarea#carNotes').val()
       }
     }).then(function() {
       displayMainNav()
