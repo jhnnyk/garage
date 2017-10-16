@@ -151,7 +151,8 @@ form.error {
   display: inline-block;
 }
 
-.cancel-button {
+.cancel-button,
+.cancel-edit-fillup {
   background: none;
   border: none;
   color: #F5ECD9;

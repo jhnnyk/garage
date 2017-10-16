@@ -47,7 +47,6 @@ function displayCars (data) {
 }
 
 function displayFillups (data) {
-  console.log(data)
   let fillupsHTML = `
     <section>
       <table id="fillups">
@@ -129,7 +128,7 @@ function displayFillups (data) {
             </div>
             <button type="submit" name="submit">Submit</button>
             <span class="error js-submit-error"></span>
-            <button type="reset" class="cancel-edit">Cancel</button>
+            <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
           </form>
         </td>
       </tr>`
@@ -246,6 +245,8 @@ function displayCarNameAsTitle (carName) {
 // close forms
 $('nav').on('click', '.cancel-button', function (e) {
   $(this).parent('form').slideUp()
+  $(this).parent('form').removeClass('error')
+  $(this).parent('form').find('span.error').html('')
 })
 
 // show cars
@@ -318,9 +319,11 @@ $('.js-fillups').on('click', '.edit-fillup', function (e) {
 })
 
 // cancel edits
-$('.js-fillups').on('click', '.cancel-edit', function () {
+$('.js-fillups').on('click', '.cancel-edit-fillup', function () {
   $(this).parents('tr.edit-row').hide()
   $(this).parents('tr.edit-row').prev('tr.data-row').show()
+  $(this).parent('form').removeClass('error')
+  $(this).parent('form').find('span.error').html('')
 })
 
 // delete fillup
