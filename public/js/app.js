@@ -187,7 +187,7 @@ function displayAddFillupForm (carId) {
       <br>
 
       <button type="submit" name="submit">Submit</button>
-      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
+      <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
 
@@ -231,7 +231,7 @@ function displayAddCarForm () {
       <br>
 
       <button type="submit" name="submit">Submit</button>
-      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
+      <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
 
@@ -246,7 +246,6 @@ function displayCarNameAsTitle (carName) {
 // close forms
 $('nav').on('click', '.cancel-button', function (e) {
   $(this).parent('form').slideUp()
-  e.preventDefault()
 })
 
 // show cars

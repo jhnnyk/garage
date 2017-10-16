@@ -150,3 +150,11 @@ form.error {
 .edit-fillup-form div {
   display: inline-block;
 }
+
+.cancel-button {
+  background: none;
+  border: none;
+  color: #F5ECD9;
+  font-size: 1.2em;
+  cursor: pointer;
+}
