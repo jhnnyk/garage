@@ -69,7 +69,7 @@ function displayFillups (data) {
   for (let i = 0; i < data.fillups.length; i++) {
     fillupsHTML += `
       <tr class="data-row">
-        <td>${data.fillups[i].mpg}</td>
+        <td>${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
         <td>${data.fillups[i].mileage}</td>
         <td>$${data.fillups[i].price}</td>
         <td>${data.fillups[i].gallons}</td>
