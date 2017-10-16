@@ -251,6 +251,7 @@ $('nav').on('click', '.cancel-button', function (e) {
 
 // show cars
 $('#my-cars').on('click', function (e) {
+  $('#new-fillup').slideUp()
   $('#my-cars ul').slideToggle()
   e.preventDefault()
 })
@@ -509,6 +510,8 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
 
 // Add a fillup button
 $('#add-fillup a').on('click', function (e) {
+  $('#new-car-form').slideUp()
+  $('#my-cars ul').slideUp()
   $('#new-fillup').slideToggle()
   e.preventDefault()
 })
