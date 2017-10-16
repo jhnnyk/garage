@@ -47,6 +47,7 @@ function displayCars (data) {
 }
 
 function displayFillups (data) {
+  console.log(data)
   let fillupsHTML = `
     <section>
       <table id="fillups">
@@ -418,9 +419,8 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
         price: $('input#price').val(),
         notes: $('textarea#notes').val(),
         car: carId
-      }
-    }).done(function() {
-      getRecentFillups(carId, displayFillups)
+      },
+      complete: getRecentFillups(carId, displayFillups)
     })
 
     displayAddFillupForm(carId)
