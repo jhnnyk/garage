@@ -37,6 +37,10 @@ h1 {
   font-size: 49px;
 }
 
+h1 a {
+  text-decoration: none;
+}
+
 h2 {
   font-size: 35px;
 }
