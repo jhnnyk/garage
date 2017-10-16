@@ -68,7 +68,7 @@ function displayFillups (data) {
   for (let i = 0; i < data.fillups.length; i++) {
     fillupsHTML += `
       <tr class="data-row">
-        <td>${data.fillups[i].mpg}</td>
+        <td>${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
         <td>${data.fillups[i].mileage}</td>
         <td>$${data.fillups[i].price}</td>
         <td>${data.fillups[i].gallons}</td>
@@ -128,7 +128,7 @@ function displayFillups (data) {
             </div>
             <button type="submit" name="submit">Submit</button>
             <span class="error js-submit-error"></span>
-            <button type="reset" class="cancel-edit">Cancel</button>
+            <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
           </form>
         </td>
       </tr>`
@@ -186,7 +186,7 @@ function displayAddFillupForm (carId) {
       <br>
 
       <button type="submit" name="submit">Submit</button>
-      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
+      <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
 
@@ -230,7 +230,7 @@ function displayAddCarForm () {
       <br>
 
       <button type="submit" name="submit">Submit</button>
-      <a href="#" class="cancel-button"><i class="fa fa-times-circle"></i></a>
+      <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
 
@@ -245,11 +245,13 @@ function displayCarNameAsTitle (carName) {
 // close forms
 $('nav').on('click', '.cancel-button', function (e) {
   $(this).parent('form').slideUp()
-  e.preventDefault()
+  $(this).parent('form').removeClass('error')
+  $(this).parent('form').find('span.error').html('')
 })
 
 // show cars
 $('#my-cars').on('click', function (e) {
+  $('#new-fillup').slideUp()
   $('#my-cars ul').slideToggle()
   e.preventDefault()
 })
@@ -317,9 +319,11 @@ $('.js-fillups').on('click', '.edit-fillup', function (e) {
 })
 
 // cancel edits
-$('.js-fillups').on('click', '.cancel-edit', function () {
+$('.js-fillups').on('click', '.cancel-edit-fillup', function () {
   $(this).parents('tr.edit-row').hide()
   $(this).parents('tr.edit-row').prev('tr.data-row').show()
+  $(this).parent('form').removeClass('error')
+  $(this).parent('form').find('span.error').html('')
 })
 
 // delete fillup
@@ -418,9 +422,8 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
         price: $('input#price').val(),
         notes: $('textarea#notes').val(),
         car: carId
-      }
-    }).done(function() {
-      getRecentFillups(carId, displayFillups)
+      },
+      complete: getRecentFillups(carId, displayFillups)
     })
 
     displayAddFillupForm(carId)
@@ -509,6 +512,8 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
 
 // Add a fillup button
 $('#add-fillup a').on('click', function (e) {
+  $('#new-car-form').slideUp()
+  $('#my-cars ul').slideUp()
   $('#new-fillup').slideToggle()
   e.preventDefault()
 })
