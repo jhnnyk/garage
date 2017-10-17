@@ -422,8 +422,9 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
         price: $('input#price').val(),
         notes: $('textarea#notes').val(),
         car: carId
-      },
-      complete: getRecentFillups(carId, displayFillups)
+      }
+    }).done(() => {
+      getRecentFillups(carId, displayFillups)
     })
 
     displayAddFillupForm(carId)
