@@ -137,7 +137,7 @@ tbody tr:hover .edit-delete a {
   display: inline-block;
 }
 
-/* - - - Forms - - - */
+/* - - - Errors - - - */
 span.error {
   color: #F5ECD9;
   background-color: #E84D5B;
@@ -147,6 +147,7 @@ form.error {
   border: 2px solid #E84D5B;
 }
 
+/* - - - Forms - - - */
 .edit-row {
   display: none;
 }

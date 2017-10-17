@@ -242,6 +242,10 @@ function displayCarNameAsTitle (carName) {
   $('#page-title').text(`${carName} Fillups`)
 }
 
+function flashSignupError(message) {
+  $('#signup span.error').html(message)
+}
+
 // close forms
 $('nav').on('click', '.cancel-button', function (e) {
   $(this).parent('form').slideUp()
@@ -584,8 +588,9 @@ $('#signup').on('submit', function (e) {
     success: function (data) {
       console.log(`created a user! ${data.username}`)
     },
-    error: function () {
-      console.log('signup failed')
+    error: function (data) {
+      const message = `'${data.responseJSON.location}' ${data.responseJSON.message}`
+      flashSignupError(message)
     }
   }).done(function () {
     loginUser(username, password)
