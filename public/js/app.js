@@ -2,7 +2,7 @@ function isLoggedIn () {
   return !!localStorage.token
 }
 
-function displayMainNav() {
+function displayMainNav () {
   if (isLoggedIn()) {
     $('#login-button').parent('li').hide()
     $('.js-logged-in').show()
@@ -11,8 +11,6 @@ function displayMainNav() {
     $('.js-logged-in').hide()
     $('#login-button').parent('li').show()
   }
-  $('#login').hide()
-  $('#signup').hide()
 }
 
 function getCars(callbackFn) {
@@ -242,8 +240,12 @@ function displayCarNameAsTitle (carName) {
   $('#page-title').text(`${carName} Fillups`)
 }
 
-function flashSignupError(message) {
-  $('#signup span.error').html(message)
+function displaySignupError (message) {
+  $('#signup span.js-submit-error').html(message)
+}
+
+function displayLoginError (message) {
+  $('#login span.js-submit-error').html(message)
 }
 
 // close forms
@@ -532,10 +534,15 @@ function loginUser (username, password) {
     method: 'POST',
     headers: {"Authorization": "Basic " + auth},
     success: function (data) {
-      localStorage.token = data.authToken
+      if (data.authToken) {
+        localStorage.token = data.authToken
+        $('#login').hide()
+      } else {
+        displayLoginError(data.name)
+      }
     },
-    error: function () {
-      console.log('login failed')
+    error: function (err) {
+      console.log(err)
     }
   }).then(function () {
     displayMainNav()
@@ -587,10 +594,11 @@ $('#signup').on('submit', function (e) {
     contentType: "application/json",
     success: function (data) {
       console.log(`created a user! ${data.username}`)
+      $('#signup').hide()
     },
     error: function (data) {
       const message = `'${data.responseJSON.location}' ${data.responseJSON.message}`
-      flashSignupError(message)
+      displaySignupError(message)
     }
   }).done(function () {
     loginUser(username, password)
