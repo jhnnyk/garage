@@ -16,11 +16,17 @@ const router = express.Router()
 
 router.post('/login',
   // The user provides a username and password to login
-  passport.authenticate('basic', {session: false}),
-  (req, res) => {
-    const authToken = createAuthToken(req.user.apiRepr())
-    res.json({ authToken })
-  }
+  passport.authenticate('basic', 
+    { session: false, failWithError: true }),
+    (req, res, next) => {
+      const authToken = createAuthToken(req.user.apiRepr())
+      return res.json({ authToken })
+    },
+    (err, req, res, next) => {
+      if (err) {
+        return res.status(200).json(err)
+      }
+    }
 )
 
 router.post('/refresh',

@@ -43,8 +43,11 @@ describe('Auth endpoints', function () {
     it('Should reject requests with no credentials', function () {
       return chai.request(app)
         .post('/api/auth/login')
-        .then(() => {
-          expect.fail(null, null, 'Request should not succeed')
+        .then((res) => {
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          const token = res.body.authToken
+          expect(token).to.be.an('undefined')
         })
         .catch(err => {
           if (err instanceof chai.AssertionError) {
@@ -60,8 +63,11 @@ describe('Auth endpoints', function () {
       return chai.request(app)
         .post('/api/auth/login')
         .auth('wrongUsername', password)
-        .then(() => {
-          expect.fail(null, null, 'Request should not succeed')
+        .then((res) => {
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          const token = res.body.authToken
+          expect(token).to.be.an('undefined')
         })
         .catch(err => {
           if (err instanceof chai.AssertionError) {
@@ -77,8 +83,11 @@ describe('Auth endpoints', function () {
       return chai.request(app)
         .post('/api/auth/login')
         .auth(username, 'wrongPassword')
-        .then(() => {
-          expect.fail(null, null, 'Request should not succeed')
+        .then((res) => {
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          const token = res.body.authToken
+          expect(token).to.be.an('undefined')
         })
         .catch(err => {
           if (err instanceof chai.AssertionError) {

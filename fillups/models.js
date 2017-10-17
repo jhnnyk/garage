@@ -42,6 +42,12 @@ const calculateMPG = (carId) => {
   .then(allFillups => {
     let count = 0
     let fillupPromise = new Promise((resolve, reject) => {
+      // don't calculate MPG if there's only one fillup
+      if (allFillups.length < 2) {
+        resolve()
+      }
+
+      // otherwise loop through all the fillups and calculate MPG
       for (let i = 0; i < allFillups.length - 1; i++) {
         allFillups[i].mpg = ((allFillups[i].mileage - allFillups[ i + 1 ].mileage) / allFillups[i].gallons).toFixed(1)
         Fillup
