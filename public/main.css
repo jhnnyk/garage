@@ -95,6 +95,16 @@ nav li {
   display: none;
 }
 
+/* #nofillups-add-fillup {
+  cursor: pointer;
+  color: #3b3b3b;
+  background-color: #B4CCB9;
+  border-radius: 4px;
+  border: none;
+  padding: 4px 8px;
+  margin-top: 8px;
+} */
+
 table {
   border-spacing: 0;
 }

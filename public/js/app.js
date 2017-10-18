@@ -45,101 +45,109 @@ function displayCars (data) {
 }
 
 function displayFillups (data) {
-  let fillupsHTML = `
-    <section>
-      <table id="fillups">
-        <thead>
-          <tr>
-            <th>MPG</th>
-            <th>Mileage</th>
-            <th>Cost</th>
-            <th>Gallons</th>
-            <th>$/gal</th>
-            <th>Brand</th>
-            <th>Location</th>
-            <th>Notes</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>`
+  let fillupsHTML
+  if (data.fillups.length === 0) {
+    fillupsHTML = `<h3>
+        This car doesn't have any fillups yet.<br>
+        <a href="#" id='nofillups-add-fillup'>Add a Fillup</a>
+      </h3>`
+  } else {
+    fillupsHTML = `
+      <section>
+        <table id="fillups">
+          <thead>
+            <tr>
+              <th>MPG</th>
+              <th>Mileage</th>
+              <th>Cost</th>
+              <th>Gallons</th>
+              <th>$/gal</th>
+              <th>Brand</th>
+              <th>Location</th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>`
 
-  for (let i = 0; i < data.fillups.length; i++) {
+    for (let i = 0; i < data.fillups.length; i++) {
+      fillupsHTML += `
+        <tr class="data-row">
+          <td>${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
+          <td>${data.fillups[i].mileage}</td>
+          <td>$${data.fillups[i].price}</td>
+          <td>${data.fillups[i].gallons}</td>
+          <td>${data.fillups[i].pricePerGallon}</td>
+          <td>${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
+          <td>${data.fillups[i].location ? data.fillups[i].location : ''}</td>
+          <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
+          <td class="edit-delete">
+            <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
+            <div class="delete-confirmation">
+              Are you sure you want to delete this fillup?<br>
+              <button class='confirm-delete-fillup js-confirm-delete-fillup' id='${data.fillups[i].id}' name="${data.fillups[i].car}"><i class="fa fa-check" aria-hidden="true"></i> Yes</button>
+              <button class='cancel-delete-fillup js-cancel-delete-fillup'><i class="fa fa-times" aria-hidden="true"></i> No</button>
+            </div>
+          </td>
+        </tr>
+
+        <tr class="edit-row">
+          <td colspan="9">
+            <form method="post" action="/api/fillups/${data.fillups[i].id}" class="edit-fillup-form">
+              <input type="hidden" name="id" value="${data.fillups[i].id}">
+              <input type="hidden" name="car" value="${data.fillups[i].car}">
+              <div>
+                <label for="mileage">
+                  <span>Mileage:</span><br>
+                  <input type="text" name="mileage" class="mileage" id="mileage${[i]}" value="${data.fillups[i].mileage}">
+                  <span class="error js-mileage-error"></span>
+                </label>
+              </div>
+              <div>
+                <label for="price">
+                  <span>Total Price:</span><br>
+                  <input type="text" name="price" class="price" id="price${[i]}" value="${data.fillups[i].price}">
+                  <span class="error js-price-error"></span>
+                </label>
+              </div>
+              <div>
+                <label for="gallons">
+                  <span>Gallons:</span><br>
+                  <input type="text" name="gallons" class="gallons" id="gallons${[i]}" value="${data.fillups[i].gallons}">
+                  <span class="error js-gallons-error"></span>
+                </label>
+              </div>
+              <div>
+                <label for="brand">
+                  <span>Brand:</span><br>
+                  <input type="text" name="brand" id="brand${[i]}" class="brand" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
+                </label>
+              </div>
+              <div>
+                <label for="location">
+                  <span>Location:</span><br>
+                  <input type="text" name="location" id="location${[i]}" class="location" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
+                </label>
+              </div>
+              <div>
+                <label for="notes">
+                  <span>Notes:</span><br>
+                  <input type="text" name="notes" id="notes${[i]}" class="notes" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
+                </label>
+              </div>
+              <button type="submit" name="submit">Submit</button>
+              <span class="error js-submit-error"></span>
+              <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
+            </form>
+          </td>
+        </tr>`
+    }
     fillupsHTML += `
-      <tr class="data-row">
-        <td>${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
-        <td>${data.fillups[i].mileage}</td>
-        <td>$${data.fillups[i].price}</td>
-        <td>${data.fillups[i].gallons}</td>
-        <td>${data.fillups[i].pricePerGallon}</td>
-        <td>${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
-        <td>${data.fillups[i].location ? data.fillups[i].location : ''}</td>
-        <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
-        <td class="edit-delete">
-          <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
-          <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
-          <div class="delete-confirmation">
-            Are you sure you want to delete this fillup?<br>
-            <button class='confirm-delete-fillup js-confirm-delete-fillup' id='${data.fillups[i].id}' name="${data.fillups[i].car}"><i class="fa fa-check" aria-hidden="true"></i> Yes</button>
-            <button class='cancel-delete-fillup js-cancel-delete-fillup'><i class="fa fa-times" aria-hidden="true"></i> No</button>
-          </div>
-        </td>
-      </tr>
-
-      <tr class="edit-row">
-        <td colspan="9">
-          <form method="post" action="/api/fillups/${data.fillups[i].id}" class="edit-fillup-form">
-            <input type="hidden" name="id" value="${data.fillups[i].id}">
-            <input type="hidden" name="car" value="${data.fillups[i].car}">
-            <div>
-              <label for="mileage">
-                <span>Mileage:</span><br>
-                <input type="text" name="mileage" class="mileage" id="mileage${[i]}" value="${data.fillups[i].mileage}">
-                <span class="error js-mileage-error"></span>
-              </label>
-            </div>
-            <div>
-              <label for="price">
-                <span>Total Price:</span><br>
-                <input type="text" name="price" class="price" id="price${[i]}" value="${data.fillups[i].price}">
-                <span class="error js-price-error"></span>
-              </label>
-            </div>
-            <div>
-              <label for="gallons">
-                <span>Gallons:</span><br>
-                <input type="text" name="gallons" class="gallons" id="gallons${[i]}" value="${data.fillups[i].gallons}">
-                <span class="error js-gallons-error"></span>
-              </label>
-            </div>
-            <div>
-              <label for="brand">
-                <span>Brand:</span><br>
-                <input type="text" name="brand" id="brand${[i]}" class="brand" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
-              </label>
-            </div>
-            <div>
-              <label for="location">
-                <span>Location:</span><br>
-                <input type="text" name="location" id="location${[i]}" class="location" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
-              </label>
-            </div>
-            <div>
-              <label for="notes">
-                <span>Notes:</span><br>
-                <input type="text" name="notes" id="notes${[i]}" class="notes" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
-              </label>
-            </div>
-            <button type="submit" name="submit">Submit</button>
-            <span class="error js-submit-error"></span>
-            <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
-          </form>
-        </td>
-      </tr>`
+        </tbody>
+        </table>
+      </section>`
   }
-  fillupsHTML += `
-      </tbody>
-      </table>
-    </section>`
 
   $('.js-fillups').html(fillupsHTML)
 }
@@ -540,8 +548,15 @@ $('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
   event.preventDefault()
 })
 
-// Add a fillup button
+// Add a fillup buttons
 $('#add-fillup a').on('click', function (e) {
+  $('#new-car-form').slideUp()
+  $('#my-cars ul').slideUp()
+  $('#new-fillup').slideToggle()
+  e.preventDefault()
+})
+
+$('.js-fillups').on('click', '#nofillups-add-fillup', function (e) {
   $('#new-car-form').slideUp()
   $('#my-cars ul').slideUp()
   $('#new-fillup').slideToggle()
