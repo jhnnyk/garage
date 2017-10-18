@@ -534,15 +534,11 @@ function loginUser (username, password) {
     method: 'POST',
     headers: {"Authorization": "Basic " + auth},
     success: function (data) {
-      if (data.authToken) {
-        localStorage.token = data.authToken
-        $('#login').hide()
-      } else {
-        displayLoginError(data.name)
-      }
+      localStorage.token = data.authToken
+      $('#login').hide()
     },
     error: function (err) {
-      console.log(err)
+      displayLoginError(err.responseJSON.name)
     }
   }).then(function () {
     displayMainNav()

@@ -24,7 +24,8 @@ router.post('/login',
     },
     (err, req, res, next) => {
       if (err) {
-        return res.status(200).json(err)
+        res._headers['www-authenticate'] = '' //prevent native browser authentication popup
+        return res.json(err)
       }
     }
 )
