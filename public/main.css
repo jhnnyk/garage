@@ -91,6 +91,10 @@ nav li {
   display: block;
 }
 
+#add-fillup {
+  display: none;
+}
+
 table {
   border-spacing: 0;
 }

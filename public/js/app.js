@@ -236,8 +236,9 @@ function displayAddCarForm () {
 }
 
 // set page title for car page
-function displayCarNameAsTitle (carName) {
+function setCarPageHeader (carName) {
   $('#page-title').text(`${carName} Fillups`)
+  $('#add-fillup').css('display', 'inline-block')
 }
 
 function displaySignupError (message) {
@@ -273,7 +274,7 @@ $('#my-cars ul').on('click', '.js-car-page-link', function(e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   let carName = $(this).text()
-  displayCarNameAsTitle(carName)
+  setCarPageHeader(carName)
   displayAddFillupForm(carId)
   getRecentFillups(carId, displayFillups)
 })
