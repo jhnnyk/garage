@@ -2,6 +2,12 @@ function isLoggedIn () {
   return !!localStorage.token
 }
 
+function flashMessage (message) {
+  $('#flash').html(message).slideDown('normal', function () {
+    $(this).delay(2500).fadeOut()
+  })
+}
+
 function displayMainNav () {
   if (isLoggedIn()) {
     $('#login-button').parent('li').hide()
@@ -326,6 +332,7 @@ $('nav').on('submit', '#new-car-form', function (e) {
       setCarPageHeader(car.name)
       displayAddFillupForm(car.id)
       getRecentFillups(car.id, displayFillups)
+      flashMessage('Car added!')
       $('#new-car-form')[0].reset()
       $('#new-car-form').slideUp()
     })

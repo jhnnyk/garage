@@ -43,6 +43,7 @@ h1 a {
 
 h2 {
   font-size: 35px;
+  margin: 30px 0;
 }
 
 h3 {
@@ -52,6 +53,8 @@ h3 {
 .container {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 0;
 }
 
 header {
@@ -65,6 +68,7 @@ header a:hover {
 header .container {
   display: flex;
   justify-content: space-between;
+  z-index: 5;
 }
 
 nav form {
@@ -77,6 +81,21 @@ nav form {
 
 nav li {
   display: inline-block;
+}
+
+#flash {
+  display: none;
+  position: absolute;
+  top: -30px;
+  margin: 0 auto;
+  color: #F5ECD9;
+  font-weight: bold;
+  background-color: #2BACB5;
+  border-radius: 0 0 10px 10px;
+  border: 2px solid #F5ECD9;
+  border-top: none;
+  padding: 10px;
+  text-align: center;
 }
 
 #my-cars ul {
