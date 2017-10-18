@@ -168,3 +168,7 @@ form.error {
   font-size: 1.2em;
   cursor: pointer;
 }
+
+.delete-confirmation {
+  display: none;
+}

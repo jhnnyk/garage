@@ -76,7 +76,12 @@ function displayFillups (data) {
         <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
         <td class="edit-delete">
           <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
-          <a href="#" name="${data.fillups[i].car}" class="delete-fillup" id="${data.fillups[i].id}"><i class="fa fa-times"></i></a>
+          <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
+          <div class="delete-confirmation">
+            Are you sure?
+            <button class='js-confirm-delete-fillup' id='${data.fillups[i].id}' name="${data.fillups[i].car}">Yes</button>
+            <button class='js-cancel-delete-fillup'>No</button>
+          </div>
         </td>
       </tr>
 
@@ -333,19 +338,33 @@ $('.js-fillups').on('click', '.cancel-edit-fillup', function () {
   $(this).parent('form').find('span.error').html('')
 })
 
-// delete fillup
+// delete fillup confirm
 $('.js-fillups').on('click', '.delete-fillup', function (e) {
-  let carId = this['name']
+  $(this).siblings('.delete-confirmation').slideDown()
+
   e.preventDefault()
-  if (confirm('Are you sure you want to delete this fillup?')) {
-    $.ajax({
-      url: `/api/fillups/${this.id}`,
-      method: 'DELETE'
-    })
-    .then(() => {
-      getRecentFillups(carId, displayFillups)
-    })
-  }
+})
+
+// delete fillup cancel
+$('.js-fillups').on('click', '.js-cancel-delete-fillup', function (e) {
+  $(this).parent('.delete-confirmation').slideUp()
+
+  e.preventDefault()
+})
+
+// delete fillup
+$('.js-fillups').on('click', '.js-confirm-delete-fillup', function (e) {
+  let carId = this.name
+
+  $.ajax({
+    url: `/api/fillups/${this.id}`,
+    method: 'DELETE'
+  })
+  .then(() => {
+    getRecentFillups(carId, displayFillups)
+  })
+
+  e.preventDefault()
 })
 
 // form validations
