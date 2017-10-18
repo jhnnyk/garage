@@ -78,9 +78,9 @@ function displayFillups (data) {
           <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
           <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
           <div class="delete-confirmation">
-            Are you sure?
-            <button class='js-confirm-delete-fillup' id='${data.fillups[i].id}' name="${data.fillups[i].car}">Yes</button>
-            <button class='js-cancel-delete-fillup'>No</button>
+            Are you sure you want to delete this fillup?<br>
+            <button class='confirm-delete-fillup js-confirm-delete-fillup' id='${data.fillups[i].id}' name="${data.fillups[i].car}"><i class="fa fa-check" aria-hidden="true"></i> Yes</button>
+            <button class='cancel-delete-fillup js-cancel-delete-fillup'><i class="fa fa-times" aria-hidden="true"></i> No</button>
           </div>
         </td>
       </tr>
@@ -340,14 +340,14 @@ $('.js-fillups').on('click', '.cancel-edit-fillup', function () {
 
 // delete fillup confirm
 $('.js-fillups').on('click', '.delete-fillup', function (e) {
-  $(this).siblings('.delete-confirmation').slideDown()
+  $(this).siblings('.delete-confirmation').fadeIn()
 
   e.preventDefault()
 })
 
 // delete fillup cancel
 $('.js-fillups').on('click', '.js-cancel-delete-fillup', function (e) {
-  $(this).parent('.delete-confirmation').slideUp()
+  $(this).parent('.delete-confirmation').fadeOut()
 
   e.preventDefault()
 })
