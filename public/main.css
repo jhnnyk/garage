@@ -91,6 +91,10 @@ nav li {
   display: block;
 }
 
+#add-fillup {
+  display: none;
+}
+
 table {
   border-spacing: 0;
 }
@@ -163,4 +167,40 @@ form.error {
   color: #F5ECD9;
   font-size: 1.2em;
   cursor: pointer;
+}
+
+td.edit-delete {
+  position: relative;
+}
+
+.delete-confirmation {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 2px solid #E84D5B;
+  color: #3b3b3b;
+  background-color: #F5ECD9;
+  border-radius: 6px;
+  padding: 6px;
+  text-align: center;
+  z-index: 9;
+}
+
+.delete-confirmation button {
+  cursor: pointer;
+  background-color: #3b3b3b;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-top: 8px;
+}
+
+.confirm-delete-fillup {
+  border: 1px solid #B4CCB9;
+  color: #B4CCB9;
+}
+
+.cancel-delete-fillup {
+  border: 1px solid #E84D5B;
+  color: #E84D5B;
 }

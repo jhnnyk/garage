@@ -16,7 +16,7 @@ const router = express.Router()
 
 router.post('/login',
   // The user provides a username and password to login
-  passport.authenticate('basic', 
+  passport.authenticate('basic',
     { session: false, failWithError: true }),
     (req, res, next) => {
       const authToken = createAuthToken(req.user.apiRepr())
@@ -24,7 +24,7 @@ router.post('/login',
     },
     (err, req, res, next) => {
       if (err) {
-        res._headers['www-authenticate'] = '' //prevent native browser authentication popup
+        res._headers['www-authenticate'] = '' // prevent native browser authentication popup
         return res.json(err)
       }
     }

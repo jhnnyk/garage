@@ -76,7 +76,12 @@ function displayFillups (data) {
         <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
         <td class="edit-delete">
           <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
-          <a href="#" class="delete-fillup" id="${data.fillups[i].id}"><i class="fa fa-times"></i></a>
+          <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
+          <div class="delete-confirmation">
+            Are you sure you want to delete this fillup?<br>
+            <button class='confirm-delete-fillup js-confirm-delete-fillup' id='${data.fillups[i].id}' name="${data.fillups[i].car}"><i class="fa fa-check" aria-hidden="true"></i> Yes</button>
+            <button class='cancel-delete-fillup js-cancel-delete-fillup'><i class="fa fa-times" aria-hidden="true"></i> No</button>
+          </div>
         </td>
       </tr>
 
@@ -236,8 +241,9 @@ function displayAddCarForm () {
 }
 
 // set page title for car page
-function displayCarNameAsTitle (carName) {
+function setCarPageHeader (carName) {
   $('#page-title').text(`${carName} Fillups`)
+  $('#add-fillup').css('display', 'inline-block')
 }
 
 function displaySignupError (message) {
@@ -269,11 +275,11 @@ $('#my-cars').on('click', '#add-car-button', function (e) {
 })
 
 // show car page
-$('#my-cars ul').on('click', '.js-car-page-link', function(e) {
+$('#my-cars ul').on('click', '.js-car-page-link', function (e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   let carName = $(this).text()
-  displayCarNameAsTitle(carName)
+  setCarPageHeader(carName)
   displayAddFillupForm(carId)
   getRecentFillups(carId, displayFillups)
 })
@@ -332,16 +338,33 @@ $('.js-fillups').on('click', '.cancel-edit-fillup', function () {
   $(this).parent('form').find('span.error').html('')
 })
 
-// delete fillup
+// delete fillup confirm
 $('.js-fillups').on('click', '.delete-fillup', function (e) {
+  $(this).siblings('.delete-confirmation').fadeIn()
+
   e.preventDefault()
-  if (confirm('Are you sure you want to delete this fillup?')) {
-    $.ajax({
-      url: `/api/fillups/${this.id}`,
-      method: 'DELETE'
-    })
-    .then(() => {window.location = '/'})
-  }
+})
+
+// delete fillup cancel
+$('.js-fillups').on('click', '.js-cancel-delete-fillup', function (e) {
+  $(this).parent('.delete-confirmation').fadeOut()
+
+  e.preventDefault()
+})
+
+// delete fillup
+$('.js-fillups').on('click', '.js-confirm-delete-fillup', function (e) {
+  let carId = this.name
+
+  $.ajax({
+    url: `/api/fillups/${this.id}`,
+    method: 'DELETE'
+  })
+  .then(() => {
+    getRecentFillups(carId, displayFillups)
+  })
+
+  e.preventDefault()
 })
 
 // form validations
