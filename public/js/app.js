@@ -76,7 +76,7 @@ function displayFillups (data) {
         <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
         <td class="edit-delete">
           <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
-          <a href="#" class="delete-fillup" id="${data.fillups[i].id}"><i class="fa fa-times"></i></a>
+          <a href="#" name="${data.fillups[i].car}" class="delete-fillup" id="${data.fillups[i].id}"><i class="fa fa-times"></i></a>
         </td>
       </tr>
 
@@ -270,7 +270,7 @@ $('#my-cars').on('click', '#add-car-button', function (e) {
 })
 
 // show car page
-$('#my-cars ul').on('click', '.js-car-page-link', function(e) {
+$('#my-cars ul').on('click', '.js-car-page-link', function (e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   let carName = $(this).text()
@@ -335,13 +335,16 @@ $('.js-fillups').on('click', '.cancel-edit-fillup', function () {
 
 // delete fillup
 $('.js-fillups').on('click', '.delete-fillup', function (e) {
+  let carId = this['name']
   e.preventDefault()
   if (confirm('Are you sure you want to delete this fillup?')) {
     $.ajax({
       url: `/api/fillups/${this.id}`,
       method: 'DELETE'
     })
-    .then(() => {window.location = '/'})
+    .then(() => {
+      getRecentFillups(carId, displayFillups)
+    })
   }
 })
 
