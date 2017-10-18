@@ -321,8 +321,11 @@ $('nav').on('submit', '#new-car-form', function (e) {
         name: $('input#carName').val(),
         notes: $('textarea#carNotes').val()
       }
-    }).then(function() {
+    }).then(function(car) {
       displayMainNav()
+      setCarPageHeader(car.name)
+      displayAddFillupForm(car.id)
+      getRecentFillups(car.id, displayFillups)
       $('#new-car-form')[0].reset()
       $('#new-car-form').slideUp()
     })
