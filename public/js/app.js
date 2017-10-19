@@ -19,7 +19,22 @@ function displayMainNav () {
   }
 }
 
-function getCars(callbackFn) {
+function displayLandingPage () {
+  let landingPageHTML = ``
+
+  if (isLoggedIn()) {
+    landingPageHTML = `Your garage here.`
+  } else {
+    landingPageHTML = `
+    <h2>Welcome to MyGarage.online!</h2>
+    <p>Your online home for your cars</p>
+    <p>Signup is free!</p>`
+  }
+
+  $('.js-content').html(landingPageHTML)
+}
+
+function getCars (callbackFn) {
   $.ajax({
     datatype: "json",
     url: `/api/cars`,
@@ -155,7 +170,7 @@ function displayFillups (data) {
       </section>`
   }
 
-  $('.js-fillups').html(fillupsHTML)
+  $('.js-content').html(fillupsHTML)
 }
 
 function displayAddFillupForm (carId) {
@@ -342,14 +357,14 @@ $('nav').on('submit', '#new-car-form', function (e) {
 })
 
 // show edit form
-$('.js-fillups').on('click', '.edit-fillup', function (e) {
+$('.js-content').on('click', '.edit-fillup', function (e) {
   e.preventDefault()
   $(this).parents('tr.data-row').hide()
   $(this).parents('tr.data-row').next('tr.edit-row').show()
 })
 
 // cancel edits
-$('.js-fillups').on('click', '.cancel-edit-fillup', function () {
+$('.js-content').on('click', '.cancel-edit-fillup', function () {
   $(this).parents('tr.edit-row').hide()
   $(this).parents('tr.edit-row').prev('tr.data-row').show()
   $(this).parent('form').removeClass('error')
@@ -357,21 +372,21 @@ $('.js-fillups').on('click', '.cancel-edit-fillup', function () {
 })
 
 // delete fillup confirm
-$('.js-fillups').on('click', '.delete-fillup', function (e) {
+$('.js-content').on('click', '.delete-fillup', function (e) {
   $(this).siblings('.delete-confirmation').fadeIn()
 
   e.preventDefault()
 })
 
 // delete fillup cancel
-$('.js-fillups').on('click', '.js-cancel-delete-fillup', function (e) {
+$('.js-content').on('click', '.js-cancel-delete-fillup', function (e) {
   $(this).parent('.delete-confirmation').fadeOut()
 
   e.preventDefault()
 })
 
 // delete fillup
-$('.js-fillups').on('click', '.js-confirm-delete-fillup', function (e) {
+$('.js-content').on('click', '.js-confirm-delete-fillup', function (e) {
   let carId = this.name
 
   $.ajax({
@@ -481,7 +496,7 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
 })
 
 // validations for edit fillup form
-$('.js-fillups').on('input', 'input.mileage', function (event) {
+$('.js-content').on('input', 'input.mileage', function (event) {
   if (!testMileageField($(this).val())) {
     $(this).next('.js-mileage-error').html('<br>must be a number')
   } else {
@@ -489,7 +504,7 @@ $('.js-fillups').on('input', 'input.mileage', function (event) {
   }
 })
 
-$('.js-fillups').on('input', 'input.price', function (event) {
+$('.js-content').on('input', 'input.price', function (event) {
   if (!testPriceField($(this).val())) {
     $(this).next('.js-price-error').html('<br>must be a number')
   } else {
@@ -497,7 +512,7 @@ $('.js-fillups').on('input', 'input.price', function (event) {
   }
 })
 
-$('.js-fillups').on('input', 'input.gallons', function (event) {
+$('.js-content').on('input', 'input.gallons', function (event) {
   if (!testGallonsField($(this).val())) {
     $(this).next('.js-gallons-error').html('<br>must be a number')
   } else {
@@ -506,7 +521,7 @@ $('.js-fillups').on('input', 'input.gallons', function (event) {
 })
 
 // edit fillup form
-$('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
+$('.js-content').on('submit', '.edit-fillup-form', function (event) {
   let carId = $(this).find("input[name='car']").val()
   let fillupId = $(this).find("input[name='id']").val()
   let updateFillupValid = true
@@ -566,7 +581,7 @@ $('#add-fillup a').on('click', function (e) {
   e.preventDefault()
 })
 
-$('.js-fillups').on('click', '#nofillups-add-fillup', function (e) {
+$('.js-content').on('click', '#nofillups-add-fillup', function (e) {
   $('#new-car-form').slideUp()
   $('#my-cars ul').slideUp()
   $('#new-fillup').slideToggle()
@@ -590,6 +605,7 @@ function loginUser (username, password) {
     }
   }).then(function () {
     displayMainNav()
+    displayLandingPage()
   })
 }
 
@@ -660,7 +676,8 @@ $('#logout').on('click', function (e) {
 
 function getAndDisplayDashboard () {
   displayMainNav()
-  displayAddCarForm ()
+  displayAddCarForm()
+  displayLandingPage()
 }
 
 $(getAndDisplayDashboard())
