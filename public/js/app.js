@@ -33,7 +33,7 @@ function displayLandingPage () {
       </div>
       
       <div class="right">
-        <h3>Signup is free!</h3>
+        <h3>Signup is fast and free!</h3>
       </div>
     </section>
     
@@ -44,6 +44,7 @@ function displayLandingPage () {
       
       <div class="right">
         <h3>Add your car</h3>
+        <p>Keep track of your vehicles in MyGarage.online.</p>
       </div>
     </section>
     
@@ -704,6 +705,12 @@ $('#logout').on('click', function (e) {
   localStorage.clear()
   displayMainNav()
 })
+
+// set footer copyright date
+$('#copyright').text(`
+  ©️ ${(new Date).getFullYear()} 
+  MyGarage.online. All rights reserved.`
+)
 
 function getAndDisplayDashboard () {
   displayMainNav()
