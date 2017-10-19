@@ -113,15 +113,19 @@ nav li {
   display: none;
 }
 
-/* #nofillups-add-fillup {
-  cursor: pointer;
-  color: #3b3b3b;
-  background-color: #B4CCB9;
-  border-radius: 4px;
-  border: none;
-  padding: 4px 8px;
-  margin-top: 8px;
-} */
+.landing-page {
+  display: flex;
+  justify-content: space-between;
+}
+
+.landing-page img {
+  width: 250px;
+  height: 250px;
+}
+
+.round {
+  border-radius: 50%;
+}
 
 table {
   border-spacing: 0;

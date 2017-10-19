@@ -26,9 +26,40 @@ function displayLandingPage () {
     landingPageHTML = `Your garage here.`
   } else {
     landingPageHTML = `
-    <h2>Welcome to MyGarage.online!</h2>
-    <p>Your online home for your cars</p>
-    <p>Signup is free!</p>`
+    <section class="landing-page">
+      <div class="left">
+        <h2>Welcome to MyGarage.online</h2>
+        <p class="tagline">The online home for your cars</p>
+      </div>
+      
+      <div class="right">
+        <h3>Signup is free!</h3>
+      </div>
+    </section>
+    
+    <section class="landing-page">
+      <div class="left">
+        <p><img src="/images/mercedes-406290_1920.jpg" class="round"></p>
+      </div>
+      
+      <div class="right">
+        <h3>Add your car</h3>
+      </div>
+    </section>
+    
+    <section class="landing-page">
+      <div class="left">
+        <h3>Add fillups</h3>
+        <p>Everytime you fill up your car with fuel, add the cost, gallons 
+          and mileage to your car in MyGarage.online and we'll calculate
+          the gas mileage for you.
+        </p>
+      </div>
+      
+      <div class="right">
+        <p><img src="/images/auto-1634815_1920.jpg" class="round"></p>
+      </div>
+    </section>`
   }
 
   $('.js-content').html(landingPageHTML)
