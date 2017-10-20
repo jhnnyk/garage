@@ -33,7 +33,27 @@ function displayLandingPage () {
       </div>
       
       <div class="right">
-        <h3>Signup is fast and free!</h3>
+        <form action="#" method="POST" id="landing-page-signup">
+          <h3>Sign Up for free</h3>
+          <label for="firstName">
+            <span>First Name:</span>
+            <input type="text" name="firstName">
+          </label><br>
+          <label for="lastName">
+            <span>Last Name:</span>
+            <input type="text" name="lastName">
+          </label><br>
+          <label for="username">
+            <span>Username:</span>
+            <input type="text" name="username">
+          </label><br>
+          <label for="password">
+            <span>Password:</span>
+            <input type="password" name="password">
+          </label><br>
+          <button type="submit">Sign Up</button>
+          <span class="error js-submit-error" aria-live="polite"></span>
+        </form>
       </div>
     </section>
     
@@ -309,6 +329,10 @@ function setCarPageHeader (carName) {
 
 function displaySignupError (message) {
   $('#signup span.js-submit-error').html(message)
+}
+
+function displayLandingPageSignupError (message) {
+  $('#landing-page-signup span.js-submit-error').html(message)
 }
 
 function displayLoginError (message) {
@@ -691,6 +715,40 @@ $('#signup').on('submit', function (e) {
     error: function (data) {
       const message = `'${data.responseJSON.location}' ${data.responseJSON.message}`
       displaySignupError(message)
+    }
+  }).done(function () {
+    loginUser(username, password)
+  })
+
+  e.preventDefault()
+  this.reset()
+})
+
+// landing page signup form
+$('.js-content').on('submit', '#landing-page-signup', function (e) {
+  let firstName = $('#landing-page-signup input[name=firstName]').val()
+  let lastName = $('#landing-page-signup input[name=lastName]').val()  
+  let username = $('#landing-page-signup input[name=username]').val()
+  let password = $('#landing-page-signup input[name=password]').val()
+
+  $.ajax({
+    datatype: 'json',
+    url: '/api/users',
+    method: 'POST',
+    data: JSON.stringify({
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName
+    }),
+    contentType: "application/json",
+    success: function (data) {
+      console.log(`created a user! ${data.username}`)
+      $('#signup').hide()
+    },
+    error: function (data) {
+      const message = `'${data.responseJSON.location}' ${data.responseJSON.message}`
+      displayLandingPageSignupError(message)
     }
   }).done(function () {
     loginUser(username, password)
