@@ -34,23 +34,23 @@ function displayLandingPage () {
       
       <div class="right">
         <form action="#" method="POST" id="landing-page-signup">
-          <h3>Sign Up for free</h3>
+          <h3>Sign Up for Free</h3>
           <label for="firstName">
             <span>First Name:</span>
             <input type="text" name="firstName">
-          </label><br>
+          </label>
           <label for="lastName">
             <span>Last Name:</span>
             <input type="text" name="lastName">
-          </label><br>
+          </label>
           <label for="username">
             <span>Username:</span>
             <input type="text" name="username">
-          </label><br>
+          </label>
           <label for="password">
             <span>Password:</span>
             <input type="password" name="password">
-          </label><br>
+          </label>
           <button type="submit">Sign Up</button>
           <span class="error js-submit-error" aria-live="polite"></span>
         </form>

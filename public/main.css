@@ -74,6 +74,7 @@ header .container {
 nav form {
   display: none;
   position: absolute;
+  right: 0;
   background-color: #2BACB5;
   padding: 0 20px 20px 20px;
   border-radius: 0 0 10px 10px;
@@ -235,6 +236,55 @@ td.edit-delete {
 .cancel-delete-fillup {
   border: 1px solid #E84D5B;
   color: #E84D5B;
+}
+
+#landing-page-signup {
+  color: #3b3b3b;
+  background-color: #F5ECD9;
+  border: 2px solid #B4CCB9;
+  border-radius: 10px;
+  padding: 0 30px 30px 30px;
+  width: 300px;
+  text-align: center;
+}
+
+#login button,
+#signup button,
+#landing-page-signup button {
+  border: 2px solid #B4CCB9;
+  color: #B4CCB9;
+  border-radius: 10px;
+  background-color: #3b3b3b;
+  padding: 5px 8px;
+  font-size: 1em;
+  margin-top: 10px;
+}
+
+nav label,
+#landing-page-signup label {
+  display: block;
+  padding: 0 0 5px 0;
+  text-align: right;
+}
+
+input {
+  border: 2px solid #B4CCB9;
+  border-radius: 3px;
+}
+
+input:focus {
+  border-color: #2BACB5;
+  outline: none;
+}
+
+nav form {
+  width: 300px;
+  text-align: center;
+  padding: 0 30px 30px 30px;
+}
+
+nav input:focus {
+  border-color: #F5ECD9;
 }
 
 /* - - - Footer - - - */
