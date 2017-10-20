@@ -28,13 +28,13 @@ function displayLandingPage () {
     landingPageHTML = `
     <section class="landing-page">
       <div class="left">
-        <h2>Welcome to MyGarage.online</h2>
+        <h1>Welcome to MyGarage.online</h1>
         <p class="tagline">The online home for your cars</p>
       </div>
       
       <div class="right">
         <form action="#" method="POST" id="landing-page-signup">
-          <h3>Sign Up for Free</h3>
+          <h2>Sign Up for Free</h2>
           <label for="firstName">
             <span>First Name:</span>
             <input type="text" name="firstName">
@@ -63,14 +63,14 @@ function displayLandingPage () {
       </div>
       
       <div class="right">
-        <h3>Add your car</h3>
+        <h2>Add your car</h2>
         <p>Keep track of your vehicles in MyGarage.online.</p>
       </div>
     </section>
     
     <section class="landing-page">
       <div class="left">
-        <h3>Add fillups</h3>
+        <h2>Add fillups</h2>
         <p>Everytime you fill up your car with fuel, add the cost, gallons 
           and mileage to your car in MyGarage.online and we'll calculate
           the gas mileage for you.

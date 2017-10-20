@@ -41,6 +41,11 @@ h1 a {
   text-decoration: none;
 }
 
+#logo {
+  font-size: 30px;
+  margin: 15px 0;
+}
+
 h2 {
   font-size: 35px;
   margin: 30px 0;
@@ -69,6 +74,10 @@ header .container {
   display: flex;
   justify-content: space-between;
   z-index: 5;
+}
+
+#main-nav {
+  margin-top: 25px;
 }
 
 nav form {
