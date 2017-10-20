@@ -13,9 +13,9 @@
 <body>
   <header>
     <div class="container">
-      <h1><a href="/"><i class="fa fa-car" aria-hidden="true"></i> MyGarage.online</a></h1>
+      <h1 id="logo"><a href="/"><i class="fa fa-car" aria-hidden="true"></i> MyGarage.online</a></h1>
       <nav>
-        <ul>
+        <ul id="main-nav">
           <li><a href="/">Home</a></li>
           <li id="my-cars" class="js-logged-in">
             <a href="#">My Cars</a>
@@ -37,11 +37,11 @@
           <label for="username">
             <span>Username:</span>
             <input type="text" name="username">
-          </label><br>
+          </label>
           <label for="password">
             <span>Password:</span>
             <input type="password" name="password">
-          </label><br>
+          </label>
           <button type="submit">Login</button>
           <span class="error js-submit-error" aria-live="polite"></span>
         </form>
@@ -51,19 +51,19 @@
           <label for="firstName">
             <span>First Name:</span>
             <input type="text" name="firstName">
-          </label><br>
+          </label>
           <label for="lastName">
             <span>Last Name:</span>
             <input type="text" name="lastName">
-          </label><br>
+          </label>
           <label for="username">
             <span>Username:</span>
             <input type="text" name="username">
-          </label><br>
+          </label>
           <label for="password">
             <span>Password:</span>
             <input type="password" name="password">
-          </label><br>
+          </label>
           <button type="submit">Sign Up</button>
           <span class="error js-submit-error" aria-live="polite"></span>
         </form>
@@ -73,9 +73,16 @@
   
   <div class="container">
     <div id="flash"></div>
-    <h2 id="page-title">Welcome to MyGarage.online!</h2>
-    <div class="js-fillups"></div>
+    <h2 id="page-title"></h2>
+    <div class="js-content"></div>
   </div>
+
+  <footer>
+    <div class="container">
+      <p id="copyright"></p>
+      <p>Made by John Knotts. social icons here</p>
+    </div>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="js/app.js"></script>

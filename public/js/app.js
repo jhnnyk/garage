@@ -19,7 +19,68 @@ function displayMainNav () {
   }
 }
 
-function getCars(callbackFn) {
+function displayLandingPage () {
+  let landingPageHTML = ``
+
+  if (isLoggedIn()) {
+    landingPageHTML = `Your garage here.`
+  } else {
+    landingPageHTML = `
+    <section class="landing-page">
+      <div id="welcome">
+        <h1>Welcome to MyGarage.online</h1>
+        <p class="tagline">The online home for your cars</p>
+      </div>
+      
+      <div>
+        <form action="#" method="POST" id="landing-page-signup">
+          <h2>Sign Up for Free</h2>
+          <label for="firstName">
+            <span>First Name:</span>
+            <input type="text" name="firstName">
+          </label>
+          <label for="lastName">
+            <span>Last Name:</span>
+            <input type="text" name="lastName">
+          </label>
+          <label for="username">
+            <span>Username:</span>
+            <input type="text" name="username">
+          </label>
+          <label for="password">
+            <span>Password:</span>
+            <input type="password" name="password">
+          </label>
+          <button type="submit">Sign Up</button>
+          <span class="error js-submit-error" aria-live="polite"></span>
+        </form>
+      </div>
+    </section>
+    
+    <section class="landing-page">
+      <div></div>
+      <div>
+        <h2>Add your car</h2>
+        <p>Keep track of your vehicles in MyGarage.online.</p>
+      </div>
+    </section>
+    
+    <section class="landing-page">
+      <div>
+        <h2>Add fillups</h2>
+        <p>Everytime you fill up your car with fuel, add the cost, gallons 
+          and mileage to your car in MyGarage.online and we'll calculate
+          the gas mileage for you.
+        </p>
+      </div>
+      <div></div>
+    </section>`
+  }
+
+  $('.js-content').html(landingPageHTML)
+}
+
+function getCars (callbackFn) {
   $.ajax({
     datatype: "json",
     url: `/api/cars`,
@@ -40,7 +101,7 @@ function getRecentFillups (carId, callbackFn) {
 function displayCars (data) {
   let carListHTML = ``
   for (let i = 0; i < data.cars.length; i++) {
-    carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
+    carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}"><i class="fa fa-car" aria-hidden="true"></i> ${data.cars[i].name}</a></li>`
   }
   carListHTML += `
     <li>
@@ -155,7 +216,7 @@ function displayFillups (data) {
       </section>`
   }
 
-  $('.js-fillups').html(fillupsHTML)
+  $('.js-content').html(fillupsHTML)
 }
 
 function displayAddFillupForm (carId) {
@@ -167,42 +228,35 @@ function displayAddFillupForm (carId) {
         <span>Brand:</span>
         <input type="text" name="brand" id="brand">
       </label>
-      <br>
 
       <label for="location">
         <span>Location:</span>
         <input type="text" name="location" id="location">
       </label>
-      <br>
 
       <label for="mileage">
         <span>Mileage:</span>
         <input type="text" name="mileage" id="mileage">
         <span class="error js-mileage-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="gallons">
         <span>Gallons:</span>
         <input type="text" name="gallons" id="gallons">
         <span class="error js-gallons-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="price">
         <span>Total Price:</span>
         <input type="text" name="price" id="price">
         <span class="error js-price-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="notes">
-        <span>Notes:</span><br>
-        <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
+        <textarea name="notes" id="notes" cols="30" rows="3" placeholder="Add fillup notes here..."></textarea>
       </label>
-      <br>
 
-      <button type="submit" name="submit">Submit</button>
+      <button type="submit" name="submit">Add fillup</button>
       <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
@@ -219,32 +273,26 @@ function displayAddCarForm () {
         <span>Year:</span>
         <input type="text" name="year" id="year">
       </label>
-      <br>
 
       <label for="make">
         <span>Make:</span>
         <input type="text" name="make" id="make">
       </label>
-      <br>
 
       <label for="model">
         <span>Model:</span>
         <input type="text" name="model" id="model">
       </label>
-      <br>
 
       <label for="carName">
         <span>Car Name:</span>
         <input type="text" name="carName" id="carName">
         <span class="error js-carName-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="carNotes">
-        <span>Notes:</span><br>
-        <textarea name="carNotes" id="carNotes" cols="30" rows="3"></textarea>
+        <textarea name="carNotes" id="carNotes" cols="30" rows="3" placeholder="Add car notes here..."></textarea>
       </label>
-      <br>
 
       <button type="submit" name="submit">Submit</button>
       <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
@@ -262,6 +310,10 @@ function setCarPageHeader (carName) {
 
 function displaySignupError (message) {
   $('#signup span.js-submit-error').html(message)
+}
+
+function displayLandingPageSignupError (message) {
+  $('#landing-page-signup span.js-submit-error').html(message)
 }
 
 function displayLoginError (message) {
@@ -342,14 +394,14 @@ $('nav').on('submit', '#new-car-form', function (e) {
 })
 
 // show edit form
-$('.js-fillups').on('click', '.edit-fillup', function (e) {
+$('.js-content').on('click', '.edit-fillup', function (e) {
   e.preventDefault()
   $(this).parents('tr.data-row').hide()
   $(this).parents('tr.data-row').next('tr.edit-row').show()
 })
 
 // cancel edits
-$('.js-fillups').on('click', '.cancel-edit-fillup', function () {
+$('.js-content').on('click', '.cancel-edit-fillup', function () {
   $(this).parents('tr.edit-row').hide()
   $(this).parents('tr.edit-row').prev('tr.data-row').show()
   $(this).parent('form').removeClass('error')
@@ -357,21 +409,21 @@ $('.js-fillups').on('click', '.cancel-edit-fillup', function () {
 })
 
 // delete fillup confirm
-$('.js-fillups').on('click', '.delete-fillup', function (e) {
+$('.js-content').on('click', '.delete-fillup', function (e) {
   $(this).siblings('.delete-confirmation').fadeIn()
 
   e.preventDefault()
 })
 
 // delete fillup cancel
-$('.js-fillups').on('click', '.js-cancel-delete-fillup', function (e) {
+$('.js-content').on('click', '.js-cancel-delete-fillup', function (e) {
   $(this).parent('.delete-confirmation').fadeOut()
 
   e.preventDefault()
 })
 
 // delete fillup
-$('.js-fillups').on('click', '.js-confirm-delete-fillup', function (e) {
+$('.js-content').on('click', '.js-confirm-delete-fillup', function (e) {
   let carId = this.name
 
   $.ajax({
@@ -481,7 +533,7 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
 })
 
 // validations for edit fillup form
-$('.js-fillups').on('input', 'input.mileage', function (event) {
+$('.js-content').on('input', 'input.mileage', function (event) {
   if (!testMileageField($(this).val())) {
     $(this).next('.js-mileage-error').html('<br>must be a number')
   } else {
@@ -489,7 +541,7 @@ $('.js-fillups').on('input', 'input.mileage', function (event) {
   }
 })
 
-$('.js-fillups').on('input', 'input.price', function (event) {
+$('.js-content').on('input', 'input.price', function (event) {
   if (!testPriceField($(this).val())) {
     $(this).next('.js-price-error').html('<br>must be a number')
   } else {
@@ -497,7 +549,7 @@ $('.js-fillups').on('input', 'input.price', function (event) {
   }
 })
 
-$('.js-fillups').on('input', 'input.gallons', function (event) {
+$('.js-content').on('input', 'input.gallons', function (event) {
   if (!testGallonsField($(this).val())) {
     $(this).next('.js-gallons-error').html('<br>must be a number')
   } else {
@@ -506,7 +558,7 @@ $('.js-fillups').on('input', 'input.gallons', function (event) {
 })
 
 // edit fillup form
-$('.js-fillups').on('submit', '.edit-fillup-form', function (event) {
+$('.js-content').on('submit', '.edit-fillup-form', function (event) {
   let carId = $(this).find("input[name='car']").val()
   let fillupId = $(this).find("input[name='id']").val()
   let updateFillupValid = true
@@ -566,7 +618,7 @@ $('#add-fillup a').on('click', function (e) {
   e.preventDefault()
 })
 
-$('.js-fillups').on('click', '#nofillups-add-fillup', function (e) {
+$('.js-content').on('click', '#nofillups-add-fillup', function (e) {
   $('#new-car-form').slideUp()
   $('#my-cars ul').slideUp()
   $('#new-fillup').slideToggle()
@@ -590,6 +642,7 @@ function loginUser (username, password) {
     }
   }).then(function () {
     displayMainNav()
+    displayLandingPage()
   })
 }
 
@@ -652,15 +705,56 @@ $('#signup').on('submit', function (e) {
   this.reset()
 })
 
+// landing page signup form
+$('.js-content').on('submit', '#landing-page-signup', function (e) {
+  let firstName = $('#landing-page-signup input[name=firstName]').val()
+  let lastName = $('#landing-page-signup input[name=lastName]').val()  
+  let username = $('#landing-page-signup input[name=username]').val()
+  let password = $('#landing-page-signup input[name=password]').val()
+
+  $.ajax({
+    datatype: 'json',
+    url: '/api/users',
+    method: 'POST',
+    data: JSON.stringify({
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName
+    }),
+    contentType: "application/json",
+    success: function (data) {
+      console.log(`created a user! ${data.username}`)
+      $('#signup').hide()
+    },
+    error: function (data) {
+      const message = `'${data.responseJSON.location}' ${data.responseJSON.message}`
+      displayLandingPageSignupError(message)
+    }
+  }).done(function () {
+    loginUser(username, password)
+  })
+
+  e.preventDefault()
+  this.reset()
+})
+
 // Logout
 $('#logout').on('click', function (e) {
   localStorage.clear()
   displayMainNav()
 })
 
+// set footer copyright date
+$('#copyright').text(`
+  ©️ ${(new Date).getFullYear()} 
+  MyGarage.online. All rights reserved.`
+)
+
 function getAndDisplayDashboard () {
   displayMainNav()
-  displayAddCarForm ()
+  displayAddCarForm()
+  displayLandingPage()
 }
 
 $(getAndDisplayDashboard())
