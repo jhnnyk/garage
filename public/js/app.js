@@ -107,7 +107,7 @@ function getRecentFillups (carId, callbackFn) {
 function displayCars (data) {
   let carListHTML = ``
   for (let i = 0; i < data.cars.length; i++) {
-    carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}">${data.cars[i].name}</a></li>`
+    carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}"><i class="fa fa-car" aria-hidden="true"></i> ${data.cars[i].name}</a></li>`
   }
   carListHTML += `
     <li>
@@ -234,42 +234,35 @@ function displayAddFillupForm (carId) {
         <span>Brand:</span>
         <input type="text" name="brand" id="brand">
       </label>
-      <br>
 
       <label for="location">
         <span>Location:</span>
         <input type="text" name="location" id="location">
       </label>
-      <br>
 
       <label for="mileage">
         <span>Mileage:</span>
         <input type="text" name="mileage" id="mileage">
         <span class="error js-mileage-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="gallons">
         <span>Gallons:</span>
         <input type="text" name="gallons" id="gallons">
         <span class="error js-gallons-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="price">
         <span>Total Price:</span>
         <input type="text" name="price" id="price">
         <span class="error js-price-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="notes">
-        <span>Notes:</span><br>
-        <textarea name="notes" id="notes" cols="30" rows="3"></textarea>
+        <textarea name="notes" id="notes" cols="30" rows="3" placeholder="Add fillup notes here..."></textarea>
       </label>
-      <br>
 
-      <button type="submit" name="submit">Submit</button>
+      <button type="submit" name="submit">Add fillup</button>
       <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
       <span class="error js-submit-error" aria-live="polite"></span>
     </form>`
@@ -286,32 +279,26 @@ function displayAddCarForm () {
         <span>Year:</span>
         <input type="text" name="year" id="year">
       </label>
-      <br>
 
       <label for="make">
         <span>Make:</span>
         <input type="text" name="make" id="make">
       </label>
-      <br>
 
       <label for="model">
         <span>Model:</span>
         <input type="text" name="model" id="model">
       </label>
-      <br>
 
       <label for="carName">
         <span>Car Name:</span>
         <input type="text" name="carName" id="carName">
         <span class="error js-carName-error" aria-live="polite"></span>
       </label>
-      <br>
 
       <label for="carNotes">
-        <span>Notes:</span><br>
-        <textarea name="carNotes" id="carNotes" cols="30" rows="3"></textarea>
+        <textarea name="carNotes" id="carNotes" cols="30" rows="3" placeholder="Add car notes here..."></textarea>
       </label>
-      <br>
 
       <button type="submit" name="submit">Submit</button>
       <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>

@@ -110,13 +110,20 @@ nav li {
 #my-cars ul {
   display: none;
   position: absolute;
+  right: 0;
+  width: 200px;
   background-color: #2BACB5;
-  padding: 0 20px 20px 20px;
+  padding: 20px;
   border-radius: 0 0 10px 10px;
 }
 
 #my-cars li {
   display: block;
+  padding: 3px;
+}
+
+#my-cars li a {
+  text-decoration: none;
 }
 
 #add-fillup {
@@ -202,7 +209,8 @@ form.error {
   display: inline-block;
 }
 
-.cancel-button,
+#new-fillup .cancel-button,
+#new-car-form .cancel-button,
 .cancel-edit-fillup {
   background: none;
   border: none;
@@ -257,6 +265,8 @@ td.edit-delete {
   text-align: center;
 }
 
+#new-car-form button,
+#new-fillup button,
 #login button,
 #signup button,
 #landing-page-signup button {
@@ -267,6 +277,16 @@ td.edit-delete {
   padding: 5px 8px;
   font-size: 1em;
   margin-top: 10px;
+  cursor: pointer;
+}
+
+#new-car-form button:hover,
+#new-fillup button:hover,
+#login button:hover,
+#signup button:hover,
+#landing-page-signup button:hover {
+  color: #F5ECD9;
+  border-color: #F5ECD9;
 }
 
 nav label,
@@ -276,12 +296,18 @@ nav label,
   text-align: right;
 }
 
-input {
+textarea {
+  width: 90%;
+}
+
+input,
+textarea {
   border: 2px solid #B4CCB9;
   border-radius: 3px;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   border-color: #2BACB5;
   outline: none;
 }
@@ -292,7 +318,8 @@ nav form {
   padding: 0 30px 30px 30px;
 }
 
-nav input:focus {
+nav input:focus,
+nav textarea:focus {
   border-color: #F5ECD9;
 }
 
