@@ -27,12 +27,12 @@ function displayLandingPage () {
   } else {
     landingPageHTML = `
     <section class="landing-page">
-      <div class="left">
+      <div id="welcome">
         <h1>Welcome to MyGarage.online</h1>
         <p class="tagline">The online home for your cars</p>
       </div>
       
-      <div class="right">
+      <div>
         <form action="#" method="POST" id="landing-page-signup">
           <h2>Sign Up for Free</h2>
           <label for="firstName">
@@ -58,28 +58,22 @@ function displayLandingPage () {
     </section>
     
     <section class="landing-page">
-      <div class="left">
-        <p><img src="/images/mercedes-406290_1920.jpg" class="round"></p>
-      </div>
-      
-      <div class="right">
+      <div></div>
+      <div>
         <h2>Add your car</h2>
         <p>Keep track of your vehicles in MyGarage.online.</p>
       </div>
     </section>
     
     <section class="landing-page">
-      <div class="left">
+      <div>
         <h2>Add fillups</h2>
         <p>Everytime you fill up your car with fuel, add the cost, gallons 
           and mileage to your car in MyGarage.online and we'll calculate
           the gas mileage for you.
         </p>
       </div>
-      
-      <div class="right">
-        <p><img src="/images/auto-1634815_1920.jpg" class="round"></p>
-      </div>
+      <div></div>
     </section>`
   }
 

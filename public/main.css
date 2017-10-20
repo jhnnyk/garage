@@ -130,20 +130,51 @@ nav li {
   display: none;
 }
 
+/* - - - Landing Page - - - */
 .landing-page {
+  border-radius: 10px;
+  margin: 20px 0;
   display: flex;
   justify-content: space-between;
 }
 
-.landing-page img {
-  width: 250px;
-  height: 250px;
+#welcome {
+  max-width: 50%;
 }
 
-.round {
-  border-radius: 50%;
+.landing-page h1 {
+  line-height: 1em;
+  margin-bottom: 0;
 }
 
+.landing-page p {
+  text-align: center;
+  line-height: 1.4em;
+  margin: 15px 15px 30px 15px;
+}
+
+.landing-page:nth-child(2) div,
+.landing-page:nth-child(3) div {
+  width: 50%;
+}
+
+.landing-page:nth-child(2) {
+  background-image: url('../images/antique-1851236_1920.jpg');
+  background: linear-gradient(to left, rgba(59, 59, 59, 1), rgba(59, 59, 59, 1), rgba(59, 59, 59, 0)), url('../images/antique-1851236_1920.jpg');
+  background-size: cover;
+  padding: 20px;
+  margin: 40px 0;
+}
+
+.landing-page:nth-child(3) {
+  background-image: url('../images/truck-2588019_1920.jpg');
+  background: linear-gradient(to right, rgba(59, 59, 59, 1), rgba(59, 59, 59, 1), rgba(59, 59, 59, 0)), url('../images/truck-2588019_1920.jpg');
+  background-size: cover;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+/* - - - Fillups table - - - */
 table {
   border-spacing: 0;
 }
