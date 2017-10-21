@@ -180,6 +180,27 @@ nav li {
   margin-bottom: 40px;
 }
 
+#my-landing-page-cars {
+  width: 100%;
+}
+
+#my-landing-page-cars li {
+  display: inline-block;
+  width: 50%;
+  padding: 20px;
+  text-align: center;
+}
+
+#my-landing-page-cars li a {
+  display: inline-block;
+  width: 100%;
+  padding: 20px;
+  border: 2px solid #2BACB5;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+
 /* - - - Fillups table - - - */
 table {
   border-spacing: 0;
