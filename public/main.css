@@ -259,6 +259,12 @@ span.error {
   background-color: #E84D5B;
 }
 
+.submit-error {
+  display: block;
+  text-align: center;
+  border-radius: 4px;
+}
+
 form.error {
   border: 2px solid #E84D5B;
 }
