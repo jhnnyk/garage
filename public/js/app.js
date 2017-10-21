@@ -25,7 +25,7 @@ function displayLandingPage () {
   if (isLoggedIn()) {
     landingPageHTML = `
       <section class="loggedin-landing-page">
-        <h1>Welcome to Your Garage</h1>
+        <h2>Welcome to Your Garage</h2>
         <h3>Please select a car below:</h3>
         <ul id="my-landing-page-cars"></ul>
       </section>`
@@ -58,7 +58,7 @@ function displayLandingPage () {
               <input type="password" name="password">
             </label>
             <button type="submit">Sign Up</button>
-            <span class="error js-submit-error" aria-live="polite"></span>
+            <span class="error submit-error js-submit-error" aria-live="polite"></span>
           </form>
         </div>
       </section>
@@ -223,7 +223,7 @@ function displayFillups (data) {
                 </label>
               </div>
               <button type="submit" name="submit" class="submit-edit-fillup">Edit fillup</button>
-              <span class="error js-submit-error"></span>
+              <span class="error submit-error js-submit-error"></span>
               <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
             </form>
           </td>
@@ -277,7 +277,7 @@ function displayAddFillupForm (carId) {
 
       <button type="submit" name="submit">Add fillup</button>
       <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
-      <span class="error js-submit-error" aria-live="polite"></span>
+      <span class="error submit-error js-submit-error" aria-live="polite"></span>
     </form>`
 
   $('.js-add-fillup').html(addFillupFormHTML)
@@ -315,7 +315,7 @@ function displayAddCarForm () {
 
       <button type="submit" name="submit">Submit</button>
       <button type="reset" class="cancel-button"><i class="fa fa-times-circle"></i></button>
-      <span class="error js-submit-error" aria-live="polite"></span>
+      <span class="error submit-error js-submit-error" aria-live="polite"></span>
     </form>`
 
   $('nav').append(addCarFormHTML)
@@ -451,6 +451,7 @@ $('.js-content').on('click', '.js-confirm-delete-fillup', function (e) {
   })
   .then(() => {
     getRecentFillups(carId, displayFillups)
+    flashMessage('Fillup deleted!')
   })
 
   e.preventDefault()
@@ -543,6 +544,7 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
       }
     }).done(() => {
       getRecentFillups(carId, displayFillups)
+      flashMessage('Fillup added!')
     })
 
     displayAddFillupForm(carId)
@@ -658,11 +660,12 @@ function loginUser (username, password) {
       $('#login').hide()
     },
     error: function (err) {
-      displayLoginError(err.responseJSON.name)
+      displayLoginError('Incorrect username or password')
     }
   }).then(function () {
     displayMainNav()
     displayLandingPage()
+    flashMessage('Welcome to MyGarage.online!')
   })
 }
 
@@ -763,6 +766,9 @@ $('.js-content').on('submit', '#landing-page-signup', function (e) {
 $('#logout').on('click', function (e) {
   localStorage.clear()
   displayMainNav()
+  displayLandingPage()
+  flashMessage('Goodbye!')
+  e.preventDefault()
 })
 
 // set footer copyright date
