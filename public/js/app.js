@@ -623,6 +623,7 @@ $('.js-content').on('submit', '.edit-fillup-form', function (event) {
       }
     }).done(function() {
       getRecentFillups(carId, displayFillups)
+      flashMessage('Fillup updated!')
     })
   }
 
