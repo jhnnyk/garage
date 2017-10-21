@@ -451,6 +451,7 @@ $('.js-content').on('click', '.js-confirm-delete-fillup', function (e) {
   })
   .then(() => {
     getRecentFillups(carId, displayFillups)
+    flashMessage('Fillup deleted!')
   })
 
   e.preventDefault()
@@ -543,6 +544,7 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
       }
     }).done(() => {
       getRecentFillups(carId, displayFillups)
+      flashMessage('Fillup added!')
     })
 
     displayAddFillupForm(carId)
