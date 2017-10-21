@@ -222,7 +222,7 @@ function displayFillups (data) {
                   <input type="text" name="notes" id="notes${[i]}" class="notes" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
                 </label>
               </div>
-              <button type="submit" name="submit">Submit</button>
+              <button type="submit" name="submit" class="submit-edit-fillup">Edit fillup</button>
               <span class="error js-submit-error"></span>
               <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
             </form>
@@ -623,6 +623,7 @@ $('.js-content').on('submit', '.edit-fillup-form', function (event) {
       }
     }).done(function() {
       getRecentFillups(carId, displayFillups)
+      flashMessage('Fillup updated!')
     })
   }
 

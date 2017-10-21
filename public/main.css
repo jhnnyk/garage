@@ -206,10 +206,15 @@ table {
   border-spacing: 0;
 }
 
+th {
+  padding: 5px 10px;
+}
+
 tbody td {
   padding: 5px;
   height: 50px;
   white-space: nowrap;
+  text-align: center;
 }
 
 tbody tr td {
@@ -263,8 +268,22 @@ form.error {
   display: none;
 }
 
+.edit-row input.mileage,
+.edit-row input.price,
+.edit-row input.gallons {
+  width: 40px;
+}
+
 .edit-fillup-form div {
   display: inline-block;
+}
+
+.submit-edit-fillup {
+  cursor: pointer;
+  background: #F5ECD9;
+  border: 2px solid #2BACB5;
+  border-radius: 6px;
+  padding: 3px 6px;
 }
 
 #new-fillup .cancel-button,
