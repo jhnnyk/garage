@@ -160,14 +160,14 @@ function displayFillups (data) {
     for (let i = 0; i < data.fillups.length; i++) {
       fillupsHTML += `
         <tr class="data-row">
-          <td>${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
-          <td>${data.fillups[i].mileage}</td>
-          <td>$${data.fillups[i].price}</td>
-          <td>${data.fillups[i].gallons}</td>
-          <td>${data.fillups[i].pricePerGallon}</td>
-          <td>${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
-          <td>${data.fillups[i].location ? data.fillups[i].location : ''}</td>
-          <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
+          <td data-label="MPG">${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
+          <td data-label="Mileage">${data.fillups[i].mileage}</td>
+          <td data-label="Price">$${data.fillups[i].price}</td>
+          <td data-label="Gallons">${data.fillups[i].gallons}</td>
+          <td data-label="$/gal">${data.fillups[i].pricePerGallon}</td>
+          <td data-label="Brand">${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
+          <td data-label="Location">${data.fillups[i].location ? data.fillups[i].location : ''}</td>
+          <td data-label="Notes">${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
           <td class="edit-delete">
             <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
             <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
@@ -224,7 +224,7 @@ function displayFillups (data) {
                 </label>
               </div>
               <button type="submit" name="submit" class="submit-edit-fillup">Edit fillup</button>
-              <span class="error submit-error js-submit-error"></span>
+              <span class="error js-submit-error"></span>
               <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
             </form>
           </td>

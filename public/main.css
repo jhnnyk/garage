@@ -432,4 +432,58 @@ footer .container {
   footer .container {
     flex-wrap: wrap;
   }
+
+  table {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr td {
+    border-top: none;
+    border-bottom: none;
+    border-right: 2px solid #F5ECD9;
+    border-left: 2px solid #F5ECD9;
+    padding: 5px 20px;
+  }
+
+  tbody tr td:first-child {
+    border-top: 2px solid #F5ECD9;
+    border-right: 2px solid #F5ECD9;
+    border-left: 2px solid #F5ECD9;
+    border-radius: 10px 10px 0 0;
+  }
+
+  tbody tr td:last-child {
+    border-bottom: 2px solid #F5ECD9;
+    border-right: 2px solid #F5ECD9;
+    border-left: 2px solid #F5ECD9;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 30px;
+    height: auto;
+  }
+
+  tbody td {
+    display: block;
+    text-align: right;
+    height: 25px;
+  }
+
+  td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .edit-delete a {
+    display: inline-block;
+  }
+
+  .edit-delete a:hover {
+    color: #2BACB5;
+  }
 }
