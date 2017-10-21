@@ -25,7 +25,7 @@ function displayLandingPage () {
   if (isLoggedIn()) {
     landingPageHTML = `
       <section class="loggedin-landing-page">
-        <h1>Welcome to Your Garage</h1>
+        <h2>Welcome to Your Garage</h2>
         <h3>Please select a car below:</h3>
         <ul id="my-landing-page-cars"></ul>
       </section>`
@@ -663,6 +663,7 @@ function loginUser (username, password) {
   }).then(function () {
     displayMainNav()
     displayLandingPage()
+    flashMessage('Welcome to MyGarage.online!')
   })
 }
 
@@ -763,6 +764,9 @@ $('.js-content').on('submit', '#landing-page-signup', function (e) {
 $('#logout').on('click', function (e) {
   localStorage.clear()
   displayMainNav()
+  displayLandingPage()
+  flashMessage('Goodbye!')
+  e.preventDefault()
 })
 
 // set footer copyright date
