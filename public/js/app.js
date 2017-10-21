@@ -20,6 +20,7 @@ function displayMainNav () {
 }
 
 function displayLandingPage () {
+  $('#page-title').html('')
   let landingPageHTML = ``
 
   if (isLoggedIn()) {
