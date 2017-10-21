@@ -23,58 +23,64 @@ function displayLandingPage () {
   let landingPageHTML = ``
 
   if (isLoggedIn()) {
-    landingPageHTML = `Your garage here.`
+    landingPageHTML = `
+      <section class="loggedin-landing-page">
+        <h1>Welcome to Your Garage</h1>
+        <h3>Please select a car below:</h3>
+        <ul id="my-landing-page-cars"></ul>
+      </section>`
+      getCars(displayCarsOnLandingPage)
   } else {
     landingPageHTML = `
-    <section class="landing-page">
-      <div id="welcome">
-        <h1>Welcome to MyGarage.online</h1>
-        <p class="tagline">The online home for your cars</p>
-      </div>
+      <section class="landing-page">
+        <div id="welcome">
+          <h1>Welcome to MyGarage.online</h1>
+          <p class="tagline">The online home for your cars</p>
+        </div>
+        
+        <div>
+          <form action="#" method="POST" id="landing-page-signup">
+            <h2>Sign Up for Free</h2>
+            <label for="firstName">
+              <span>First Name:</span>
+              <input type="text" name="firstName">
+            </label>
+            <label for="lastName">
+              <span>Last Name:</span>
+              <input type="text" name="lastName">
+            </label>
+            <label for="username">
+              <span>Username:</span>
+              <input type="text" name="username">
+            </label>
+            <label for="password">
+              <span>Password:</span>
+              <input type="password" name="password">
+            </label>
+            <button type="submit">Sign Up</button>
+            <span class="error js-submit-error" aria-live="polite"></span>
+          </form>
+        </div>
+      </section>
       
-      <div>
-        <form action="#" method="POST" id="landing-page-signup">
-          <h2>Sign Up for Free</h2>
-          <label for="firstName">
-            <span>First Name:</span>
-            <input type="text" name="firstName">
-          </label>
-          <label for="lastName">
-            <span>Last Name:</span>
-            <input type="text" name="lastName">
-          </label>
-          <label for="username">
-            <span>Username:</span>
-            <input type="text" name="username">
-          </label>
-          <label for="password">
-            <span>Password:</span>
-            <input type="password" name="password">
-          </label>
-          <button type="submit">Sign Up</button>
-          <span class="error js-submit-error" aria-live="polite"></span>
-        </form>
-      </div>
-    </section>
-    
-    <section class="landing-page">
-      <div></div>
-      <div>
-        <h2>Add your car</h2>
-        <p>Keep track of your vehicles in MyGarage.online.</p>
-      </div>
-    </section>
-    
-    <section class="landing-page">
-      <div>
-        <h2>Add fillups</h2>
-        <p>Everytime you fill up your car with fuel, add the cost, gallons 
-          and mileage to your car in MyGarage.online and we'll calculate
-          the gas mileage for you.
-        </p>
-      </div>
-      <div></div>
-    </section>`
+      <section class="landing-page">
+        <div></div>
+        <div>
+          <h2>Add your car</h2>
+          <p>Keep track of your vehicles in MyGarage.online.</p>
+        </div>
+      </section>
+      
+      <section class="landing-page">
+        <div>
+          <h2>Add fillups</h2>
+          <p>Everytime you fill up your car with fuel, add the cost, gallons 
+            and mileage to your car in MyGarage.online and we'll calculate
+            the gas mileage for you.
+          </p>
+        </div>
+        <div></div>
+      </section>`
   }
 
   $('.js-content').html(landingPageHTML)
@@ -109,6 +115,19 @@ function displayCars (data) {
     </li>`
 
   $('#my-cars ul').html(carListHTML)
+}
+
+function displayCarsOnLandingPage (data) {
+  let carListHTML = ``
+  for (let i = 0; i < data.cars.length; i++) {
+    carListHTML += `<li><a href="#" class="js-car-page-link" id="${data.cars[i].id}"><i class="fa fa-car" aria-hidden="true"></i> ${data.cars[i].name}</a></li>`
+  }
+  carListHTML += `
+    <li>
+      <a href="#" id="add-car-button"><i class="fa fa-plus-circle"></i> add a car</a>
+    </li>`
+
+  $('#my-landing-page-cars').html(carListHTML)
 }
 
 function displayFillups (data) {
@@ -335,13 +354,13 @@ $('#my-cars').on('click', function (e) {
 })
 
 // show add car form
-$('#my-cars').on('click', '#add-car-button', function (e) {
+$('#my-cars, .js-content').on('click', '#add-car-button', function (e) {
   $('#new-car-form').slideDown()
   e.preventDefault()
 })
 
 // show car page
-$('#my-cars ul').on('click', '.js-car-page-link', function (e) {
+$('#my-cars ul, .js-content').on('click', '.js-car-page-link', function (e) {
   e.preventDefault()
   let carId = $(this).attr('id')
   let carName = $(this).text()
