@@ -23,7 +23,7 @@ body {
   margin: 0;
   position: relative;
   min-height: 100%;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 }
 
 a {
@@ -62,8 +62,9 @@ h3 {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 840px;
   margin: 0 auto;
+  padding: 0 20px;
   position: relative;
   z-index: 0;
 }
@@ -182,6 +183,7 @@ nav li {
 
 #my-landing-page-cars {
   width: 100%;
+  padding: 0;
 }
 
 #my-landing-page-cars li {
@@ -278,6 +280,10 @@ form.error {
 .edit-row input.price,
 .edit-row input.gallons {
   width: 40px;
+}
+
+.edit-row span {
+  display: block;
 }
 
 .edit-fillup-form div {
@@ -412,7 +418,6 @@ footer {
   font-size: 0.9em;
   padding: 20px;
   margin-top: 20px;
-  height: 80px;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -422,4 +427,95 @@ footer {
 footer .container {
   display: flex;
   justify-content: space-between;
+}
+
+/* - - - Responsive - - - */
+@media screen and (max-width:630px) {
+  header .container,
+  .landing-page,
+  footer .container {
+    flex-wrap: wrap;
+  }
+
+  table {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr td {
+    border-top: none;
+    border-bottom: none;
+    border-right: 2px solid #F5ECD9;
+    border-left: 2px solid #F5ECD9;
+    padding: 10px 20px 0 20px;
+  }
+
+  tbody tr td:first-child {
+    border-top: 2px solid #F5ECD9;
+    border-right: 2px solid #F5ECD9;
+    border-left: 2px solid #F5ECD9;
+    border-radius: 10px 10px 0 0;
+  }
+
+  tbody tr td:last-child {
+    border-bottom: 2px solid #F5ECD9;
+    border-right: 2px solid #F5ECD9;
+    border-left: 2px solid #F5ECD9;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 30px;
+    height: auto;
+  }
+
+  tbody td {
+    display: block;
+    text-align: right;
+    height: 25px;
+  }
+
+  td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .edit-delete a {
+    display: inline-block;
+  }
+
+  .edit-delete a:hover {
+    color: #2BACB5;
+  }
+
+  .edit-row div {
+    display: block;
+    text-align: left;
+  }
+
+  tbody tr.edit-row td {
+    border-radius: 10px;
+    padding: 20px; 
+  }
+
+  .edit-row label {
+    position: relative;
+  }
+
+  .edit-row label span {
+    display: inline-block;
+    width: 30%;
+  }
+
+  .edit-row label span.error {
+    display: inline-block;
+    width: auto;
+  }
+
+  .edit-row input {
+    margin-bottom: 10px;
+  }
 }

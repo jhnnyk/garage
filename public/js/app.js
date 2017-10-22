@@ -160,14 +160,14 @@ function displayFillups (data) {
     for (let i = 0; i < data.fillups.length; i++) {
       fillupsHTML += `
         <tr class="data-row">
-          <td>${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
-          <td>${data.fillups[i].mileage}</td>
-          <td>$${data.fillups[i].price}</td>
-          <td>${data.fillups[i].gallons}</td>
-          <td>${data.fillups[i].pricePerGallon}</td>
-          <td>${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
-          <td>${data.fillups[i].location ? data.fillups[i].location : ''}</td>
-          <td>${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
+          <td data-label="MPG">${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}</td>
+          <td data-label="Mileage">${data.fillups[i].mileage}</td>
+          <td data-label="Price">$${data.fillups[i].price}</td>
+          <td data-label="Gallons">${data.fillups[i].gallons}</td>
+          <td data-label="$/gal">${data.fillups[i].pricePerGallon}</td>
+          <td data-label="Brand">${data.fillups[i].brand ? data.fillups[i].brand : ''}</td>
+          <td data-label="Location">${data.fillups[i].location ? data.fillups[i].location : ''}</td>
+          <td data-label="Notes">${data.fillups[i].notes ? data.fillups[i].notes : ''}</td>
           <td class="edit-delete">
             <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
             <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
@@ -186,46 +186,46 @@ function displayFillups (data) {
               <input type="hidden" name="car" value="${data.fillups[i].car}">
               <div>
                 <label for="mileage">
-                  <span>Mileage:</span><br>
+                  <span>Mileage:</span>
                   <input type="text" name="mileage" class="mileage" id="mileage${[i]}" value="${data.fillups[i].mileage}">
                   <span class="error js-mileage-error"></span>
                 </label>
               </div>
               <div>
                 <label for="price">
-                  <span>Total Price:</span><br>
+                  <span>Total Price:</span>
                   <input type="text" name="price" class="price" id="price${[i]}" value="${data.fillups[i].price}">
                   <span class="error js-price-error"></span>
                 </label>
               </div>
               <div>
                 <label for="gallons">
-                  <span>Gallons:</span><br>
+                  <span>Gallons:</span>
                   <input type="text" name="gallons" class="gallons" id="gallons${[i]}" value="${data.fillups[i].gallons}">
                   <span class="error js-gallons-error"></span>
                 </label>
               </div>
               <div>
                 <label for="brand">
-                  <span>Brand:</span><br>
+                  <span>Brand:</span>
                   <input type="text" name="brand" id="brand${[i]}" class="brand" value="${data.fillups[i].brand ? data.fillups[i].brand : ''}">
                 </label>
               </div>
               <div>
                 <label for="location">
-                  <span>Location:</span><br>
+                  <span>Location:</span>
                   <input type="text" name="location" id="location${[i]}" class="location" value="${data.fillups[i].location ? data.fillups[i].location : ''}">
                 </label>
               </div>
               <div>
                 <label for="notes">
-                  <span>Notes:</span><br>
+                  <span>Notes:</span>
                   <input type="text" name="notes" id="notes${[i]}" class="notes" value="${data.fillups[i].notes ? data.fillups[i].notes : ''}">
                 </label>
               </div>
               <button type="submit" name="submit" class="submit-edit-fillup">Edit fillup</button>
-              <span class="error submit-error js-submit-error"></span>
               <button type="reset" class="cancel-edit-fillup"><i class="fa fa-times-circle"></i></button>
+              <span class="error js-submit-error"></span>
             </form>
           </td>
         </tr>`
