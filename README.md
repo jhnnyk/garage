@@ -6,6 +6,7 @@ A web app to track fuel fillups for your vehicle(s).
 ---
 ## Live site
 http://www.mygarage.online/
+
 The live site has a front-end client (built with HTML, CSS & JavaScript/jQuery) that accesses the Node/Express backend API.
 
 ---

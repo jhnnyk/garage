@@ -15,6 +15,7 @@ function displayMainNav () {
     getCars(displayCars)
   } else {
     $('.js-logged-in').hide()
+    $('#add-fillup').hide()
     $('#login-button').parent('li').show()
   }
 }
