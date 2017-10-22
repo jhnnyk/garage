@@ -77,7 +77,10 @@ The live site has a front-end client (built with HTML, CSS & JavaScript/jQuery) 
 ### Get Fillups
 * URL: `/api/fillups/:carId`
 * Method: `GET`
-* Sample Call: `$.getJSON(\`/api/fillups/${carId}\`)`
+* Sample Call:
+```javascript
+  $.getJSON(`/api/fillups/${carId}`)
+```
 
 ### Add Fillups
 * URL: `/api/fillups`
