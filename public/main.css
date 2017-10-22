@@ -282,6 +282,10 @@ form.error {
   width: 40px;
 }
 
+.edit-row span {
+  display: block;
+}
+
 .edit-fillup-form div {
   display: inline-block;
 }
@@ -447,7 +451,7 @@ footer .container {
     border-bottom: none;
     border-right: 2px solid #F5ECD9;
     border-left: 2px solid #F5ECD9;
-    padding: 5px 20px;
+    padding: 10px 20px 0 20px;
   }
 
   tbody tr td:first-child {
@@ -485,5 +489,33 @@ footer .container {
 
   .edit-delete a:hover {
     color: #2BACB5;
+  }
+
+  .edit-row div {
+    display: block;
+    text-align: left;
+  }
+
+  tbody tr.edit-row td {
+    border-radius: 10px;
+    padding: 20px; 
+  }
+
+  .edit-row label {
+    position: relative;
+  }
+
+  .edit-row label span {
+    display: inline-block;
+    width: 30%;
+  }
+
+  .edit-row label span.error {
+    display: inline-block;
+    width: auto;
+  }
+
+  .edit-row input {
+    margin-bottom: 10px;
   }
 }
