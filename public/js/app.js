@@ -31,7 +31,7 @@ function displayLandingPage () {
         <h3>Please select a car below:</h3>
         <ul id="my-landing-page-cars"></ul>
       </section>`
-      getCars(displayCarsOnLandingPage)
+    getCars(displayCarsOnLandingPage)
   } else {
     landingPageHTML = `
       <section class="landing-page">
