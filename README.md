@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/jhnnyk/garage.svg?branch=master)](https://travis-ci.org/jhnnyk/garage)
 # My Garage
 
-A web app to track fuel fillups for your vehicle(s).
+A web app to track fuel fillups for your vehicle(s). User can sign up, add as many vehicles as needed and add fuel fillups to those vehicles. The app will then calculate gas mileage for each fillup.
 
 ![screenshot](/public/images/mygarage-screenshot.png)
 
