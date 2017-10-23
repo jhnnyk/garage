@@ -38,5 +38,12 @@
     "chai-http": "^3.0.0",
     "faker": "^4.1.0",
     "mocha": "^3.5.3"
+  },
+  "standard": {
+    "globals": ["$", "jQuery", "fetch", "localStorage"],
+    "ignore": [
+      "node_modules/**"
+    ],
+    "plugins": ["html"]
   }
 }
