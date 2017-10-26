@@ -90,7 +90,7 @@ function displayLandingPage () {
 
 function getCars (callbackFn) {
   $.ajax({
-    datatype: "json",
+    datatype: 'json',
     url: `/api/cars`,
     beforeSend: function (xhr) {
       if (localStorage.token) {
@@ -385,7 +385,7 @@ $('nav').on('submit', '#new-car-form', function (e) {
   // if fields are valid, send form
   if (newCarValid) {
     $.ajax({
-      datatype: "json",
+      datatype: 'json',
       url: `/api/cars`,
       beforeSend: function (xhr) {
         if (localStorage.token) {
@@ -400,7 +400,7 @@ $('nav').on('submit', '#new-car-form', function (e) {
         name: $('input#carName').val(),
         notes: $('textarea#carNotes').val()
       }
-    }).then(function(car) {
+    }).then(function (car) {
       displayMainNav()
       setCarPageHeader(car.name)
       displayAddFillupForm(car.id)
@@ -532,7 +532,7 @@ $('.js-add-fillup').on('submit', '#new-fillup', function (event) {
   // if fields are valid, send form
   if (newFillupValid) {
     $.ajax({
-      datatype: "json",
+      datatype: 'json',
       url: `/api/fillups`,
       method: 'POST',
       data: {
@@ -612,7 +612,7 @@ $('.js-content').on('submit', '.edit-fillup-form', function (event) {
   // if fields are valid, send form
   if (updateFillupValid) {
     $.ajax({
-      datatype: "json",
+      datatype: 'json',
       url: `/api/fillups/${fillupId}`,
       method: 'PUT',
       data: {
@@ -656,7 +656,7 @@ function loginUser (username, password) {
     datatype: 'json',
     url: '/api/auth/login',
     method: 'POST',
-    headers: {"Authorization": "Basic " + auth},
+    headers: {'Authorization': 'Basic ' + auth},
     success: function (data) {
       localStorage.token = data.authToken
       $('#login').hide()
@@ -699,7 +699,7 @@ $('#signup-button').on('click', function (e) {
 // signup form
 $('#signup').on('submit', function (e) {
   let firstName = $('#signup input[name=firstName]').val()
-  let lastName = $('#signup input[name=lastName]').val()  
+  let lastName = $('#signup input[name=lastName]').val()
   let username = $('#signup input[name=username]').val()
   let password = $('#signup input[name=password]').val()
 
@@ -713,7 +713,7 @@ $('#signup').on('submit', function (e) {
       firstName: firstName,
       lastName: lastName
     }),
-    contentType: "application/json",
+    contentType: 'application/json',
     success: function (data) {
       console.log(`created a user! ${data.username}`)
       $('#signup').hide()
@@ -733,7 +733,7 @@ $('#signup').on('submit', function (e) {
 // landing page signup form
 $('.js-content').on('submit', '#landing-page-signup', function (e) {
   let firstName = $('#landing-page-signup input[name=firstName]').val()
-  let lastName = $('#landing-page-signup input[name=lastName]').val()  
+  let lastName = $('#landing-page-signup input[name=lastName]').val()
   let username = $('#landing-page-signup input[name=username]').val()
   let password = $('#landing-page-signup input[name=password]').val()
 
@@ -747,7 +747,7 @@ $('.js-content').on('submit', '#landing-page-signup', function (e) {
       firstName: firstName,
       lastName: lastName
     }),
-    contentType: "application/json",
+    contentType: 'application/json',
     success: function (data) {
       console.log(`created a user! ${data.username}`)
       $('#signup').hide()
