@@ -159,15 +159,19 @@ function displayFillups (data) {
           <tbody>`
 
     for (let i = 0; i < data.fillups.length; i++) {
-      let MPGchange
+      let mpgChangeHTML = ''
       if (i < data.fillups.length - 1) {
-        MPGchange = data.fillups[i].mpg - data.fillups[i+1].mpg
+        if (data.fillups[i].mpg - data.fillups[i+1].mpg > 0) {
+          mpgChangeHTML = '<span class="MPGbetter"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>'
+        } else {
+          mpgChangeHTML = '<span class="MPGworse"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>'
+        }
       }
 
       fillupsHTML += `
         <tr class="data-row">
           <td data-label="MPG">
-            ${MPGchange < 0 ? '<span class="MPGworse"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>' : '<span class="MPGbetter"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>'}
+            ${mpgChangeHTML}
             ${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}
           </td>
           <td data-label="Mileage">${data.fillups[i].mileage}</td>
