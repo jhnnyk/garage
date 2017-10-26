@@ -234,6 +234,14 @@ tbody tr td:last-child {
   border-radius: 0 6px 6px 0;
 }
 
+.MPGbetter {
+  color: #2BACB5;
+}
+
+.MPGworse {
+  color: #E84D5B;
+}
+
 tbody tr.edit-row td {
   border-radius: 6px;
 }

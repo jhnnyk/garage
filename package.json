@@ -43,7 +43,6 @@
     "globals": ["$", "jQuery", "fetch", "localStorage"],
     "ignore": [
       "node_modules/**"
-    ],
-    "plugins": ["html"]
+    ]
   }
 }
