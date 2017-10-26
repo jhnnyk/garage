@@ -159,15 +159,18 @@ function displayFillups (data) {
           <tbody>`
 
     for (let i = 0; i < data.fillups.length; i++) {
+      // calculate change in MPG for each fillup
       let mpgChangeHTML = ''
+      
       if (i < data.fillups.length - 1) {
-        if (data.fillups[i].mpg - data.fillups[i+1].mpg > 0) {
-          mpgChangeHTML = '<span class="MPGbetter"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>'
-        } else {
+        if (data.fillups[i].mpg - data.fillups[i + 1].mpg < 0) {
           mpgChangeHTML = '<span class="MPGworse"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>'
+        } else {
+          mpgChangeHTML = '<span class="MPGbetter"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>'
         }
       }
 
+      // display each fillup and the hidden edit row for each fillup
       fillupsHTML += `
         <tr class="data-row">
           <td data-label="MPG">
