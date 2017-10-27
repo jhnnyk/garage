@@ -145,7 +145,7 @@ function displayFillups (data) {
         <table id="fillups">
           <thead>
             <tr>
-              <th>MPG</th>
+              <th><h3>MPG</h3></th>
               <th>Mileage</th>
               <th>Cost</th>
               <th>Gallons</th>
@@ -173,7 +173,7 @@ function displayFillups (data) {
       // display each fillup and the hidden edit row for each fillup
       fillupsHTML += `
         <tr class="data-row">
-          <td data-label="MPG">
+          <td data-label="MPG" class="mpg">
             ${mpgChangeHTML}
             ${data.fillups[i].mpg ? data.fillups[i].mpg : '--'}
           </td>
