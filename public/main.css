@@ -234,6 +234,20 @@ tbody tr td:last-child {
   border-radius: 0 6px 6px 0;
 }
 
+th h3 {
+  margin: 0;
+  position: relative;
+  top: -3px;
+}
+
+td.mpg {
+  color: #3b3b3b;
+  background-color: #F5ECD9;
+  font-size: 1.2em;
+  text-align: left;
+  font-weight: bold;
+}
+
 .MPGbetter {
   color: #2BACB5;
 }
