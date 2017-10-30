@@ -103,7 +103,21 @@ function getCars (callbackFn) {
 }
 
 function getRecentFillups (carId, callbackFn) {
-  $.getJSON(`/api/fillups/${carId}`, displayFillups)
+  $.getJSON(`/api/fillups/${carId}`)
+    .done(displayFillups)
+    .done(calculateMPG)
+}
+
+function calculateMPG (data) {
+  let totalMPG = ''
+  if (data.fillups.length > 0) {
+    let totalGallons = data.fillups.map(fillup => fillup.gallons).reduce((sum, value) => sum + value) - data.fillups[data.fillups.length - 1].gallons
+    let totalMileage = data.fillups[0].mileage - data.fillups[data.fillups.length - 1].mileage
+
+    totalMPG = totalMileage / totalGallons
+  }
+
+  console.log(totalMPG)
 }
 
 function displayCars (data) {
