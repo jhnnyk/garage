@@ -37,7 +37,7 @@ function displayLandingPage () {
       <section class="landing-page">
         <div id="welcome">
           <h1>The online home for your cars</h1>
-          <p class="tagline">
+          <p class="demo-info">
             <span>Free demo:</span><br>
             Username: demo<br>
             Password: password
@@ -70,22 +70,16 @@ function displayLandingPage () {
       </section>
       
       <section class="landing-page">
-        <div></div>
-        <div>
-          <h2>Add your car</h2>
-          <p>Keep track of your vehicles in MyGarage.online.</p>
-        </div>
+        <h2>Add your car</h2>
+        <p>Keep track of your vehicles in MyGarage.online.</p>
       </section>
       
       <section class="landing-page">
-        <div>
-          <h2>Add fillups</h2>
-          <p>Everytime you fill up your car with fuel, add the cost, gallons 
-            and mileage to your car in MyGarage.online and we'll calculate
-            the gas mileage for you.
-          </p>
-        </div>
-        <div></div>
+        <h2>Add fillups</h2>
+        <p>Everytime you fill up your car with fuel, add the cost, gallons 
+          and mileage to your car in MyGarage.online and we'll calculate
+          the gas mileage for you.
+        </p>
       </section>`
   }
 
