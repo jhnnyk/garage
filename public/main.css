@@ -519,6 +519,12 @@ footer .container {
     justify-content: space-around;
   }
 
+  #welcome,
+  #welcome-signup {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
   table {
     width: 80%;
     margin: 0 auto;
@@ -600,10 +606,33 @@ footer .container {
   .edit-row input {
     margin-bottom: 10px;
   }
+
+  footer p {
+    width: 100%;
+    text-align: center;
+  }
+
+  footer .social {
+    display: block;
+    font-size: 2em;
+    padding-top: 10px;
+  }
 }
 
 @media screen and (max-width:400px) {
   #main-nav {
     margin-top: 0;
+  }
+
+  #welcome-signup #landing-page-signup {
+    width: 100%;
+  }
+
+  #landing-page-signup label {
+    text-align: center;
+  }
+
+  #landing-page-signup label span {
+    display: block;
   }
 }

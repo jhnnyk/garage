@@ -44,7 +44,7 @@ function displayLandingPage () {
           </p>
         </div>
         
-        <div>
+        <div id="welcome-signup">
           <form action="#" method="POST" id="landing-page-signup">
             <h2>Sign Up for Free</h2>
             <label for="firstName">
