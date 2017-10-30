@@ -525,6 +525,16 @@ footer .container {
     margin: 0 auto;
   }
 
+  #main-nav {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+  }
+
+  #main-nav a {
+    padding: 0 3px;
+  }
+
   table {
     width: 80%;
     margin: 0 auto;
@@ -634,5 +644,9 @@ footer .container {
 
   #landing-page-signup label span {
     display: block;
+  }
+
+  .mpg-banner {
+    margin-right: 5px;
   }
 }
