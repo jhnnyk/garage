@@ -154,6 +154,20 @@ nav li {
   margin-bottom: 0;
 }
 
+.landing-page .tagline {
+  background-color: #B4CCB9;
+  color: #3b3b3b;
+  border-radius: 10px;
+  border: 2px solid #F5ECD9;
+  padding: 5px;
+  margin-top: 35px;
+}
+
+.landing-page .tagline span {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 .landing-page p {
   text-align: center;
   line-height: 1.4em;

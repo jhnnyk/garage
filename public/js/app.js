@@ -36,8 +36,12 @@ function displayLandingPage () {
     landingPageHTML = `
       <section class="landing-page">
         <div id="welcome">
-          <h1>Welcome to MyGarage.online</h1>
-          <p class="tagline">The online home for your cars</p>
+          <h1>The online home for your cars</h1>
+          <p class="tagline">
+            <span>Free demo:</span><br>
+            Username: demo<br>
+            Password: password
+          </p>
         </div>
         
         <div>
