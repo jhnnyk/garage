@@ -617,6 +617,10 @@ footer .container {
     margin-bottom: 10px;
   }
 
+  body {
+    padding-bottom: 200px;
+  }
+
   footer p {
     width: 100%;
     text-align: center;
