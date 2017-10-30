@@ -85,6 +85,7 @@ header .container {
 
 #main-nav {
   margin-top: 25px;
+  padding: 0;
 }
 
 nav form {
@@ -514,7 +515,8 @@ footer .container {
   header .container,
   .landing-page,
   footer .container {
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: space-around;
   }
 
   table {
@@ -597,5 +599,11 @@ footer .container {
 
   .edit-row input {
     margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width:400px) {
+  #main-nav {
+    margin-top: 0;
   }
 }
