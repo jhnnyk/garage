@@ -202,6 +202,39 @@ nav li {
   text-decoration: none;
 }
 
+h2 .mpg-banner {
+  font-family: 'Work Sans', Sans-Serif;
+  font-weight: normal;
+}
+
+.mpg-banner {
+  display: inline-block;
+  position: relative;
+  top: -15px;
+  background-color: #F5ECD9;
+  border-radius: 50%;
+  color: #2BACB5;
+  width: 80px;
+  height: 80px;
+  margin-right: 30px;
+  border: 2px solid #2BACB5;
+}
+
+.mpg-number {
+  position: relative;
+  top: 15px;
+}
+
+.mpg-label {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: .4em;
+}
+
+
 
 /* - - - Fillups table - - - */
 table {
