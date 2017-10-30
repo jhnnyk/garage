@@ -70,15 +70,20 @@ function displayLandingPage () {
       </section>
       
       <section class="landing-page">
-        <h2>Add your car</h2>
+        <h2>1. Add your car</h2>
         <p>Keep track of your vehicles in MyGarage.online.</p>
       </section>
       
       <section class="landing-page">
-        <h2>Add fillups</h2>
+        <h2>2. Add fillups</h2>
         <p>Everytime you fill up your car with fuel, add the cost, gallons 
-          and mileage to your car in MyGarage.online and we'll calculate
-          the gas mileage for you.
+          and mileage to your car in MyGarage.online.
+        </p>
+      </section>
+      
+      <section class="landing-page">
+        <h2>3. Check your MPGs</h2>
+        <p>Everytime you add your fillup to MyGarage.online we calculate your gas mileage. Tracking your gas mileage lets you see how driving habits and car maintenance affect your MPGs. This gives you tools to <strong>save money</strong> and <strong>save the planet!</strong>
         </p>
       </section>`
   }

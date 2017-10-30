@@ -177,7 +177,8 @@ nav li {
 }
 
 .landing-page:nth-child(2),
-.landing-page:nth-child(3) {
+.landing-page:nth-child(3),
+.landing-page:nth-child(4) {
   text-shadow: 1px 1px 6px #3b3b3b;
 }
 
@@ -192,6 +193,14 @@ nav li {
 .landing-page:nth-child(3) {
   background-image: url('../images/truck-2588019_1920.jpg');
   background: linear-gradient(to top, rgba(59, 59, 59, 1), rgba(59, 59, 59, 0)), url('../images/truck-2588019_1920.jpg');
+  background-size: cover;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.landing-page:nth-child(4) {
+  background-image: url('../images/gas-station.jpg');
+  background: linear-gradient(to top, rgba(59, 59, 59, 1), rgba(59, 59, 59, 0)), url('../images/gas-station.jpg');
   background-size: cover;
   padding: 20px;
   margin-bottom: 40px;
