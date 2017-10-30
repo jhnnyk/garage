@@ -15,7 +15,6 @@ function displayMainNav () {
     getCars(displayCars)
   } else {
     $('.js-logged-in').hide()
-    $('#add-fillup').hide()
     $('#login-button').parent('li').show()
   }
 }
@@ -124,10 +123,14 @@ function calculateMPG (data) {
 }
 
 function displayMPG (MPG) {
-  $('#page-title').prepend(`<span class="mpg-banner">
+  if ($('.mpg-number').length) {
+    $('.mpg-number').text(MPG)
+  } else {
+    $('#page-title').prepend(`<span class="mpg-banner">
       <span class="mpg-number">${MPG}</span>
       <span class="mpg-label">mpg</span>
     </span>`)
+  }
 }
 
 function displayCars (data) {
@@ -161,10 +164,11 @@ function displayFillups (data) {
   if (data.fillups.length === 0) {
     fillupsHTML = `<h3>
         This car doesn't have any fillups yet.<br>
-        <a href="#" id='nofillups-add-fillup'>Add a Fillup</a>
+        <a href="#" id='add-fillup-button'><i class="fa fa-plus-circle"></i> Add a Fillup</a>
       </h3>`
   } else {
     fillupsHTML = `
+      <a href="#" id='add-fillup-button'><i class="fa fa-plus-circle"></i> Add a Fillup</a>
       <section>
         <table id="fillups">
           <thead>
@@ -365,7 +369,6 @@ function displayAddCarForm () {
 // set page title for car page
 function setCarPageHeader (carName) {
   $('#page-title').text(`${carName} Fillups`)
-  $('#add-fillup').css('display', 'inline-block')
 }
 
 function displaySignupError (message) {
@@ -681,7 +684,7 @@ $('#add-fillup a').on('click', function (e) {
   e.preventDefault()
 })
 
-$('.js-content').on('click', '#nofillups-add-fillup', function (e) {
+$('.js-content').on('click', '#add-fillup-button', function (e) {
   $('#new-car-form').slideUp()
   $('#my-cars ul').slideUp()
   $('#new-fillup').slideToggle()
