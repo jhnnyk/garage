@@ -15,7 +15,6 @@ function displayMainNav () {
     getCars(displayCars)
   } else {
     $('.js-logged-in').hide()
-    $('#add-fillup').hide()
     $('#login-button').parent('li').show()
   }
 }
@@ -36,11 +35,15 @@ function displayLandingPage () {
     landingPageHTML = `
       <section class="landing-page">
         <div id="welcome">
-          <h1>Welcome to MyGarage.online</h1>
-          <p class="tagline">The online home for your cars</p>
+          <h1>The online home for your cars</h1>
+          <p class="demo-info">
+            <span>Free demo:</span><br>
+            Username: demo<br>
+            Password: password
+          </p>
         </div>
         
-        <div>
+        <div id="welcome-signup">
           <form action="#" method="POST" id="landing-page-signup">
             <h2>Sign Up for Free</h2>
             <label for="firstName">
@@ -66,22 +69,21 @@ function displayLandingPage () {
       </section>
       
       <section class="landing-page">
-        <div></div>
-        <div>
-          <h2>Add your car</h2>
-          <p>Keep track of your vehicles in MyGarage.online.</p>
-        </div>
+        <h2>1. Add your car</h2>
+        <p>Keep track of your vehicles in MyGarage.online.</p>
       </section>
       
       <section class="landing-page">
-        <div>
-          <h2>Add fillups</h2>
-          <p>Everytime you fill up your car with fuel, add the cost, gallons 
-            and mileage to your car in MyGarage.online and we'll calculate
-            the gas mileage for you.
-          </p>
-        </div>
-        <div></div>
+        <h2>2. Add fillups</h2>
+        <p>Everytime you fill up your car with fuel, add the cost, gallons 
+          and mileage to your car in MyGarage.online.
+        </p>
+      </section>
+      
+      <section class="landing-page">
+        <h2>3. Check your MPGs</h2>
+        <p>Everytime you add your fillup to MyGarage.online we calculate your gas mileage. Tracking your gas mileage lets you see how driving habits and car maintenance affect your MPGs. This gives you tools to <strong>save money</strong> and <strong>save the planet!</strong>
+        </p>
       </section>`
   }
 
@@ -121,10 +123,14 @@ function calculateMPG (data) {
 }
 
 function displayMPG (MPG) {
-  $('#page-title').prepend(`<span class="mpg-banner">
+  if ($('.mpg-number').length) {
+    $('.mpg-number').text(MPG)
+  } else {
+    $('#page-title').prepend(`<span class="mpg-banner">
       <span class="mpg-number">${MPG}</span>
       <span class="mpg-label">mpg</span>
     </span>`)
+  }
 }
 
 function displayCars (data) {
@@ -158,10 +164,11 @@ function displayFillups (data) {
   if (data.fillups.length === 0) {
     fillupsHTML = `<h3>
         This car doesn't have any fillups yet.<br>
-        <a href="#" id='nofillups-add-fillup'>Add a Fillup</a>
+        <a href="#" id='add-fillup-button'><i class="fa fa-plus-circle"></i> Add a Fillup</a>
       </h3>`
   } else {
     fillupsHTML = `
+      <a href="#" id='add-fillup-button'><i class="fa fa-plus-circle"></i> Add a Fillup</a>
       <section>
         <table id="fillups">
           <thead>
@@ -362,7 +369,6 @@ function displayAddCarForm () {
 // set page title for car page
 function setCarPageHeader (carName) {
   $('#page-title').text(`${carName} Fillups`)
-  $('#add-fillup').css('display', 'inline-block')
 }
 
 function displaySignupError (message) {
@@ -678,7 +684,7 @@ $('#add-fillup a').on('click', function (e) {
   e.preventDefault()
 })
 
-$('.js-content').on('click', '#nofillups-add-fillup', function (e) {
+$('.js-content').on('click', '#add-fillup-button', function (e) {
   $('#new-car-form').slideUp()
   $('#my-cars ul').slideUp()
   $('#new-fillup').slideToggle()
