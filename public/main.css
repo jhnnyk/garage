@@ -90,11 +90,15 @@ header .container {
 
 nav form {
   display: none;
-  position: absolute;
-  right: 0;
+  position: fixed;
+  /* right: 0; */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background-color: #2BACB5;
   padding: 0 20px 20px 20px;
-  border-radius: 0 0 10px 10px;
+  border: 2px solid #F5ECD9;
+  border-radius: 10px;
 }
 
 nav li {
@@ -132,10 +136,6 @@ nav li {
 
 #my-cars li a {
   text-decoration: none;
-}
-
-#add-fillup {
-  display: none;
 }
 
 /* - - - Landing Page - - - */
@@ -228,6 +228,18 @@ nav li {
   text-decoration: none;
 }
 
+#add-fillup-button {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 20px auto;
+  padding: 20px;
+  border: 2px solid #2BACB5;
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
 h2 .mpg-banner {
   font-family: 'Work Sans', Sans-Serif;
   font-weight: normal;
@@ -253,7 +265,16 @@ h2 .mpg-banner {
 
 .mpg-label {
   position: absolute;
-  bottom: 10px;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: .4em;
+}
+
+.mpg-label-top {
+  position: absolute;
+  top: 3px;
   left: 0;
   right: 0;
   margin: auto;
@@ -265,6 +286,8 @@ h2 .mpg-banner {
 /* - - - Fillups table - - - */
 table {
   border-spacing: 0;
+  width: 100%;
+  margin: 0 auto;
 }
 
 th {
@@ -274,6 +297,9 @@ th {
 tbody td {
   padding: 5px;
   height: 50px;
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
 }
@@ -379,6 +405,8 @@ form.error {
   padding: 3px 6px;
 }
 
+#login .cancel-button,
+#signup .cancel-button,
 #new-fillup .cancel-button,
 #new-car-form .cancel-button,
 .cancel-edit-fillup {
@@ -535,13 +563,13 @@ footer .container {
     padding: 0 3px;
   }
 
-  table {
-    width: 80%;
-    margin: 0 auto;
-  }
-
   thead {
     display: none;
+  }
+
+  td.mpg {
+    padding-bottom: 30px;
+    text-align: right;
   }
 
   tbody tr td {
@@ -550,6 +578,7 @@ footer .container {
     border-right: 2px solid #F5ECD9;
     border-left: 2px solid #F5ECD9;
     padding: 10px 20px 0 20px;
+    height: 30px;
   }
 
   tbody tr td:first-child {
@@ -572,6 +601,8 @@ footer .container {
     display: block;
     text-align: right;
     height: 25px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   td:before {
@@ -579,6 +610,8 @@ footer .container {
     float: left;
     font-weight: bold;
     text-transform: uppercase;
+    width: 35%;
+    text-align: left;
   }
 
   .edit-delete a {
@@ -605,7 +638,7 @@ footer .container {
 
   .edit-row label span {
     display: inline-block;
-    width: 30%;
+    width: 40%;
   }
 
   .edit-row label span.error {
@@ -652,5 +685,9 @@ footer .container {
 
   .mpg-banner {
     margin-right: 5px;
+  }
+
+  tbody td {
+    max-width: 280px;
   }
 }

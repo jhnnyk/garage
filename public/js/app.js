@@ -127,6 +127,7 @@ function displayMPG (MPG) {
     $('.mpg-number').text(MPG)
   } else {
     $('#page-title').prepend(`<span class="mpg-banner">
+      <span class="mpg-label-top">avg</span>
       <span class="mpg-number">${MPG}</span>
       <span class="mpg-label">mpg</span>
     </span>`)
@@ -163,9 +164,8 @@ function displayFillups (data) {
   let fillupsHTML
   if (data.fillups.length === 0) {
     fillupsHTML = `<h3>
-        This car doesn't have any fillups yet.<br>
-        <a href="#" id='add-fillup-button'><i class="fa fa-plus-circle"></i> Add a Fillup</a>
-      </h3>`
+        This car doesn't have any fillups yet.</h3>
+        <a href="#" id='add-fillup-button'><i class="fa fa-plus-circle"></i> Add a Fillup</a>`
   } else {
     fillupsHTML = `
       <a href="#" id='add-fillup-button'><i class="fa fa-plus-circle"></i> Add a Fillup</a>
