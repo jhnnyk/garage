@@ -763,6 +763,11 @@ $('#signup').on('submit', function (e) {
     error: function (data) {
       const message = `'${data.responseJSON.location}' ${data.responseJSON.message}`
       displaySignupError(message)
+
+      $('#signup input[name=firstName]').val(firstName)
+      $('#signup input[name=lastName]').val(lastName)
+      $('#signup input[name=username]').val(username)
+      $('#signup input[name=password]').val(password)
     }
   }).done(function () {
     loginUser(username, password)
@@ -797,6 +802,11 @@ $('.js-content').on('submit', '#landing-page-signup', function (e) {
     error: function (data) {
       const message = `'${data.responseJSON.location}' ${data.responseJSON.message}`
       displayLandingPageSignupError(message)
+
+      $('#landing-page-signup input[name=firstName]').val(firstName)
+      $('#landing-page-signup input[name=lastName]').val(lastName)
+      $('#landing-page-signup input[name=username]').val(username)
+      $('#landing-page-signup input[name=password]').val(password)
     }
   }).done(function () {
     loginUser(username, password)
