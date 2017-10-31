@@ -127,6 +127,7 @@ function displayMPG (MPG) {
     $('.mpg-number').text(MPG)
   } else {
     $('#page-title').prepend(`<span class="mpg-banner">
+      <span class="mpg-label-top">avg</span>
       <span class="mpg-number">${MPG}</span>
       <span class="mpg-label">mpg</span>
     </span>`)

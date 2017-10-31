@@ -265,7 +265,16 @@ h2 .mpg-banner {
 
 .mpg-label {
   position: absolute;
-  bottom: 10px;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: .4em;
+}
+
+.mpg-label-top {
+  position: absolute;
+  top: 3px;
   left: 0;
   right: 0;
   margin: auto;
