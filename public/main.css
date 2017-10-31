@@ -138,10 +138,6 @@ nav li {
   text-decoration: none;
 }
 
-#add-fillup {
-  display: none;
-}
-
 /* - - - Landing Page - - - */
 .landing-page {
   border-radius: 10px;
@@ -230,6 +226,18 @@ nav li {
   border: 2px solid #2BACB5;
   border-radius: 10px;
   text-decoration: none;
+}
+
+#add-fillup-button {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 20px auto;
+  padding: 20px;
+  border: 2px solid #2BACB5;
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
 }
 
 h2 .mpg-banner {
