@@ -541,6 +541,12 @@ footer .container {
 }
 
 /* - - - Responsive - - - */
+@media screen and (min-width:791px) {
+  tbody td.edit-delete {
+    width: 60px;
+  }
+}
+
 @media screen and (max-width:790px) {
   header .container,
   .landing-page,
@@ -693,6 +699,7 @@ footer .container {
     margin-right: 5px;
   }
 
+  tbody td.edit-delete,
   tbody td {
     max-width: 280px;
   }
