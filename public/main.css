@@ -417,8 +417,10 @@ form.error {
   cursor: pointer;
 }
 
-td.edit-delete {
+tbody td.edit-delete {
   position: relative;
+  max-width: 60px;
+  overflow: visible;
 }
 
 .delete-confirmation {
@@ -539,7 +541,7 @@ footer .container {
 }
 
 /* - - - Responsive - - - */
-@media screen and (max-width:630px) {
+@media screen and (max-width:790px) {
   header .container,
   .landing-page,
   footer .container {
@@ -603,6 +605,10 @@ footer .container {
     height: 25px;
     max-width: 100%;
     margin: 0 auto;
+  }
+
+  tbody td.edit-delete {
+    max-width: 100%;
   }
 
   td:before {
@@ -689,5 +695,9 @@ footer .container {
 
   tbody td {
     max-width: 280px;
+  }
+
+  .delete-confirmation {
+    width: 100%;
   }
 }

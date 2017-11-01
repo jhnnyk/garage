@@ -216,7 +216,8 @@ function displayFillups (data) {
             <a href="#" class="edit-fillup"><i class="fa fa-pencil"></i></a>
             <a href="#" class="delete-fillup"><i class="fa fa-times"></i></a>
             <div class="delete-confirmation">
-              Are you sure you want to delete this fillup?<br>
+              Are you sure you want<br>
+              to delete this fillup?<br>
               <button class='confirm-delete-fillup js-confirm-delete-fillup' id='${data.fillups[i].id}' name="${data.fillups[i].car}"><i class="fa fa-check" aria-hidden="true"></i> Yes</button>
               <button class='cancel-delete-fillup js-cancel-delete-fillup'><i class="fa fa-times" aria-hidden="true"></i> No</button>
             </div>
