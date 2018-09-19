@@ -7,7 +7,7 @@ A web app to track fuel fillups for your vehicle(s). User can sign up, add as ma
 
 ---
 ## Live site
-http://www.mygarage.online/
+https://fast-scrubland-76725.herokuapp.com/
 
 The live site has a front-end client (built with HTML, CSS & JavaScript/jQuery) that accesses the Node/Express backend API.
 
